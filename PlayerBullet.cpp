@@ -11,8 +11,8 @@ PlayerBullet::PlayerBullet(int type, Vector2* pos, double rad, int* img) {
 bool PlayerBullet::MoveBullet() {
     switch(bulletType) {
         case 0:
-            position.x += cos(angle) * 10.0;
-            position.y += sin(angle) * 10.0;
+            position.x += cos(angle) * 16.0;
+            position.y += sin(angle) * 16.0;
             break;
         default:
             break;

@@ -6,6 +6,7 @@ Player::Player() {
     frame = 1;
     imgNum = 0;
     rotate = 0;
+    shotCT = 0;
 }
 
 void Player::Update() {
@@ -86,15 +87,20 @@ void Player::Moving() {
 }
 
 void Player::Shot() {
-    if(CheckHitKey(KEY_INPUT_J)) {
-        PlayerBullet* pb = new PlayerBullet(0, position, -M_PI_2, &bulletImage);
-        bulletVec.emplace_back(pb);
+    if(shotCT > 0) {
+        shotCT--;
+    } else {
+        if(CheckHitKey(KEY_INPUT_J)) {
+            PlayerBullet* pb = new PlayerBullet(0, position, -M_PI_2, &bulletImage);
+            bulletVec.emplace_back(pb);
+            shotCT = 3;
+        }
     }
 
     for(int i=0; i<bulletVec.size(); i++) {
         if(!bulletVec[i]->MoveBullet()) {
             delete bulletVec[i];
-            bulletVec.erase(bulletVec.begin()+i);
+            bulletVec.erase(bulletVec.begin() + i);
         }
     }
 }

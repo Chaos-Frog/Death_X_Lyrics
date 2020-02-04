@@ -17,6 +17,7 @@ class Player {
         int frame;
         int imgNum;
         int rotate;
+        int shotCT;
 
         void Moving();
         void Shot();
