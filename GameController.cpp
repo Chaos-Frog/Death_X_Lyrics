@@ -4,6 +4,6 @@ GameController::GameController() {
 }
 
 void GameController::Update() {
-    DrawBox(180, 0, 780, 720, GetColor(200, 200, 200), TRUE);
+    DrawBox(320, 0, 960, 720, GetColor(200, 200, 200), TRUE);
     player->Update();
 }

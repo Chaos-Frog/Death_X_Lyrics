@@ -4,7 +4,7 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     // ウィンドウ設定 //
     ChangeWindowMode(TRUE);
-    SetGraphMode(960, 720, 32);
+    SetGraphMode(1280, 720, 32);
     SetWindowSizeChangeEnableFlag(FALSE);
     if(DxLib_Init() == -1) return -1;
     
@@ -13,7 +13,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     SetDrawScreen(DX_SCREEN_BACK);
 
-    while(ProcessMessage() == 0 && ClearDrawScreen() == 0) {
+    while(ProcessMessage() == 0 && ClearDrawScreen() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) != 1) {
         game.Update();
         ScreenFlip();
     }
