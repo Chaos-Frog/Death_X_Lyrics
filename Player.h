@@ -3,6 +3,7 @@
 #include <cmath>
 #include <vector>
 #include "DxLib.h"
+#include "Assets.h"
 #include "Vector2.h"
 #include "PlayerBullet.h"
 
@@ -12,8 +13,9 @@
 
 class Player {
     private:
+        Assets* imgs;
         Vector2* position;
-        int playerImgs[12];
+        int* playerImgs;
         int frame;
         int imgNum;
         int rotate;
@@ -22,10 +24,10 @@ class Player {
         void Moving();
         void Shot();
     public:
-        int bulletImage;
         std::vector<PlayerBullet*> bulletVec;
 
-        Player();
+        Player(Assets* img);
+        ~Player();
         void Update();
 };
 

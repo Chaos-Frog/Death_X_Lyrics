@@ -8,6 +8,10 @@ PlayerBullet::PlayerBullet(int type, Vector2* pos, double rad, int* img) {
     bulletImg = img;
 }
 
+PlayerBullet::~PlayerBullet() {
+
+}
+
 bool PlayerBullet::MoveBullet() {
     switch(bulletType) {
         case 0:
@@ -20,7 +24,7 @@ bool PlayerBullet::MoveBullet() {
     if(position.x < 320 || position.x > 960 || position.y < 0 || position.y > 720) {
         return false;
     } else {
-        DrawGraph(round(position.x) - 32, round(position.y) - 32, *bulletImg, TRUE);
+        DrawGraph(round(position.x) - 16, round(position.y) - 16, *bulletImg, TRUE);
         return true;
     }
 }

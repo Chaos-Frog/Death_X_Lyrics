@@ -1,12 +1,20 @@
 #include "Player.h"
-Player::Player() {
+Player::Player(Assets* img) {
     position = new Vector2(640, 600);
-    LoadDivGraph("Assets/Heli.png", 12, 4, 3, SIZE_X, SIZE_Y, playerImgs);
-    bulletImage = LoadGraph("Assets/PlayerBullet.png");
+    imgs = img;
+    playerImgs = imgs->player01;
     frame = 1;
     imgNum = 0;
     rotate = 0;
     shotCT = 0;
+}
+
+Player::~Player() {
+    delete position;
+    for(int i = 0; i < bulletVec.size(); i++) {
+        delete bulletVec[i];
+        bulletVec.erase(bulletVec.begin() + i);
+    }
 }
 
 void Player::Update() {
@@ -91,9 +99,9 @@ void Player::Shot() {
         shotCT--;
     } else {
         if(CheckHitKey(KEY_INPUT_J)) {
-            PlayerBullet* pb = new PlayerBullet(0, position, -M_PI_2, &bulletImage);
+            PlayerBullet* pb = new PlayerBullet(0, position, -M_PI_2, &imgs->playerBullet01);
             bulletVec.emplace_back(pb);
-            shotCT = 3;
+            shotCT = 4;
         }
     }
 

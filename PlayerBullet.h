@@ -12,6 +12,7 @@ class PlayerBullet {
         Vector2 position;
 
         PlayerBullet(int type, Vector2* pos, double rad, int* img);
+        ~PlayerBullet();
         bool MoveBullet();
 };
 

@@ -1,10 +1,12 @@
 #include "Enemy.h"
-Enemy::Enemy(Vector2* pos, int mp, int dp) {
+Enemy::Enemy(int type, Vector2* pos, int hp, int mp, int dp) {
+    enemyType = type;
     position.x = pos->x;
     position.y = pos->y;
+    HP = hp;
     movePatern = mp;
     danmakuPatern = dp;
-    enemyType = 0;
+    frame = 1;
 }
 
 void Enemy::Update() {}

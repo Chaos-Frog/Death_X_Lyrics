@@ -9,7 +9,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     if(DxLib_Init() == -1) return -1;
     
     // ÉQÅ[ÉÄèàóù //
-    GameController game;
+    Assets image;
+    GameController game(&image);
 
     SetDrawScreen(DX_SCREEN_BACK);
 
