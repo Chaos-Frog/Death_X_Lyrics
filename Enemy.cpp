@@ -1,11 +1,11 @@
 #include "Enemy.h"
-Enemy::Enemy(int type, Vector2* pos, int hp, int mp, int dp) {
+Enemy::Enemy(int type, Vector2* pos, int hp, int mp, int dp, EnemyBulletsCtrl* ebc) {
     enemyType = type;
-    position.x = pos->x;
-    position.y = pos->y;
+    position = *pos;
     HP = hp;
     movePatern = mp;
     danmakuPatern = dp;
+    EBC = ebc;
     frame = 1;
 }
 

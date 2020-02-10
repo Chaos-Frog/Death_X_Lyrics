@@ -15,7 +15,7 @@ class Enemy001 : public Enemy {
         void Danmaku();
         void Draw();
     public:
-        Enemy001(Vector2* pos, int mp, int dp, int* img);
+        Enemy001(Vector2* pos, int mp, int dp, int* img, EnemyBulletsCtrl* ebc);
         void Update();
 };
 
