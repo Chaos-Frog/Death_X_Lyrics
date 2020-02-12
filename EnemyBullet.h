@@ -14,8 +14,10 @@ class EnemyBullet {
     public:
         int bulletType;
         Vector2 position;
+        double radius;
 
         EnemyBullet(int type, Vector2* pos, double spd, double radA, double size, Assets* as);
         bool Moving();
+        void Draw();
 };
 

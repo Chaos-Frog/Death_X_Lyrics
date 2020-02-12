@@ -1,18 +1,38 @@
 #include "CollisionCtrl.h"
-CollisionCtrl::CollisionCtrl(Player* pl, EnemyCtrl* ec) {
+CollisionCtrl::CollisionCtrl(Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc) {
     player = pl;
     enemyCtrl = ec;
+    EBC = ebc;
 }
 
 CollisionCtrl::~CollisionCtrl() {}
 
 void CollisionCtrl::Update() {
-    for(int i=0; i<player->bulletVec.size(); i++) {
-        for(int j=0; j<enemyCtrl->enemysVec.size(); j++) {
-            if(CC_Colider(&player->bulletVec[i]->position, 10, &enemyCtrl->enemysVec[j]->position, 25)) {
-                delete player->bulletVec[i];
-                player->bulletVec.erase(player->bulletVec.begin() + i);
+    // PlayerBullets & Enemy
+    auto PB_itr = player->bulletVec.begin();
+    while (PB_itr != player->bulletVec.end()) {
+        for(auto &E_itr : enemyCtrl->enemysVec) {
+            if(CC_Colider(&PB_itr->position, 10, &E_itr->position, 25)) {
+                PB_itr = player->bulletVec.erase(PB_itr);
+            } else {
+                PB_itr++;
             }
+        }
+    }
+    // Player & EnemyBullets
+    auto EBitr = EBC->bulletsVec.begin();
+    while(EBitr != EBC->bulletsVec.end()) {
+        switch(EBitr->bulletType) {
+            case 1:
+            case 2:
+                if(CC_Colider(&player->position, CORE_RADIUS, &EBitr->position, EBitr->radius)) {
+                    EBitr = EBC->bulletsVec.erase(EBitr);
+                    player->hitCT = 5;
+                } else {
+                    EBitr++;
+                }
+            default:
+                break;
         }
     }
 }

@@ -5,14 +5,14 @@ EnemyCtrl::EnemyCtrl(Assets* img, EnemyBulletsCtrl* ebc) {
 }
 
 EnemyCtrl::~EnemyCtrl() {
-	for(int i = 0; i < enemysVec.size(); i++) {
-		delete enemysVec[i];
-		enemysVec.erase(enemysVec.begin() + i);
-	}
+	enemysVec.clear();
 }
 
 void EnemyCtrl::Update() {
-	for(int i=0; i<enemysVec.size(); i++) {
+	/*for(Enemy &itr : enemysVec) {
+		itr.Update();
+	}*/
+	for(int i = 0; i < enemysVec.size(); i++) {
 		enemysVec[i]->Update();
 	}
 }

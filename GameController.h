@@ -1,4 +1,6 @@
 #pragma once
+#include <stdio.h>
+#include <string>
 #include "Assets.h"
 #include "Define.h"
 #include "Player.h"

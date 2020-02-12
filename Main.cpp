@@ -39,12 +39,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         ClearDrawScreen();
 
         game.Update();
-        ScreenFlip();
 
         SetDrawScreen(DX_SCREEN_BACK);
         ClearDrawScreen();
 
         DrawExtendGraph(xp1, yp1, xp2, yp2, screen, TRUE);
+        ScreenFlip();
     }
 
     DxLib_End();

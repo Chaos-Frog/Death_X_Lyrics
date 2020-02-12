@@ -5,6 +5,7 @@ class Assets {
     private:
     public:
         int player01[12];
+        int player01_ADD[12];
         int playerBullet01;
 
         int enemy001[8];

@@ -10,22 +10,23 @@ EnemyBullet::EnemyBullet(int type, Vector2* pos, double spd, double radA, double
 		default:
 			break;
 	}
+	bulletType = type;
 
 	position = *pos;
 	speed = spd;
 	angle = radA;
 	bulletSize = size;
+	radius = size * 16;
 }
 
 bool EnemyBullet::Moving() {
 	position.x += cos(angle) * speed;
 	position.y += sin(angle) * speed;
 
-	if(position.x + 16 * bulletSize >= GAME_WINDOW_X1 && position.x - 16 * bulletSize <= GAME_WINDOW_X2 &&
-	   position.y + 16 * bulletSize >= GAME_WINDOW_Y1 && position.y - 16 * bulletSize <= GAME_WINDOW_Y2) {
-		DrawRotaGraph(round(position.x), round(position.y), bulletSize, angle, *image, TRUE, FALSE);
-		return true;
-	} else {
-		return false;
-	}
+	return (position.x + radius >= GAME_WINDOW_X1 && position.x - radius <= GAME_WINDOW_X2 && 
+			position.y + radius >= GAME_WINDOW_Y1 && position.y - radius <= GAME_WINDOW_Y2);
+}
+
+void EnemyBullet::Draw() {
+	DrawRotaGraph(round(position.x), round(position.y), bulletSize, angle, *image, TRUE, FALSE);
 }

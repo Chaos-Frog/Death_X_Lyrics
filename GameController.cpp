@@ -3,7 +3,7 @@ GameController::GameController(Assets* img) {
     player = new Player(img);
     ebc = new EnemyBulletsCtrl(img);
     ec = new EnemyCtrl(img, ebc);
-    colCtrl = new CollisionCtrl(player, ec);
+    colCtrl = new CollisionCtrl(player, ec, ebc);
     frame = 1;
 }
 GameController::~GameController() {
@@ -17,14 +17,22 @@ void GameController::Update() {
     DrawBox(320, 0, 960, 720, GetColor(150, 150, 150), TRUE);
 
     if(frame == 1) {
-        ec->SetEnemy(1, new Vector2(640, 250), 0, 0);
+        ec->SetEnemy(1, new Vector2(640, 250), 1, 1);
     }
     
     player->Update();
     ec->Update();
     ebc->Update();
 
-    colCtrl->Update();
+    if(frame%2 == 0) colCtrl->Update();
 
+    DrawBox(0, 0, 320, 720, GetColor(50, 50, 50), TRUE);
+    DrawBox(960, 0, 1280, 720, GetColor(50, 50, 50), TRUE);
     frame++;
+
+    // Debug //
+    int bnum = ebc->bulletsVec.size();
+    std::string str = "BulletsNum:" + std::to_string(bnum);
+    SetFontSize(20);
+    DrawString(10, 10, str.c_str(), GetColor(0, 200, 0));
 }
