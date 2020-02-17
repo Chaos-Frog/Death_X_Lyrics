@@ -1,4 +1,5 @@
 #include "GameController.h"
+#include <random>
 GameController::GameController(Assets* img) {
     player = new Player(img);
     ebc = new EnemyBulletsCtrl(img);
@@ -16,8 +17,11 @@ GameController::~GameController() {
 void GameController::Update() {
     DrawBox(320, 0, 960, 720, GetColor(150, 150, 150), TRUE);
 
-    if(frame == 1) {
-        ec->SetEnemy(1, new Vector2(640, 250), 1, 1);
+    if(frame == 1 || ec->enemysVec.size() <= 0) {
+        std::random_device rnd;
+        std::mt19937 mt(rnd());
+        std::uniform_int_distribution<int> rndX(340, 940);
+        ec->SetEnemy(1, new Vector2(rndX(mt), -100), 2, 0);
     }
     
     player->Update();

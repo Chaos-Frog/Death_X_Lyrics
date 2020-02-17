@@ -2,6 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
+#include <memory>
 #include "Define.h"
 #include "Vector2.h"
 #include "Player.h"

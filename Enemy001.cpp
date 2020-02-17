@@ -2,6 +2,7 @@
 Enemy001::Enemy001(Vector2* pos, int mp, int dp, int* img, EnemyBulletsCtrl* ebc) : Enemy(1, pos, 4, mp, dp, ebc) {
 	image = img;
 	imgNum = 0;
+	first = position;
 }
 
 void Enemy001::Update() {
@@ -16,9 +17,21 @@ void Enemy001::Moving() {
 	switch(movePatern) {
 		case 1:
 			// TEST
-			if(frame >= 600) {
-				position.x = sin((frame-600) * (2 * (M_PI / 180))) * 160 + 640;
-				position.y = sin((frame-600) * (4 * (M_PI / 180))) * 80 + 250;
+			if(frame < 60) {
+				double t = (double)frame / 60;
+				position.x = (640 - first.x) * t + first.x;
+				position.y = (200 - first.y) * t + first.y;
+			} else if(frame >= 60) {
+				if(frame == 60) first = Vector2(640, 200);
+				position.x = sin((frame-60) * (2 * (M_PI / 180))) * 160 + first.x;
+				position.y = sin((frame-60) * (4 * (M_PI / 180))) * 80 + first.y;
+			}
+			break;
+		case 2:
+			if(frame < 60) {
+				double t = (double)frame / 60;
+				position.x = (640 - first.x) * t + first.x;
+				position.y = (200 - first.y) * t + first.y;
 			}
 			break;
 		default:
@@ -31,16 +44,11 @@ void Enemy001::Danmaku() {
 	switch(danmakuPatern) {
 		case 1:
 			// TEST
-			if(frame >= 600 && frame % 2 == 0) {
-				double a = (frame-600) * 5 + (frame-600) / 5;
-				EBC->SetEnemyBullet(1, &position, 1.0, a * (M_PI / 180), 0.6);
-				//EBC->SetEnemyBullet(1, &position, 1.1, (a + 45) * (M_PI / 180), 0.6);
-				EBC->SetEnemyBullet(1, &position, 1.2, (a + 90) * (M_PI / 180), 0.6);
-				//EBC->SetEnemyBullet(1, &position, 1.3, (a + 135) * (M_PI / 180), 0.6);
-				EBC->SetEnemyBullet(1, &position, 1.4, (a + 180) * (M_PI / 180), 0.6);
-				//EBC->SetEnemyBullet(1, &position, 1.5, (a + 225) * (M_PI / 180), 0.6);
-				EBC->SetEnemyBullet(1, &position, 1.6, (a + 270) * (M_PI / 180), 0.6);
-				//EBC->SetEnemyBullet(1, &position, 1.7, (a + 315) * (M_PI / 180), 0.6);
+			if(frame >= 60 && frame % 2 == 0) {
+				double a = (frame-60) * 5 + (frame-60) / 5;
+				for(int i = 0; i < 4; i++) {
+					EBC->SetEnemyBullet(1, &position, 1 + i*0.2, (a + i*90) * (M_PI / 180), 0.6);
+				}
 			}
 			break;
 		default:

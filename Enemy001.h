@@ -10,6 +10,7 @@ class Enemy001 : public Enemy {
     private:
         int* image;
         int imgNum;
+        Vector2 first;
 
         void Moving();
         void Danmaku();

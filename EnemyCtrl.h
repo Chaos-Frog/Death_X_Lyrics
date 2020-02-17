@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include "Assets.h"
 #include "Enemy001.h"
 
@@ -8,7 +9,7 @@ class EnemyCtrl {
         Assets* images;
         EnemyBulletsCtrl* EBC;
     public:
-        std::vector<Enemy*> enemysVec;
+        std::vector<std::shared_ptr<Enemy>> enemysVec;
 
         EnemyCtrl(Assets* img, EnemyBulletsCtrl* ebc);
         ~EnemyCtrl();

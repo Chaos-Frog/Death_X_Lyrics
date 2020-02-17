@@ -8,6 +8,7 @@ Player::Player(Assets* img) {
     imgNum = 0;
     rotate = 0;
     shotCT = 0;
+    missileCT = 0;
     hitCT = 0;
 }
 
@@ -66,18 +67,23 @@ void Player::Moving() {
 }
 
 void Player::Shot() {
-    if(shotCT > 0) {
-        shotCT--;
-    } else {
-        if(CheckHitKey(KEY_INPUT_J)) {
-            bulletVec.emplace_back(PlayerBullet(0, &position, -M_PI_2, &imgs->playerBullet01));
+    if(CheckHitKey(KEY_INPUT_J)) {
+        if(missileCT <= 0) {
+            bulletVec.emplace_back(std::make_shared<P_Missile>(&position, -M_PI_2, imgs));
+            missileCT = 12;
+        }
+    } else if(CheckHitKey(KEY_INPUT_L)) {
+        if(shotCT <= 0) {
+            bulletVec.emplace_back(std::make_shared <P_Bullet>(&position, -M_PI_2, imgs));
             shotCT = 4;
         }
     }
+    if(shotCT > 0) shotCT--;
+    if(missileCT > 0) missileCT--;
 
     auto itr = bulletVec.begin();
     while(itr != bulletVec.end()) {
-        if(itr->MoveBullet()) {
+        if((*itr)->MoveBullet()) {
             itr++;
         } else {
             itr = bulletVec.erase(itr);
