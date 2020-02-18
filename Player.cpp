@@ -27,10 +27,10 @@ void Player::Update() {
 
 void Player::Moving() {
     double coe;
+    if(CheckHitKey(KEY_INPUT_J)) coe = 0.7;
+    else                         coe = 1.0;
     if((CheckHitKey(KEY_INPUT_W) ^ CheckHitKey(KEY_INPUT_S)) & (CheckHitKey(KEY_INPUT_D) ^ CheckHitKey(KEY_INPUT_A))) {
-        coe = 0.71;
-    } else {
-        coe = 1;
+        coe *= 0.71;
     }
 
     if(CheckHitKey(KEY_INPUT_W) == 1) {
