@@ -26,10 +26,13 @@ bool P_Missile::MoveBullet() {
     if(position.x < (double)GAME_WINDOW_X1 - size || position.x >(double)GAME_WINDOW_X2 + size || position.y < (double)GAME_WINDOW_Y1 - size || position.y >(double)GAME_WINDOW_Y2 + size) {
         return false;
     } else {
-        if(!hitted) DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerMissile, TRUE);
-        else        DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerMissileExp[frame/2], TRUE);
         return true;
     }
+}
+
+void P_Missile::Draw() {
+    if(!hitted) DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerMissile, TRUE);
+    else        DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerMissileExp[frame / 2], TRUE);
 }
 
 bool P_Missile::HitFunc() {

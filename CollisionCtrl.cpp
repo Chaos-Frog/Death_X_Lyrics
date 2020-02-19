@@ -1,8 +1,9 @@
 #include "CollisionCtrl.h"
-CollisionCtrl::CollisionCtrl(Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc) {
+CollisionCtrl::CollisionCtrl(Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) {
     player = pl;
     enemyCtrl = ec;
     EBC = ebc;
+    SC = sc;
 }
 
 CollisionCtrl::~CollisionCtrl() {}
@@ -10,19 +11,28 @@ CollisionCtrl::~CollisionCtrl() {}
 void CollisionCtrl::Update() {
     // PlayerBullets & Enemy
     for(auto PB_itr = player->bulletVec.begin(); PB_itr != player->bulletVec.end();) {
-        if(enemyCtrl->enemysVec.size() > 0) {
-            for(auto E_itr = enemyCtrl->enemysVec.begin(); E_itr != enemyCtrl->enemysVec.end();) {
-                if(CC_Colider(&(*PB_itr)->position, (*PB_itr)->cr, &(*E_itr)->position, 25)) {
-                    if((*PB_itr)->HitFunc()) PB_itr = player->bulletVec.erase(PB_itr);
-                    else                     ++PB_itr;
-                    if(--(*E_itr)->HP <= 0)  E_itr = enemyCtrl->enemysVec.erase(E_itr);
-                    else                     ++E_itr;
+        if(enemyCtrl->enemysVec.size() == 0) break;
+        bool hitted = false;
+        for(auto E_itr = enemyCtrl->enemysVec.begin(); E_itr != enemyCtrl->enemysVec.end();) {
+            if(CC_Colider(&(*PB_itr)->position, (*PB_itr)->cr, &(*E_itr)->position, 25)) {
+                (*E_itr)->HP -= 1;
+                if((*E_itr)->HP <= 0) {
+                    (*E_itr)->DeathFunc();
+                    E_itr = enemyCtrl->enemysVec.erase(E_itr);
                 } else {
-                    ++PB_itr;
                     ++E_itr;
                 }
+
+                if((*PB_itr)->HitFunc()) {
+                    PB_itr = player->bulletVec.erase(PB_itr);
+                    hitted = true;
+                    break;
+                }
+            } else {
+                ++E_itr;
             }
-        } else {
+        }
+        if(!hitted) {
             ++PB_itr;
         }
     }

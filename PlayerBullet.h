@@ -19,6 +19,7 @@ class PlayerBullet {
         PlayerBullet(int type, Vector2* pos, double rad, Assets* img);
         ~PlayerBullet();
         virtual bool MoveBullet();
+        virtual void Draw();
         virtual bool HitFunc();
 };
 

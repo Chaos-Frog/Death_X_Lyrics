@@ -5,9 +5,13 @@ Assets::Assets() {
     playerBullet01 = LoadGraph("Assets/PlayerBullet.png");
     playerMissile = LoadGraph("Assets/Missile.png");
     LoadDivGraph("Assets/Exp01.png", 16, 4, 4, 100, 100, playerMissileExp);
+
     LoadDivGraph("Assets/TestEnemy.png", 8, 4, 2, 64, 64, enemy001);
+
     enemyBullet01 = LoadGraph("Assets/EB01.png");
     enemyBullet02 = LoadGraph("Assets/EB02.png");
+
+    LoadDivGraph("Assets/Scrap_S.png", 6, 3, 2, 40, 40, scrap_S);
 }
 
 

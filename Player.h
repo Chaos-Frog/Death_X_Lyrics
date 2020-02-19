@@ -35,5 +35,6 @@ class Player {
         Player(Assets* img);
         ~Player();
         void Update();
+        void DrawBullets();
 };
 

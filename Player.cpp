@@ -74,8 +74,15 @@ void Player::Shot() {
         }
     } else if(CheckHitKey(KEY_INPUT_L)) {
         if(shotCT <= 0) {
-            bulletVec.emplace_back(std::make_shared <P_Bullet>(&position, -M_PI_2, imgs));
-            shotCT = 4;
+            Vector2 p1 = position + Vector2(15, 0);
+            Vector2 p2 = position + Vector2(-15, 0);
+            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p1, -90 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p1, -75 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p1, -60 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p2, -90 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p2, -105 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p2, -120 * (M_PI / 180), imgs));
+            shotCT = 6;
         }
     }
     if(shotCT > 0) shotCT--;
@@ -130,5 +137,11 @@ void Player::Draw() {
         else            DrawTurnGraph(x - (SIZE_X/2), y - (SIZE_Y/2) + 10, playerImgs_ADD[imgNum], TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         hitCT--;
+    }
+}
+
+void Player::DrawBullets() {
+    for(auto itr : bulletVec) {
+        itr->Draw();
     }
 }

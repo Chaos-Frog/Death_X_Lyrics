@@ -7,6 +7,7 @@ class P_Missile : public PlayerBullet {
     public:
         P_Missile(Vector2* pos, double rad, Assets* img);
         bool MoveBullet();
+        void Draw();
         bool HitFunc();
 };
 

@@ -4,6 +4,7 @@
 #include "DxLib.h"
 #include "Vector2.h"
 #include "EnemyBulletsCtrl.h"
+#include "ScrapsCtrl.h"
 
 class Enemy {
     private:
@@ -12,12 +13,14 @@ class Enemy {
         int movePatern;
         int danmakuPatern;
         EnemyBulletsCtrl* EBC;
+        ScrapsCtrl* SC;
     public:
         Vector2 position;
         int enemyType;
         int HP;
 
-        Enemy(int type, Vector2* pos, int hp, int mp, int dp, EnemyBulletsCtrl* ebc);
+        Enemy(int type, Vector2* pos, int hp, int mp, int dp, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
         virtual void Update();
+        virtual void DeathFunc();
 };
 

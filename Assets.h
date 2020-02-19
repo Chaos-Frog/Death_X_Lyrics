@@ -15,6 +15,8 @@ class Assets {
         int enemyBullet01;
         int enemyBullet02;
 
+        int scrap_S[6];
+
         Assets();
         ~Assets();
 };

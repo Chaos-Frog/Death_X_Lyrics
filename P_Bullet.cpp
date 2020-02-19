@@ -13,9 +13,12 @@ bool P_Bullet::MoveBullet() {
     if(position.x < (double)GAME_WINDOW_X1-size || position.x >(double)GAME_WINDOW_X2+size || position.y < (double)GAME_WINDOW_Y1-size || position.y >(double)GAME_WINDOW_Y2+size) {
         return false;
     } else {
-        DrawGraph(round(position.x)-size, round(position.y)-size, imgs->playerBullet01, TRUE);
         return true;
     }
+}
+
+void P_Bullet::Draw() {
+    DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerBullet01, TRUE);
 }
 
 bool P_Bullet::HitFunc() {

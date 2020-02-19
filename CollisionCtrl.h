@@ -7,14 +7,17 @@
 #include "Vector2.h"
 #include "Player.h"
 #include "EnemyCtrl.h"
+#include "ScrapsCtrl.h"
 
 class CollisionCtrl {
     private:
         Player* player;
         EnemyCtrl* enemyCtrl;
         EnemyBulletsCtrl* EBC;
+        ScrapsCtrl* SC;
+
     public:
-        CollisionCtrl(Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc);
+        CollisionCtrl(Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
         ~CollisionCtrl();
         void Update();
         bool CC_Colider(const Vector2* v1, const double cr1, const Vector2* v2, const double cr2);

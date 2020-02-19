@@ -6,6 +6,7 @@ class P_Bullet : public PlayerBullet {
     public:
         P_Bullet(Vector2* pos, double rad, Assets* img);
         bool MoveBullet();
+        void Draw();
         bool HitFunc();
 };
 

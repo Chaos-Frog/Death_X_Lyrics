@@ -14,6 +14,7 @@ class GameController {
         Player* player;
         EnemyCtrl* ec;
         EnemyBulletsCtrl* ebc;
+        ScrapsCtrl* sc;
         CollisionCtrl* colCtrl;
 
     public:

@@ -11,4 +11,5 @@ PlayerBullet::~PlayerBullet() {
 }
 
 bool PlayerBullet::MoveBullet() { return false; }
+void PlayerBullet::Draw() {}
 bool PlayerBullet::HitFunc() { return false; }
