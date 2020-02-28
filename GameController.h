@@ -18,6 +18,9 @@ class GameController {
         CollisionCtrl* colCtrl;
 
     public:
+        int score;
+        int scrapMagni;
+        int scrapMagniGage;
         GameController(Assets* img);
         ~GameController();
         void Update();

@@ -1,29 +1,62 @@
 #include "CollisionCtrl.h"
-CollisionCtrl::CollisionCtrl(Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) {
+#include "GameController.h"
+CollisionCtrl::CollisionCtrl(GameController* gc, Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) {
+    gameCtrl = gc;
     player = pl;
     enemyCtrl = ec;
     EBC = ebc;
-    SC = sc;
+    scrapsCtrl = sc;
 }
 
 CollisionCtrl::~CollisionCtrl() {}
 
 void CollisionCtrl::Update() {
+    // PlayerBullets & Scraps
+    for(auto PB_itr = player->bulletVec.begin(); PB_itr != player->bulletVec.end();) {
+        if((*PB_itr)->bulletType == 2) {
+            ++PB_itr;
+        } else {
+            if(scrapsCtrl->scrapVec.size() == 0) break;
+            bool hitted = false;
+            for(auto S_itr = scrapsCtrl->scrapVec.begin(); S_itr != scrapsCtrl->scrapVec.end();) {
+                if(CC_Colider(&(*PB_itr)->position, (*PB_itr)->cr, &(*S_itr)->position, (*S_itr)->cr)) {
+                    if((*PB_itr)->HitFunc()) {
+                        (*S_itr)->HP -= 1;
+                        if((*S_itr)->HP <= 0) {
+                            if(gameCtrl->scrapMagni < 100) gameCtrl->scrapMagni += 1;
+                            gameCtrl->scrapMagniGage = 100;
+                            S_itr = scrapsCtrl->scrapVec.erase(S_itr);
+                        } else {
+                            ++S_itr;
+                        }
+                    } else {
+                        PB_itr = player->bulletVec.erase(PB_itr);
+                        hitted = true;
+                        break;
+                    }
+                } else {
+                    ++S_itr;
+                }
+            }
+            if(!hitted)  ++PB_itr;
+        }
+    }
     // PlayerBullets & Enemy
     for(auto PB_itr = player->bulletVec.begin(); PB_itr != player->bulletVec.end();) {
         if(enemyCtrl->enemysVec.size() == 0) break;
         bool hitted = false;
         for(auto E_itr = enemyCtrl->enemysVec.begin(); E_itr != enemyCtrl->enemysVec.end();) {
             if(CC_Colider(&(*PB_itr)->position, (*PB_itr)->cr, &(*E_itr)->position, 25)) {
-                (*E_itr)->HP -= 1;
-                if((*E_itr)->HP <= 0) {
-                    (*E_itr)->DeathFunc();
-                    E_itr = enemyCtrl->enemysVec.erase(E_itr);
-                } else {
-                    ++E_itr;
-                }
-
                 if((*PB_itr)->HitFunc()) {
+                    (*E_itr)->HP -= 1;
+                    if((*E_itr)->HP <= 0) {
+                        (*E_itr)->DeathFunc();
+                        gameCtrl->score += (100 * gameCtrl->scrapMagni) / 10;
+                        E_itr = enemyCtrl->enemysVec.erase(E_itr);
+                    } else {
+                        ++E_itr;
+                    }
+                } else {
                     PB_itr = player->bulletVec.erase(PB_itr);
                     hitted = true;
                     break;
@@ -32,9 +65,7 @@ void CollisionCtrl::Update() {
                 ++E_itr;
             }
         }
-        if(!hitted) {
-            ++PB_itr;
-        }
+        if(!hitted) ++PB_itr;
     }
     // Player & EnemyBullets
     auto EBitr = EBC->bulletsVec.begin();

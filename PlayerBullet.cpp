@@ -4,6 +4,7 @@ PlayerBullet::PlayerBullet(int type, Vector2* pos, double rad, Assets* img) {
     position = *pos;
     angle = rad;
     imgs = img;
+    hitted = false;
     frame = 0;
 }
 

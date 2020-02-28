@@ -9,15 +9,18 @@
 #include "EnemyCtrl.h"
 #include "ScrapsCtrl.h"
 
+class GameController;
+
 class CollisionCtrl {
     private:
+        GameController* gameCtrl;
         Player* player;
         EnemyCtrl* enemyCtrl;
         EnemyBulletsCtrl* EBC;
-        ScrapsCtrl* SC;
+        ScrapsCtrl* scrapsCtrl;
 
     public:
-        CollisionCtrl(Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
+        CollisionCtrl(GameController* gc, Player* pl, EnemyCtrl* ec, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
         ~CollisionCtrl();
         void Update();
         bool CC_Colider(const Vector2* v1, const double cr1, const Vector2* v2, const double cr2);

@@ -10,6 +10,7 @@ class PlayerBullet {
         int frame;
         double angle;
         double velocity;
+        bool hitted;
         Assets* imgs;
     public:
         int bulletType;

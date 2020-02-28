@@ -1,5 +1,6 @@
 #include "Scrap_S.h"
 Scrap_S::Scrap_S(Vector2* pos, Assets* imgs) : Scraps(pos) {
+    HP = 3;
     image = imgs->scrap_S;
     cr = 14;
 }

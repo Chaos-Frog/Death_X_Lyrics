@@ -3,7 +3,7 @@
 
 #define X_SIZE 64
 #define Y_SIZE 64
-#define IMAGE_NUM 8
+#define IMAGE_NUM 10
 
 
 class Enemy001 : public Enemy {

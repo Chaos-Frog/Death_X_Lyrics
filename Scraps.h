@@ -11,6 +11,7 @@ class Scraps {
         int frame;
         double x_vel, y_vel;
     public:
+        int HP;
         Vector2 position;
 
         Scraps(Vector2* pos);

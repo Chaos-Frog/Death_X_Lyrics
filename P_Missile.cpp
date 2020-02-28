@@ -3,7 +3,6 @@ P_Missile::P_Missile(Vector2* pos, double rad, Assets* img) : PlayerBullet(2, po
     velocity = 0;
     size = 32;
     cr = 20;
-    hitted = false;
 }
 
 bool P_Missile::MoveBullet() {
@@ -43,5 +42,5 @@ bool P_Missile::HitFunc() {
         size = 50;
         cr = 40;
     }
-    return false;
+    return true;
 }

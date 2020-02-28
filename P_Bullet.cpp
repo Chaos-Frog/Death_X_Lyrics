@@ -1,11 +1,13 @@
 #include "P_Bullet.h"
 P_Bullet::P_Bullet(Vector2* pos, double rad, Assets* img) : PlayerBullet(1, pos, rad, img) {
-    cr = 10;
     velocity = 16;
     size = 16;
+    cr = 10;
 }
 
 bool P_Bullet::MoveBullet() {
+    if(hitted) return false;
+
     position.x += cos(angle) * velocity;
     position.y += sin(angle) * velocity;
     frame++;
@@ -22,5 +24,10 @@ void P_Bullet::Draw() {
 }
 
 bool P_Bullet::HitFunc() {
-    return true;
+    if(!hitted) {
+        hitted = true;
+        return true;
+    } else {
+        return false;
+    }
 }

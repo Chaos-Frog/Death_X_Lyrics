@@ -1,15 +1,25 @@
 #include "ScrapsCtrl.h"
-ScrapsCtrl::ScrapsCtrl(Assets* imgs) { images = imgs; }
+#include "GameController.h"
+ScrapsCtrl::ScrapsCtrl(Assets* imgs, GameController* gc) {
+    images = imgs;
+    gameCtrl = gc;
+}
 ScrapsCtrl::~ScrapsCtrl() {}
 
 void ScrapsCtrl::Update() {
     for(auto itr = scrapVec.begin(); itr != scrapVec.end();) {
         if((*itr)->Moving()) {
-            (*itr)->Draw();
             ++itr;
         } else {
             itr = scrapVec.erase(itr);
+            if(gameCtrl->scrapMagni > 10 && gameCtrl->scrapMagniGage == 0) gameCtrl->scrapMagni -= 1;
         }
+    }
+}
+
+void ScrapsCtrl::Draw() {
+    for(auto itr : scrapVec) {
+        itr->Draw();
     }
 }
 
