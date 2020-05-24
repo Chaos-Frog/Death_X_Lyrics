@@ -24,5 +24,6 @@ class GameController {
         GameController(Assets* img);
         ~GameController();
         void Update();
+        void Update_UI();
 };
 

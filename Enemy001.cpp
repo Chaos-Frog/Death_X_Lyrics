@@ -50,11 +50,8 @@ void Enemy001::Danmaku() {
 	switch(danmakuPatern) {
 		case 1:
 			// TEST
-			if(frame >= 60 && frame % 2 == 0) {
-				double a = (frame-60) * 5 + (frame-60) / 5;
-				for(int i = 0; i < 4; i++) {
-					EBC->SetEnemyBullet(1, &position, 1 + i*0.2, (a + i*90) * (M_PI / 180), 0.6);
-				}
+			if(frame >= 120 && frame % 120 == 0) {
+				EBC->SetEnemyBullet(1, &position, 2, 90 * (M_PI / 180), 0.6);
 			}
 			break;
 		default:

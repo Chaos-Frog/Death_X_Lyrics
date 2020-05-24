@@ -1,9 +1,9 @@
 #include "Player.h"
 Player::Player(Assets* img) {
-    position = Vector2(640, 600);
+    position = Vector2(320, 600);
     imgs = img;
     playerImgs = imgs->player01;
-    playerImgs_ADD = imgs->player01_ADD;
+    playerImgs_Hit = imgs->player01_Hit;
     frame = 1;
     imgNum = 0;
     rotate = 0;
@@ -34,28 +34,28 @@ void Player::Moving() {
     }
 
     if(CheckHitKey(KEY_INPUT_W) == 1) {
-        if(position.y > (double)(0+SIZE_Y/2)) {
+        if(position.y > (double)(GAME_WINDOW_Y1 + SIZE_Y/2)) {
             position.y -= SPEED * coe;
-            if(position.y < (double)(0+SIZE_Y/2)) position.y = (double)(0+SIZE_Y/2);
+            if(position.y < (double)(GAME_WINDOW_Y1 + SIZE_Y/2)) position.y = (double)(GAME_WINDOW_Y1 + SIZE_Y/2);
         }
     }
     if(CheckHitKey(KEY_INPUT_S) == 1) {
-        if(position.y < (double)(720-SIZE_Y/2)) {
+        if(position.y < (double)(GAME_WINDOW_Y2 - SIZE_Y/2)) {
             position.y += SPEED * coe;
-            if(position.y > (double)(720-SIZE_Y/2)) position.y = (double)(720-SIZE_Y/2);
+            if(position.y > (double)(GAME_WINDOW_Y2 - SIZE_Y/2)) position.y = (double)(GAME_WINDOW_Y2 - SIZE_Y/2);
         }
     }
     if(CheckHitKey(KEY_INPUT_D) == 1) {
-        if(position.x < (double)(960-SIZE_X/2)) {
+        if(position.x < (double)(GAME_WINDOW_X2 - SIZE_X/2)) {
             position.x += SPEED * coe;
-            if(position.x > (double)(960-SIZE_X/2)) position.x = (double)(960-SIZE_X/2);
+            if(position.x > (double)(GAME_WINDOW_X2 - SIZE_X/2)) position.x = (double)(GAME_WINDOW_X2 - SIZE_X/2);
         }
         if(rotate < 5) rotate++;
     }
     if(CheckHitKey(KEY_INPUT_A) == 1) {
-        if(position.x > (double)(320 +SIZE_Y/2)) {
+        if(position.x > (double)(GAME_WINDOW_X1 + SIZE_Y/2)) {
             position.x -= SPEED * coe;
-            if(position.x < (double)(320 +SIZE_X/2)) position.x = (double)(320+SIZE_X/2);
+            if(position.x < (double)(GAME_WINDOW_X1 + SIZE_X/2)) position.x = (double)(GAME_WINDOW_X1 + SIZE_X/2);
         }
         if(rotate > -5) rotate--;
     }
@@ -132,9 +132,9 @@ void Player::Draw() {
     // TEST
     DrawCircleAA(x, y, CORE_RADIUS, 64, GetColor(0, 255, 0));
     if(hitCT > 0) {
-        SetDrawBlendMode(DX_BLENDMODE_ADD, 200);
-        if(rotate >= 0) DrawGraph(x - (SIZE_X/2), y - (SIZE_Y/2) + 10, playerImgs_ADD[imgNum], TRUE);
-        else            DrawTurnGraph(x - (SIZE_X/2), y - (SIZE_Y/2) + 10, playerImgs_ADD[imgNum], TRUE);
+        SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+        if(rotate >= 0) DrawGraph(x - (SIZE_X/2), y - (SIZE_Y/2) + 10, playerImgs_Hit[imgNum], TRUE);
+        else            DrawTurnGraph(x - (SIZE_X/2), y - (SIZE_Y/2) + 10, playerImgs_Hit[imgNum], TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         hitCT--;
     }

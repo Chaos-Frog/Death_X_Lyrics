@@ -21,14 +21,14 @@ GameController::~GameController() {
 }
 
 void GameController::Update() {
-    DrawBox(320, 0, 960, 720, GetColor(150, 150, 150), TRUE);
+    DrawBox(0, 0, 640, 720, GetColor(150, 150, 150), TRUE);
 
     if(frame == 1 || ec->enemysVec.size() <= 0) {
-        ec->SetEnemy(1, new Vector2(840, -80), 3, 0);
-        ec->SetEnemy(1, new Vector2(740, -130), 3, 0);
-        ec->SetEnemy(1, new Vector2(640, -80), 3, 0);
-        ec->SetEnemy(1, new Vector2(540, -130), 3, 0);
-        ec->SetEnemy(1, new Vector2(440, -80), 3, 0);
+        ec->SetEnemy(1, new Vector2(520, -80), 3, 1);
+        ec->SetEnemy(1, new Vector2(420, -130), 3, 1);
+        ec->SetEnemy(1, new Vector2(320, -80), 3, 1);
+        ec->SetEnemy(1, new Vector2(220, -130), 3, 1);
+        ec->SetEnemy(1, new Vector2(120, -80), 3, 1);
     }
     
     player->Update();
@@ -43,17 +43,19 @@ void GameController::Update() {
     sc->Draw();
     player->DrawBullets();
 
-    DrawBox(0, 0, 320, 720, GetColor(50, 50, 50), TRUE);
-    DrawBox(960, 0, 1280, 720, GetColor(50, 50, 50), TRUE);
     frame++;
+}
 
-    // Debug //
+void GameController::Update_UI() {
+    DrawBox(0, 0, 1280, 720, GetColor(50, 50, 50), TRUE);
+
+    /* Debug */
     int bnum = ebc->bulletsVec.size();
     std::string str = "BulletsNum:" + std::to_string(bnum);
     std::string score_str = "Score:" + std::to_string(score);
-    std::string scmag_str = "ScrapMagnification:" + std::to_string((int)scrapMagni/10) + "." + std::to_string((int)scrapMagni%10);
+    std::string scmag_str = "ScrapMagnification:" + std::to_string((int)scrapMagni / 10) + "." + std::to_string((int)scrapMagni % 10);
     std::string scmag_Gage;
-    for(int i=0; i<ceil(scrapMagniGage/10); i++) {
+    for(int i = 0; i < ceil(scrapMagniGage / 10); i++) {
         scmag_Gage += "¡";
     }
 

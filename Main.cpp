@@ -31,19 +31,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // ÉQÅ[ÉÄèàóù //
     Assets image;
     GameController game(&image);
-    int screen = MakeScreen(1280, 720, TRUE);
+    int screenGame = MakeScreen(640, 720, TRUE);
+    int screenFull = MakeScreen(1280, 720, TRUE);
 
 
     while(ProcessMessage() == 0&& CheckHitKey(KEY_INPUT_ESCAPE) != 1) {
-        SetDrawScreen(screen);
+        SetDrawScreen(screenGame);
         ClearDrawScreen();
-
         game.Update();
+
+        SetDrawScreen(screenFull);
+        ClearDrawScreen();
+        game.Update_UI();
+
+        DrawExtendGraph(320, 0, 960, 720, screenGame, TRUE);
 
         SetDrawScreen(DX_SCREEN_BACK);
         ClearDrawScreen();
 
-        DrawExtendGraph(xp1, yp1, xp2, yp2, screen, TRUE);
+        DrawExtendGraph(xp1, yp1, xp2, yp2, screenFull, TRUE);
         ScreenFlip();
     }
 

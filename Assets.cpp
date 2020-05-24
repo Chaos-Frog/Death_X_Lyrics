@@ -1,7 +1,7 @@
 #include "Assets.h"
 Assets::Assets() {
-    LoadDivGraph("Assets/Heli.png", 12, 4, 3, 100, 100, player01);
-    LoadDivGraph("Assets/Heli_ADD.png", 12, 4, 3, 100, 100, player01_ADD);
+    LoadDivGraph("Assets/Player01.png", 12, 4, 3, 120, 100, player01);
+    LoadDivGraph("Assets/Player01_Hit.png", 12, 4, 3, 120, 100, player01_Hit);
     playerBullet01 = LoadGraph("Assets/PlayerBullet.png");
     playerMissile = LoadGraph("Assets/Missile.png");
     LoadDivGraph("Assets/Exp01.png", 16, 4, 4, 100, 100, playerMissileExp);
