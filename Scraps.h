@@ -4,6 +4,7 @@
 #include "Define.h"
 #include "Assets.h"
 #include "Vector2.h"
+#include "Collider.h"
 
 class Scraps {
     private:
@@ -13,6 +14,7 @@ class Scraps {
     public:
         int HP;
         Vector2 position;
+        Collider* collider;
 
         Scraps(Vector2* pos);
         ~Scraps();
@@ -20,3 +22,15 @@ class Scraps {
         virtual void Draw();
 };
 
+class Scrap_S : public Scraps {
+    private:
+        int* image;
+
+    public:
+        double cr;
+
+        Scrap_S(Vector2* pos, Assets* imgs);
+        ~Scrap_S();
+        bool Moving();
+        void Draw();
+};

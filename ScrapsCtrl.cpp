@@ -18,11 +18,11 @@ void ScrapsCtrl::Update() {
 }
 
 void ScrapsCtrl::Draw() {
-    for(auto itr : scrapVec) {
-        itr->Draw();
+    for(auto sc : scrapVec) {
+        sc->Draw();
     }
 }
 
 void ScrapsCtrl::SetScrap(int type, Vector2* pos) {
-    scrapVec.emplace_back(std::make_shared<Scrap_S>(pos, images));
+    if(type == 1) scrapVec.emplace_back(new Scrap_S(pos, images));
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Scrap_S.h"
+#include "Scraps.h"
 
 class GameController;
 
@@ -10,7 +10,7 @@ class ScrapsCtrl {
         Assets* images;
         GameController* gameCtrl;
     public:
-        std::vector<std::shared_ptr<Scrap_S>> scrapVec;
+        std::vector<Scraps *> scrapVec;
 
         ScrapsCtrl(Assets* imgs, GameController* gc);
         ~ScrapsCtrl();

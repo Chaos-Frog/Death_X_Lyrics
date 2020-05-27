@@ -19,7 +19,7 @@ void CollisionCtrl::Update() {
             if(scrapsCtrl->scrapVec.size() == 0) break;
             bool hitted = false;
             for(auto S_itr = scrapsCtrl->scrapVec.begin(); S_itr != scrapsCtrl->scrapVec.end();) {
-                if(CC_Colider(&(*PB_itr)->position, (*PB_itr)->cr, &(*S_itr)->position, (*S_itr)->cr)) {
+                if(CollisionCheck((*PB_itr)->collider, (*S_itr)->collider)) {
                     if((*PB_itr)->HitFunc()) {
                         (*S_itr)->HP -= 1;
                         if((*S_itr)->HP <= 0) {
@@ -46,66 +46,98 @@ void CollisionCtrl::Update() {
         if(enemyCtrl->enemysVec.size() == 0) break;
         bool hitted = false;
         for(auto E_itr = enemyCtrl->enemysVec.begin(); E_itr != enemyCtrl->enemysVec.end();) {
-            if(CC_Colider(&(*PB_itr)->position, (*PB_itr)->cr, &(*E_itr)->position, 25)) {
-                if((*PB_itr)->HitFunc()) {
-                    (*E_itr)->HP -= 1;
-                    if((*E_itr)->HP <= 0) {
-                        (*E_itr)->DeathFunc();
-                        gameCtrl->score += (100 * gameCtrl->scrapMagni) / 10;
-                        E_itr = enemyCtrl->enemysVec.erase(E_itr);
+            for(auto enemyCol : (*E_itr)->colliders) {
+                if(CollisionCheck((*PB_itr)->collider, enemyCol)) {
+                    if((*PB_itr)->HitFunc()) {
+                        (*E_itr)->HP -= 1;
+                        if((*E_itr)->HP <= 0) {
+                            (*E_itr)->DeathFunc();
+                            gameCtrl->score += (100 * gameCtrl->scrapMagni) / 10;
+                            E_itr = enemyCtrl->enemysVec.erase(E_itr);
+                        } else {
+                            ++E_itr;
+                        }
                     } else {
-                        ++E_itr;
+                        PB_itr = player->bulletVec.erase(PB_itr);
                     }
-                } else {
-                    PB_itr = player->bulletVec.erase(PB_itr);
                     hitted = true;
                     break;
                 }
-            } else {
-                ++E_itr;
             }
+            if(!hitted) ++E_itr;
+            else break;
         }
         if(!hitted) ++PB_itr;
     }
     // Player & EnemyBullets
     auto EBitr = EBC->bulletsVec.begin();
     while(EBitr != EBC->bulletsVec.end()) {
-        switch(EBitr->bulletType) {
-            case 1:
-            case 2:
-                if(CC_Colider(&player->position, CORE_RADIUS, &EBitr->position, EBitr->radius)) {
-                    EBitr = EBC->bulletsVec.erase(EBitr);
-                    player->hitCT = 5;
-                } else {
-                    ++EBitr;
-                }
-            default:
-                break;
+        if(CollisionCheck((*EBitr)->collider, player->collider)) {
+            EBitr = EBC->bulletsVec.erase(EBitr);
+            player->hitCT = 5;
+        } else {
+            ++EBitr;
         }
     }
 }
 
-bool CollisionCtrl::CC_Colider(const Vector2* v1, const double cr1, const Vector2* v2, const double cr2) {
+bool CollisionCtrl::CollisionCheck(const Collider* c1, const Collider* c2) {
+    if(c1->type == CIRCLE) {
+        if(c2->type == CIRCLE) {
+            return CC_Collider(&c1->position, c1->radius, &c2->position, c2->radius);
+        } else if(c2->type == BOX) {
+            return CB_Collider(&c1->position, c1->radius, &c2->pos1, &c2->pos2);
+        } else if(c2->type == LINE) {
+            return CL_Collider(&c1->position, c1->radius, &c2->pos1, &c2->pos2);
+        }
+    } else if(c1->type == BOX) {
+        if(c2->type == CIRCLE) {
+            return CB_Collider(&c2->position, c2->radius, &c1->pos1, &c1->pos2);
+        } else if(c2->type == BOX) {
+            return BB_Collider(&c1->pos1, &c1->pos2, &c2->pos1, &c2->pos2);
+        } else if(c2->type == LINE){
+            return false;
+        }
+    } else if(c1->type == LINE) {
+        if(c2->type == CIRCLE) {
+            return CL_Collider(&c2->position, c2->radius, &c1->pos1, &c1->pos2);
+        } else if(c2->type == BOX) {
+            return false;
+        } else if(c2->type == LINE) {
+            return false;
+        }
+    }
+}
+
+bool CollisionCtrl::CC_Collider(const Vector2* v1, const double cr1, const Vector2* v2, const double cr2) {
     const Vector2 dif = *v2 - *v1;
     const double radius = cr1 + cr2;
     return pow(dif.x, 2) + pow(dif.y, 2) <= pow(radius, 2);
 }
 
-bool CollisionCtrl::CB_Colider(const Vector2* v, const double cr, const Vector2* v1, const Vector2* v2) {
+bool CollisionCtrl::BB_Collider(const Vector2* v1, const Vector2* v2, const Vector2* v3, const Vector2* v4) {
+    if(v1->x <= v4->x && v2->x >= v3->x && v1->y <= v4->y && v2->y >= v3->y) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool CollisionCtrl::CB_Collider(const Vector2* v, const double cr, const Vector2* v1, const Vector2* v2) {
     Vector2 nearest;
     if(v->x < v1->x)      nearest.x = v1->x;
     else if(v->x > v2->x) nearest.x = v2->x;
     else                  nearest.x = v->x;
 
-    if(v->y < v1->y)      nearest.x = v1->y;
-    else if(v->y > v2->y) nearest.x = v2->y;
-    else                  nearest.x = v->y;
+    if(v->y < v1->y)      nearest.y = v1->y;
+    else if(v->y > v2->y) nearest.y = v2->y;
+    else                  nearest.y = v->y;
 
-    return CC_Colider(v, cr, &nearest, 0);
+    return CC_Collider(v, cr, &nearest, 0.0f);
 }
 
-bool CollisionCtrl::CL_Colider(const Vector2* v, const double cr, const Vector2* lv1, const Vector2* lv2) {
-    if(CC_Colider(v, cr, lv1, 0) || CC_Colider(v, cr, lv2, 0)) return true;
+bool CollisionCtrl::CL_Collider(const Vector2* v, const double cr, const Vector2* lv1, const Vector2* lv2) {
+    if(CC_Collider(v, cr, lv1, 0) || CC_Collider(v, cr, lv2, 0)) return true;
 
     const Vector2 lineV = *lv2 - *lv1;
     const Vector2 lineCV = *v - *lv1;
@@ -119,7 +151,7 @@ bool CollisionCtrl::CL_Colider(const Vector2* v, const double cr, const Vector2*
     }
     const Vector2 nearest = *lv1 + proj;
 
-    return CC_Colider(v, cr, &nearest, 0) &&
+    return CC_Collider(v, cr, &nearest, 0) &&
            pow(proj.x, 2) + pow(proj.y, 2) <= pow(lineV.x, 2) + pow(lineV.y, 2) &&
            0 <= (proj.x * lineV.x) + (proj.y * lineV.y);
 

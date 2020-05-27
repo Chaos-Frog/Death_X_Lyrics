@@ -10,7 +10,7 @@ class Assets {
         int playerMissile;
         int playerMissileExp[16];
 
-        int enemy001[10];
+        int enemy001[16];
 
         int enemyBullet01;
         int enemyBullet02;

@@ -2,12 +2,11 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
-#include <memory>
 #include "Define.h"
 #include "Assets.h"
 #include "Vector2.h"
-#include "P_Bullet.h"
-#include "P_Missile.h"
+#include "Collider.h"
+#include "PlayerBullet.h"
 
 #define SIZE_X 120
 #define SIZE_Y 100
@@ -29,7 +28,8 @@ class Player {
         void Draw();
     public:
         Vector2 position;
-        std::vector<std::shared_ptr<PlayerBullet>> bulletVec;
+        Collider* collider;
+        std::vector<PlayerBullet*> bulletVec;
         int hitCT;
 
         Player(Assets* img);

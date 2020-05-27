@@ -4,7 +4,7 @@ GameController::GameController(Assets* img) {
     player = new Player(img);
     ebc = new EnemyBulletsCtrl(img);
     sc = new ScrapsCtrl(img, this);
-    ec = new EnemyCtrl(img, ebc, sc);
+    ec = new EnemyCtrl(img, player, ebc, sc);
     colCtrl = new CollisionCtrl(this, player, ec, ebc, sc);
     
     frame = 1;
@@ -24,11 +24,11 @@ void GameController::Update() {
     DrawBox(0, 0, 640, 720, GetColor(150, 150, 150), TRUE);
 
     if(frame == 1 || ec->enemysVec.size() <= 0) {
-        ec->SetEnemy(1, new Vector2(520, -80), 3, 1);
-        ec->SetEnemy(1, new Vector2(420, -130), 3, 1);
-        ec->SetEnemy(1, new Vector2(320, -80), 3, 1);
-        ec->SetEnemy(1, new Vector2(220, -130), 3, 1);
-        ec->SetEnemy(1, new Vector2(120, -80), 3, 1);
+        ec->SetEnemy(1, new Vector2(520, -130), 3, 2);
+        ec->SetEnemy(1, new Vector2(420, -80), 2, 1);
+        ec->SetEnemy(1, new Vector2(320, -130), 3, 2);
+        ec->SetEnemy(1, new Vector2(220, -80), 2, 1);
+        ec->SetEnemy(1, new Vector2(120, -130), 3, 2);
     }
     
     player->Update();
@@ -42,6 +42,26 @@ void GameController::Update() {
 
     sc->Draw();
     player->DrawBullets();
+
+    /* Collider Debug */
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+    player->collider->DebugDraw();
+    for(auto pb : player->bulletVec) {
+        pb->collider->DebugDraw();
+    }
+    for(auto ev : ec->enemysVec) {
+        for(auto col : ev->colliders) {
+            col->DebugDraw();
+        }
+    }
+    for(auto sv : sc->scrapVec) {
+        sv->collider->DebugDraw();
+    }
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+    for(auto bullet : ebc->bulletsVec) {
+        bullet->collider->DebugDraw();
+    }
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 1);
 
     frame++;
 }

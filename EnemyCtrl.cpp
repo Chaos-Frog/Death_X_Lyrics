@@ -1,6 +1,7 @@
 #include "EnemyCtrl.h"
-EnemyCtrl::EnemyCtrl(Assets* img, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) {
+EnemyCtrl::EnemyCtrl(Assets* img, Player* pl, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) {
 	images = img;
+	player = pl;
 	EBC = ebc;
 	SC = sc;
 }
@@ -18,7 +19,7 @@ void EnemyCtrl::Update() {
 void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {
 	switch(type) {
 		case 1:
-			enemysVec.emplace_back(std::make_shared<Enemy001>(pos, mp, dp, images->enemy001, EBC, SC));
+			enemysVec.emplace_back(new Enemy001(pos, mp, dp, images->enemy001, player, EBC, SC));
 			break;
 		default:
 			break;

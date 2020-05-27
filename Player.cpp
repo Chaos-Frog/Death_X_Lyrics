@@ -1,9 +1,11 @@
 #include "Player.h"
 Player::Player(Assets* img) {
-    position = Vector2(320, 600);
     imgs = img;
     playerImgs = imgs->player01;
     playerImgs_Hit = imgs->player01_Hit;
+
+    position = Vector2(320, 600);
+    collider = new Circle_C(&position, Vector2(0, 0), CORE_RADIUS);
     frame = 1;
     imgNum = 0;
     rotate = 0;
@@ -16,10 +18,12 @@ Player::~Player() {
     for(int i = 0; i < bulletVec.size(); i++) {
         bulletVec.erase(bulletVec.begin() + i);
     }
+    delete collider;
 }
 
 void Player::Update() {
     Moving();
+    collider->Update();
     Shot();
     Draw();
     frame++;
@@ -69,19 +73,19 @@ void Player::Moving() {
 void Player::Shot() {
     if(CheckHitKey(KEY_INPUT_J)) {
         if(missileCT <= 0) {
-            bulletVec.emplace_back(std::make_shared<P_Missile>(&position, -M_PI_2, imgs));
+            bulletVec.emplace_back(new P_Missile(&position, -M_PI_2, imgs));
             missileCT = 12;
         }
     } else if(CheckHitKey(KEY_INPUT_L)) {
         if(shotCT <= 0) {
             Vector2 p1 = position + Vector2(15, 0);
             Vector2 p2 = position + Vector2(-15, 0);
-            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p1, -90 * (M_PI / 180), imgs));
-            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p1, -75 * (M_PI / 180), imgs));
-            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p1, -60 * (M_PI / 180), imgs));
-            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p2, -90 * (M_PI / 180), imgs));
-            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p2, -105 * (M_PI / 180), imgs));
-            bulletVec.emplace_back(std::make_shared <P_Bullet>(&p2, -120 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(new P_Bullet(&p1, -90 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(new P_Bullet(&p1, -75 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(new P_Bullet(&p1, -60 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(new P_Bullet(&p2, -90 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(new P_Bullet(&p2, -105 * (M_PI / 180), imgs));
+            bulletVec.emplace_back(new P_Bullet(&p2, -120 * (M_PI / 180), imgs));
             shotCT = 6;
         }
     }
@@ -130,7 +134,6 @@ void Player::Draw() {
     }
 
     // TEST
-    DrawCircleAA(x, y, CORE_RADIUS, 64, GetColor(0, 255, 0));
     if(hitCT > 0) {
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
         if(rotate >= 0) DrawGraph(x - (SIZE_X/2), y - (SIZE_Y/2) + 10, playerImgs_Hit[imgNum], TRUE);
