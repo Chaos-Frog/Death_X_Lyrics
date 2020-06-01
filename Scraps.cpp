@@ -20,7 +20,6 @@ void Scraps::Draw() {}
 Scrap_S::Scrap_S(Vector2* pos, Assets* imgs) : Scraps(pos) {
     HP = 3;
     image = imgs->scrap_S;
-    cr = 14;
     collider = new Circle_C(&position, Vector2(0, 0), cr);
 }
 Scrap_S::~Scrap_S() {}

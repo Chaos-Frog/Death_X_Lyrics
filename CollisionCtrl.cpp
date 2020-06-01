@@ -74,10 +74,22 @@ void CollisionCtrl::Update() {
     while(EBitr != EBC->bulletsVec.end()) {
         if(CollisionCheck((*EBitr)->collider, player->collider)) {
             EBitr = EBC->bulletsVec.erase(EBitr);
-            player->hitCT = 5;
+            player->HitFunc();
         } else {
             ++EBitr;
         }
+    }
+    // Player & Enemy
+    for(auto enemy : enemyCtrl->enemysVec) {
+        bool hit = false;
+        for(auto col : enemy->colliders) {
+            if(CollisionCheck(player->collider, col)) {
+                player->HitFunc();
+                hit = true;
+                break;
+            }
+        }
+        if(hit) break;
     }
 }
 

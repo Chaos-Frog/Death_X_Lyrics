@@ -27,7 +27,7 @@ class Scrap_S : public Scraps {
         int* image;
 
     public:
-        double cr;
+        double cr = 16;
 
         Scrap_S(Vector2* pos, Assets* imgs);
         ~Scrap_S();

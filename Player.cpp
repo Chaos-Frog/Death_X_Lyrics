@@ -144,7 +144,11 @@ void Player::Draw() {
 }
 
 void Player::DrawBullets() {
-    for(auto itr : bulletVec) {
-        itr->Draw();
+    for(auto bullet : bulletVec) {
+        bullet->Draw();
     }
+}
+
+void Player::HitFunc() {
+    hitCT = 5;
 }

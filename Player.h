@@ -36,5 +36,6 @@ class Player {
         ~Player();
         void Update();
         void DrawBullets();
+        void HitFunc();
 };
 
