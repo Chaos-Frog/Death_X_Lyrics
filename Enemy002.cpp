@@ -1,5 +1,5 @@
-#include "Enemy001.h"
-Enemy001::Enemy001(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) : Enemy(1, pos, 10, mp, dp, pla, ebc, sc) {
+#include "Enemy002.h"
+Enemy002::Enemy002(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) : Enemy(1, pos, 10, mp, dp, pla, ebc, sc) {
 	image = img;
 	imgNum = 0;
 	first = position;
@@ -8,7 +8,7 @@ Enemy001::Enemy001(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBul
 	colliders.emplace_back(new Circle_C(&position, Vector2(0, 0), 25));
 }
 
-void Enemy001::Update() {
+void Enemy002::Update() {
 	Moving();
 	Draw();
 	Danmaku();
@@ -20,27 +20,15 @@ void Enemy001::Update() {
 	frame++;
 }
 
-void Enemy001::Moving() {
+void Enemy002::Moving() {
 	switch(movePatern) {
 		case 1:
-			// TEST
-			if(frame < 60) {
-				double t = (double)frame / 60.0;
-				position.x = (640 - first.x) * t + first.x;
-				position.y = (200 - first.y) * t + first.y;
-			} else if(frame >= 60) {
-				if(frame == 60) first = Vector2(640, 200);
-				position.x = sin((frame - 60) * (2 * (M_PI / 180))) * 160 + first.x;
-				position.y = sin((frame - 60) * (4 * (M_PI / 180))) * 80 + first.y;
-			}
-			break;
-		case 2:
 			if(frame < 60) {
 				double t = (double)frame / 60.0;
 				position.y = (200.0 * t) + first.y;
 			}
 			break;
-		case 3:
+		case 2:
 			if(frame < 60) {
 				double t = (double)frame / 60.0;
 				position.y = (200.0 * t) + first.y;
@@ -73,24 +61,25 @@ void Enemy001::Moving() {
 }
 
 
-void Enemy001::Danmaku() {
+void Enemy002::Danmaku() {
 	switch(danmakuPatern) {
 		case 1:
-			if(frame >= 120 && frame % 120 == 0) {
-				EBC->SetEnemyBullet(1, position, 2, 90, 0.6);
+			if(frame >= 120) {
+				if(frame % 120 == 20 || frame % 120 == 40 || frame % 120 == 60) {
+					double a = angle * (M_PI/180.0f);
+					shotPos[0] = Vector2(cos(a) * 20, sin(a) * 20);
+					shotPos[1] = Vector2(cos(a) * -20, sin(a) * -20);
+					EBC->SetEnemyBullet(2, position + shotPos[0], 3, angle + 90, 0.6);
+					EBC->SetEnemyBullet(2, position + shotPos[1], 3, angle + 90, 0.6);
+				}
 			}
 			break;
-		case 2:
-			if(frame >= 120 && frame % 80 == 0) {
-				double shotAngle = TargetPlayerAngle();
-				EBC->SetEnemyBullet(2, position, 3, shotAngle, 0.8);
-			}
 		default:
 			break;
 	}
 }
 
-void Enemy001::Draw() {
+void Enemy002::Draw() {
 	int angleImgNum = round(angle/15) * LOOP;
 
 	if(angleImgNum <= 0) {
@@ -105,7 +94,7 @@ void Enemy001::Draw() {
 	}
 }
 
-void Enemy001::DeathFunc() {
+void Enemy002::DeathFunc() {
 	for(int i = 0; i < 2; i++) {
 		SC->SetScrap(1, &position);
 	}

@@ -1,7 +1,7 @@
 #include "EnemyBullet.h"
-EnemyBullet::EnemyBullet(Vector2* pos, double spd, double radA, double size, Assets* as) {
+EnemyBullet::EnemyBullet(const Vector2 pos, double spd, double radA, double size, Assets* as) {
 	bulletType = 0;
-	position = *pos;
+	position = pos;
 	speed = spd;
 	angle = radA;
 	bulletSize = size;
@@ -10,7 +10,7 @@ bool EnemyBullet::Moving() { return false; }
 void EnemyBullet::Draw() {}
 
 
-EBullet_01::EBullet_01(Vector2* pos, double spd, double radA, double size, Assets* as) : EnemyBullet(pos, spd, radA, size, as) {
+EBullet_01::EBullet_01(const Vector2 pos, double spd, double radA, double size, Assets* as) : EnemyBullet(pos, spd, radA, size, as) {
 	bulletType = 1;
 	image = &as->enemyBullet01;
 	collider = new Circle_C(&position, Vector2(0, 0), bulletSize*16);
@@ -31,7 +31,7 @@ void EBullet_01::Draw() {
 }
 
 
-EBullet_02::EBullet_02(Vector2* pos, double spd, double radA, double size, Assets* as) : EnemyBullet(pos, spd, radA, size, as) {
+EBullet_02::EBullet_02(const Vector2 pos, double spd, double radA, double size, Assets* as) : EnemyBullet(pos, spd, radA, size, as) {
 	bulletType = 2;
 	image = &as->enemyBullet02;
 	collider = new Circle_C(&position, Vector2(0, 0), bulletSize*16);

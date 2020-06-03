@@ -18,21 +18,21 @@ class EnemyBullet {
         Circle_C* collider;
         double radius;
 
-        EnemyBullet(Vector2* pos, double spd, double radA, double size, Assets* as);
+        EnemyBullet(const Vector2 pos, double spd, double radA, double size, Assets* as);
         virtual bool Moving();
         virtual void Draw();
 };
 
 class EBullet_01 : public EnemyBullet {
     public:
-        EBullet_01(Vector2* pos, double spd, double radA, double size, Assets* as);
+        EBullet_01(const Vector2 pos, double spd, double radA, double size, Assets* as);
         bool Moving();
         void Draw();
 };
 
 class EBullet_02 : public EnemyBullet {
     public:
-        EBullet_02(Vector2* pos, double spd, double radA, double size, Assets* as);
+        EBullet_02(const Vector2 pos, double spd, double radA, double size, Assets* as);
         bool Moving();
         void Draw();
 };

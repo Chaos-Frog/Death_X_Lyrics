@@ -2,6 +2,7 @@
 #include <vector>
 #include "Player.h"
 #include "Enemy001.h"
+#include "Enemy002.h"
 
 class EnemyCtrl {
     private:

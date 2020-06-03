@@ -21,6 +21,9 @@ void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {
 		case 1:
 			enemysVec.emplace_back(new Enemy001(pos, mp, dp, images->enemy001, player, EBC, SC));
 			break;
+		case 2:
+			enemysVec.emplace_back(new Enemy002(pos, mp, dp, images->enemy002, player, EBC, SC));
+			break;
 		default:
 			break;
 	}
