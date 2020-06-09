@@ -34,7 +34,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     int screenGame = MakeScreen(640, 720, TRUE);
     int screenFull = MakeScreen(1280, 720, TRUE);
 
-
     while(ProcessMessage() == 0&& CheckHitKey(KEY_INPUT_ESCAPE) != 1) {
         SetDrawScreen(screenGame);
         ClearDrawScreen();

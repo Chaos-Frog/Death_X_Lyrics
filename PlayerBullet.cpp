@@ -30,7 +30,7 @@ bool P_Bullet::MoveBullet() {
 
     collider->Update();
 
-    if(position.x < (double)GAME_WINDOW_X1 - size || position.x >(double)GAME_WINDOW_X2 + size || position.y < (double)GAME_WINDOW_Y1 - size || position.y >(double)GAME_WINDOW_Y2 + size) {
+    if(position.x < -size || position.x >(double)GAME_WINDOW_XSIZE + size || position.y < -size || position.y >(double)GAME_WINDOW_YSIZE + size) {
         return false;
     } else {
         return true;
@@ -77,7 +77,7 @@ bool P_Missile::MoveBullet() {
 
     collider->Update();
 
-    if(position.x < (double)GAME_WINDOW_X1 - size || position.x >(double)GAME_WINDOW_X2 + size || position.y < (double)GAME_WINDOW_Y1 - size || position.y >(double)GAME_WINDOW_Y2 + size) {
+    if(position.x < -size || position.x >(double)GAME_WINDOW_XSIZE + size || position.y < -size || position.y >(double)GAME_WINDOW_YSIZE + size) {
         return false;
     } else {
         return true;

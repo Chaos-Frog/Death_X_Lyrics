@@ -38,28 +38,28 @@ void Player::Moving() {
     }
 
     if(CheckHitKey(KEY_INPUT_W) == 1) {
-        if(position.y > (double)(GAME_WINDOW_Y1 + SIZE_Y/2)) {
+        if(position.y > (double)(SIZE_Y/2)) {
             position.y -= SPEED * coe;
-            if(position.y < (double)(GAME_WINDOW_Y1 + SIZE_Y/2)) position.y = (double)(GAME_WINDOW_Y1 + SIZE_Y/2);
+            if(position.y < (double)(SIZE_Y/2)) position.y = (double)(SIZE_Y/2);
         }
     }
     if(CheckHitKey(KEY_INPUT_S) == 1) {
-        if(position.y < (double)(GAME_WINDOW_Y2 - SIZE_Y/2)) {
+        if(position.y < (double)(GAME_WINDOW_YSIZE - SIZE_Y/2)) {
             position.y += SPEED * coe;
-            if(position.y > (double)(GAME_WINDOW_Y2 - SIZE_Y/2)) position.y = (double)(GAME_WINDOW_Y2 - SIZE_Y/2);
+            if(position.y > (double)(GAME_WINDOW_YSIZE - SIZE_Y/2)) position.y = (double)(GAME_WINDOW_YSIZE - SIZE_Y/2);
         }
     }
     if(CheckHitKey(KEY_INPUT_D) == 1) {
-        if(position.x < (double)(GAME_WINDOW_X2 - SIZE_X/2)) {
+        if(position.x < (double)(GAME_WINDOW_XSIZE - SIZE_X/2)) {
             position.x += SPEED * coe;
-            if(position.x > (double)(GAME_WINDOW_X2 - SIZE_X/2)) position.x = (double)(GAME_WINDOW_X2 - SIZE_X/2);
+            if(position.x > (double)(GAME_WINDOW_XSIZE - SIZE_X/2)) position.x = (double)(GAME_WINDOW_XSIZE - SIZE_X/2);
         }
         if(rotate < 5) rotate++;
     }
     if(CheckHitKey(KEY_INPUT_A) == 1) {
-        if(position.x > (double)(GAME_WINDOW_X1 + SIZE_Y/2)) {
+        if(position.x > (double)(SIZE_X/2)) {
             position.x -= SPEED * coe;
-            if(position.x < (double)(GAME_WINDOW_X1 + SIZE_X/2)) position.x = (double)(GAME_WINDOW_X1 + SIZE_X/2);
+            if(position.x < (double)(SIZE_X/2)) position.x = (double)(SIZE_X/2);
         }
         if(rotate > -5) rotate--;
     }

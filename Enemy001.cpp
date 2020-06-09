@@ -23,24 +23,12 @@ void Enemy001::Update() {
 void Enemy001::Moving() {
 	switch(movePatern) {
 		case 1:
-			// TEST
-			if(frame < 60) {
-				double t = (double)frame / 60.0;
-				position.x = (640 - first.x) * t + first.x;
-				position.y = (200 - first.y) * t + first.y;
-			} else if(frame >= 60) {
-				if(frame == 60) first = Vector2(640, 200);
-				position.x = sin((frame - 60) * (2 * (M_PI / 180))) * 160 + first.x;
-				position.y = sin((frame - 60) * (4 * (M_PI / 180))) * 80 + first.y;
-			}
-			break;
-		case 2:
 			if(frame < 60) {
 				double t = (double)frame / 60.0;
 				position.y = (200.0 * t) + first.y;
 			}
 			break;
-		case 3:
+		case 2:
 			if(frame < 60) {
 				double t = (double)frame / 60.0;
 				position.y = (200.0 * t) + first.y;

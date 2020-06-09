@@ -14,7 +14,7 @@ void CollisionCtrl::Update() {
     // PlayerBullets & Scraps
     for(auto PB_itr = player->bulletVec.begin(); PB_itr != player->bulletVec.end();) {
         if((*PB_itr)->bulletType == 2) {
-            ++PB_itr;
+            PB_itr++;
         } else {
             if(scrapsCtrl->scrapVec.size() == 0) break;
             bool hitted = false;
@@ -27,7 +27,7 @@ void CollisionCtrl::Update() {
                             gameCtrl->scrapMagniGage = 100;
                             S_itr = scrapsCtrl->scrapVec.erase(S_itr);
                         } else {
-                            ++S_itr;
+                            S_itr++;
                         }
                     } else {
                         PB_itr = player->bulletVec.erase(PB_itr);
@@ -35,10 +35,10 @@ void CollisionCtrl::Update() {
                         break;
                     }
                 } else {
-                    ++S_itr;
+                    S_itr++;
                 }
             }
-            if(!hitted)  ++PB_itr;
+            if(!hitted)  PB_itr++;
         }
     }
     // PlayerBullets & Enemy
@@ -55,7 +55,7 @@ void CollisionCtrl::Update() {
                             gameCtrl->score += (100 * gameCtrl->scrapMagni) / 10;
                             E_itr = enemyCtrl->enemysVec.erase(E_itr);
                         } else {
-                            ++E_itr;
+                            E_itr++;
                         }
                     } else {
                         PB_itr = player->bulletVec.erase(PB_itr);
@@ -64,10 +64,10 @@ void CollisionCtrl::Update() {
                     break;
                 }
             }
-            if(!hitted) ++E_itr;
+            if(!hitted) E_itr++;
             else break;
         }
-        if(!hitted) ++PB_itr;
+        if(!hitted) PB_itr++;
     }
     // Player & EnemyBullets
     auto EBitr = EBC->bulletsVec.begin();
@@ -76,7 +76,18 @@ void CollisionCtrl::Update() {
             EBitr = EBC->bulletsVec.erase(EBitr);
             player->HitFunc();
         } else {
-            ++EBitr;
+            EBitr++;
+        }
+    }
+    // Player & Scraps
+    for(auto S_itr = scrapsCtrl->scrapVec.begin(); S_itr != scrapsCtrl->scrapVec.end();) {
+        if(CollisionCheck(player->collider, (*S_itr)->collider)) {
+            S_itr = scrapsCtrl->scrapVec.erase(S_itr);
+            if(gameCtrl->scrapMagni > 10) gameCtrl->scrapMagni--;
+            gameCtrl->scrapMagniGage = 0;
+            player->HitFunc();
+        } else {
+            S_itr++;
         }
     }
     // Player & Enemy

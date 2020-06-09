@@ -22,8 +22,8 @@ bool EBullet_01::Moving() {
 
 	collider->Update();
 
-	return (position.x + radius >= GAME_WINDOW_X1 && position.x - radius <= GAME_WINDOW_X2 &&
-			position.y + radius >= GAME_WINDOW_Y1 && position.y - radius <= GAME_WINDOW_Y2);
+	return (position.x + radius >= 0 && position.x - radius <= GAME_WINDOW_XSIZE &&
+			position.y + radius >= 0 && position.y - radius <= GAME_WINDOW_YSIZE);
 }
 
 void EBullet_01::Draw() {
@@ -43,8 +43,8 @@ bool EBullet_02::Moving() {
 
 	collider->Update();
 
-	return (position.x + radius >= GAME_WINDOW_X1 && position.x - radius <= GAME_WINDOW_X2 &&
-			position.y + radius >= GAME_WINDOW_Y1 && position.y - radius <= GAME_WINDOW_Y2);
+	return (position.x + radius >= 0 && position.x - radius <= GAME_WINDOW_XSIZE &&
+			position.y + radius >= 0 && position.y - radius <= GAME_WINDOW_YSIZE);
 }
 
 void EBullet_02::Draw() {

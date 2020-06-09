@@ -87,5 +87,4 @@ void GameController::Update_UI() {
     DrawString(10, 35, score_str.c_str(), GetColor(0, 200, 0));
     DrawString(10, 60, scmag_str.c_str(), GetColor(0, 200, 0));
     DrawString(10, 80, scmag_Gage.c_str(), GetColor(0, 200, 0));
-    DrawString(10, 80, scmag_Gage.c_str(), GetColor(0, 200, 0));
 }

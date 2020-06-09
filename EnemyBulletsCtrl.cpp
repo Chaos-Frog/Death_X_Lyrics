@@ -19,7 +19,7 @@ void EnemyBulletsCtrl::Update() {
 }
 
 void EnemyBulletsCtrl::SetEnemyBullet(int type, const Vector2 pos, double speed, double degAngle, double size) {
-	if(pos.x >= GAME_WINDOW_X1 && pos.x <= GAME_WINDOW_X2 && pos.y >= GAME_WINDOW_Y1 && pos.y <= GAME_WINDOW_Y2) {
+	if(pos.x >= 0 && pos.x <= GAME_WINDOW_XSIZE && pos.y >= 0 && pos.y <= GAME_WINDOW_YSIZE) {
 		switch(type) {
 			case 1:
 				bulletsVec.emplace_back(new EBullet_01(pos, speed, degAngle * (M_PI/180), size, assets));

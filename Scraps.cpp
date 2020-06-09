@@ -18,7 +18,7 @@ void Scraps::Draw() {}
 
 
 Scrap_S::Scrap_S(Vector2* pos, Assets* imgs) : Scraps(pos) {
-    HP = 3;
+    HP = 2;
     image = imgs->scrap_S;
     collider = new Circle_C(&position, Vector2(0, 0), cr);
 }
@@ -40,7 +40,7 @@ bool Scrap_S::Moving() {
 
     position.x += x_vel;
     position.y += y_vel;
-    if(position.x < GAME_WINDOW_X1 + cr || position.x > GAME_WINDOW_X2 - cr) {
+    if(position.x < cr || position.x > GAME_WINDOW_XSIZE - cr) {
         x_vel = -x_vel;
         position.x += x_vel;
     }
@@ -49,8 +49,8 @@ bool Scrap_S::Moving() {
 
     frame++;
 
-    if(position.y > GAME_WINDOW_Y2 + cr) return false;
-    else                                 return true;
+    if(position.y > GAME_WINDOW_YSIZE + cr) return false;
+    else                                    return true;
 }
 
 void Scrap_S::Draw() {
