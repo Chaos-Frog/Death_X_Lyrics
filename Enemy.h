@@ -15,11 +15,15 @@ class Enemy {
         int frame;
         int movePatern;
         int danmakuPatern;
+        bool invincible;
         Player* player;
         EnemyBulletsCtrl* EBC;
         ScrapsCtrl* SC;
 
         double TargetPlayerAngle();
+        virtual void Moving();
+        virtual void Danmaku();
+
     public:
         Vector2 position;
         std::vector<Collider*> colliders;
@@ -27,7 +31,8 @@ class Enemy {
         int HP;
 
         Enemy(int type, Vector2* pos, int hp, int mp, int dp, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
-        virtual void Update();
+        void Update();
+        virtual void Draw();
         virtual void DeathFunc();
 };
 

@@ -11,6 +11,8 @@ Player::Player(Assets* img) {
     rotate = 0;
     shotCT = 0;
     missileCT = 0;
+    bomber = false;
+    bomberCT = 0;
     hitCT = 0;
 }
 
@@ -25,6 +27,7 @@ void Player::Update() {
     Moving();
     collider->Update();
     Shot();
+    Bomber();
     Draw();
     frame++;
 }
@@ -99,6 +102,30 @@ void Player::Shot() {
         } else {
             itr = bulletVec.erase(itr);
         }
+    }
+}
+
+void Player::Bomber() {
+    if(CheckHitKey(KEY_INPUT_K)) {
+        if(!bomber) {
+            bomber = true;
+            bomberCT = 100;
+        }
+    }
+
+    if(bomberCT > 0) {
+        bomberCT--;
+        if(bomberCT == 0) bomber = false;
+    }
+    
+    // TEST
+    if(bomber) {
+        SetFontSize(100);
+        std::random_device rnd;
+        std::mt19937 mt(rnd());
+        std::uniform_int_distribution<int> dist(-20, 20);
+        std::uniform_int_distribution<int> distColor(0, 255);
+        DrawString(100 + dist(mt), 260 + dist(mt), "BOMBER!!!", GetColor(distColor(mt), distColor(mt), distColor(mt)));
     }
 }
 

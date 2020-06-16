@@ -14,11 +14,10 @@ class Enemy001 : public Enemy {
 
         void Moving();
         void Danmaku();
-        void Draw();
 
     public:
         Enemy001(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
-        void Update();
-        void DeathFunc();
+        void Draw() override;
+        void DeathFunc() override;
 };
 

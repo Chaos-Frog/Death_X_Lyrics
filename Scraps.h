@@ -31,6 +31,6 @@ class Scrap_S : public Scraps {
 
         Scrap_S(Vector2* pos, Assets* imgs);
         ~Scrap_S();
-        bool Moving();
-        void Draw();
+        bool Moving() override;
+        void Draw() override;
 };

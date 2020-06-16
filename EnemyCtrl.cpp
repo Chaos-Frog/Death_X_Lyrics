@@ -11,8 +11,14 @@ EnemyCtrl::~EnemyCtrl() {
 }
 
 void EnemyCtrl::Update() {
-	for(auto &itr : enemysVec) {
-		(*itr).Update();
+	for(auto itr : enemysVec) {
+		itr->Update();
+	}
+}
+
+void EnemyCtrl::Draw() {
+	for(auto itr : enemysVec) {
+		itr->Draw();
 	}
 }
 

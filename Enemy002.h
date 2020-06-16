@@ -13,12 +13,11 @@ class Enemy002 : public Enemy {
         double angle;
         Vector2 shotPos[2] = {Vector2(20, 0), Vector2(-20, 0)};
 
-        void Moving();
-        void Danmaku();
-        void Draw();
+        void Moving() override;
+        void Danmaku() override;
     
     public:
         Enemy002(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
-        void Update();
-        void DeathFunc();
+        void Draw() override;
+        void DeathFunc() override;
 };

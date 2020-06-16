@@ -2,6 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
+#include <random>
 #include "Define.h"
 #include "Assets.h"
 #include "Vector2.h"
@@ -22,14 +23,17 @@ class Player {
         int rotate;
         int shotCT;
         int missileCT;
+        int bomberCT;
 
         void Moving();
         void Shot();
+        void Bomber();
         void Draw();
     public:
         Vector2 position;
         Collider* collider;
         std::vector<PlayerBullet*> bulletVec;
+        bool bomber;
         int hitCT;
 
         Player(Assets* img);

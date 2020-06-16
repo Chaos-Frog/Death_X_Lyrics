@@ -41,7 +41,11 @@ void GameController::Update() {
 
     if(frame%2 == 0) colCtrl->Update();
 
+    if(player->bomber) ebc->DeleteAllBullet();
+
+    ebc->Draw();
     sc->Draw();
+    ec->Draw();
     player->DrawBullets();
 
     /* Collider Debug */
@@ -81,10 +85,12 @@ void GameController::Update_UI() {
     for(int i = 0; i < ceil(scrapMagniGage / 10); i++) {
         scmag_Gage += "¡";
     }
+    std::string scmag_Gage_BG = "¡¡¡¡¡¡¡¡¡¡";
 
     SetFontSize(20);
     DrawString(10, 10, str.c_str(), GetColor(0, 200, 0));
     DrawString(10, 35, score_str.c_str(), GetColor(0, 200, 0));
     DrawString(10, 60, scmag_str.c_str(), GetColor(0, 200, 0));
+    DrawString(10, 80, scmag_Gage_BG.c_str(), GetColor(0, 80, 0));
     DrawString(10, 80, scmag_Gage.c_str(), GetColor(0, 200, 0));
 }

@@ -17,6 +17,7 @@ class EnemyCtrl {
         EnemyCtrl(Assets* img, Player* pl, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
         ~EnemyCtrl();
         void Update();
+        void Draw();
         void SetEnemy(int type, Vector2* pos, int mp, int dp);
 };
 

@@ -8,18 +8,6 @@ Enemy002::Enemy002(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBul
 	colliders.emplace_back(new Circle_C(&position, Vector2(0, 0), 25));
 }
 
-void Enemy002::Update() {
-	Moving();
-	Draw();
-	Danmaku();
-
-	for(auto col : colliders) {
-		col->Update();
-	}
-
-	frame++;
-}
-
 void Enemy002::Moving() {
 	switch(movePatern) {
 		case 1:

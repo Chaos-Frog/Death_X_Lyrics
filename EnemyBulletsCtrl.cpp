@@ -10,11 +10,16 @@ EnemyBulletsCtrl::~EnemyBulletsCtrl() {
 void EnemyBulletsCtrl::Update() {
 	for(auto itr = bulletsVec.begin(); itr != bulletsVec.end(); ) {
 		if((*itr)->Moving()) {
-			(*itr)->Draw();
 			itr++;
 		} else {
 			itr = bulletsVec.erase(itr);
 		}
+	}
+}
+
+void EnemyBulletsCtrl::Draw() {
+	for(auto itr : bulletsVec) {
+		itr->Draw();
 	}
 }
 
