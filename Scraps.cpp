@@ -1,20 +1,33 @@
 #include "Scraps.h"
 Scraps::Scraps(Vector2* pos) {
     position = *pos;
+    death = false;
+    hitP = false;
 
     std::random_device rnd;
-    std::mt19937 mtx(rnd());
+    std::mt19937 mt(rnd());
     std::uniform_real_distribution<double> rndX(-4, 4);
-    std::mt19937 mty(rnd());
     std::uniform_real_distribution<double> rndY(-8, -2);
-    x_vel = rndX(mtx);
-    y_vel = rndY(mty);
+    x_vel = rndX(mt);
+    y_vel = rndY(mt);
 
     frame = 0;
 }
 Scraps::~Scraps() {}
+
+bool Scraps::Update() {
+    if(!death) return Moving();
+    else       return DeathFunc();
+}
+
+void Scraps::Dagame(int dmg) {
+    HP -= dmg;
+    if(HP <= 0) death = true;
+}
+
 bool Scraps::Moving() { return false; }
 void Scraps::Draw() {}
+bool Scraps::DeathFunc() { return false; }
 
 
 Scrap_S::Scrap_S(Vector2* pos, Assets* imgs) : Scraps(pos) {
@@ -49,11 +62,19 @@ bool Scrap_S::Moving() {
 
     frame++;
 
-    if(position.y > GAME_WINDOW_YSIZE + cr) return false;
-    else                                    return true;
+    if(position.y > GAME_WINDOW_YSIZE + cr) {
+        death = true;
+        return false;
+    } else {
+        return true;
+    }
 }
 
 void Scrap_S::Draw() {
     int num = frame / 4 % 6;
     DrawGraph(round(position.x) - 20, round(position.y) - 20, image[num], TRUE);
+}
+
+bool Scrap_S::DeathFunc() {
+    return false;
 }

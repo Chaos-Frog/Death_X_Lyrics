@@ -13,24 +13,28 @@ class Scraps {
         double x_vel, y_vel;
     public:
         int HP;
+        bool death, hitP;
         Vector2 position;
         Collider* collider;
 
         Scraps(Vector2* pos);
         ~Scraps();
+        bool Update();
+        void Dagame(int dmg);
         virtual bool Moving();
         virtual void Draw();
+        virtual bool DeathFunc();
 };
 
 class Scrap_S : public Scraps {
     private:
         int* image;
-
-    public:
         double cr = 16;
 
+    public:
         Scrap_S(Vector2* pos, Assets* imgs);
         ~Scrap_S();
         bool Moving() override;
         void Draw() override;
+        bool DeathFunc() override;
 };

@@ -3,8 +3,8 @@
 #include "GameController.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    // ウィンドウ設定 //
-    // デフォ 1280x720 //
+    /* ウィンドウ設定  */
+    /* デフォ 1280x720 */
     ChangeWindowMode(TRUE);
     SetGraphMode(1280, 720, 32);
     SetWindowSizeChangeEnableFlag(FALSE);
@@ -28,7 +28,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         yp2 = round(sizeY - difY);
     }
     
-    // ゲーム処理 //
+    /* ゲーム処理 */
     Assets image;
     GameController game(&image);
     int screenGame = MakeScreen(640, 720, TRUE);

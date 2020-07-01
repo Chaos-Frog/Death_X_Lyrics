@@ -9,7 +9,7 @@ EnemyBulletsCtrl::~EnemyBulletsCtrl() {
 
 void EnemyBulletsCtrl::Update() {
 	for(auto itr = bulletsVec.begin(); itr != bulletsVec.end(); ) {
-		if((*itr)->Moving()) {
+		if((*itr)->Update()) {
 			itr++;
 		} else {
 			itr = bulletsVec.erase(itr);
@@ -39,5 +39,7 @@ void EnemyBulletsCtrl::SetEnemyBullet(int type, const Vector2 pos, double speed,
 }
 
 void EnemyBulletsCtrl::DeleteAllBullet() {
-	bulletsVec.clear();
+	for(auto itr : bulletsVec) {
+		itr->DeathFunc();
+	}
 }

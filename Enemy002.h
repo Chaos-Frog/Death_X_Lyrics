@@ -17,7 +17,7 @@ class Enemy002 : public Enemy {
         void Danmaku() override;
     
     public:
-        Enemy002(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
+        Enemy002(Vector2* pos, int mp, int dp, int* img, GameController* gc);
         void Draw() override;
-        void DeathFunc() override;
+        bool DeathFunc() override;
 };

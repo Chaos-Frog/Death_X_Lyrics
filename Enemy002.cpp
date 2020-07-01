@@ -1,5 +1,5 @@
 #include "Enemy002.h"
-Enemy002::Enemy002(Vector2* pos, int mp, int dp, int* img, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) : Enemy(1, pos, 10, mp, dp, pla, ebc, sc) {
+Enemy002::Enemy002(Vector2* pos, int mp, int dp, int* img, GameController* gc) : Enemy(1, pos, 5, 100, mp, dp, false, gc) {
 	image = img;
 	imgNum = 0;
 	first = position;
@@ -57,8 +57,8 @@ void Enemy002::Danmaku() {
 					double a = angle * (M_PI/180.0f);
 					shotPos[0] = Vector2(cos(a) * 20, sin(a) * 20);
 					shotPos[1] = Vector2(cos(a) * -20, sin(a) * -20);
-					EBC->SetEnemyBullet(2, position + shotPos[0], 3, angle + 90, 0.6);
-					EBC->SetEnemyBullet(2, position + shotPos[1], 3, angle + 90, 0.6);
+					SetEnemyBullet(2, position + shotPos[0], 3, angle + 90, 0.6);
+					SetEnemyBullet(2, position + shotPos[1], 3, angle + 90, 0.6);
 				}
 			}
 			break;
@@ -82,8 +82,7 @@ void Enemy002::Draw() {
 	}
 }
 
-void Enemy002::DeathFunc() {
-	for(int i = 0; i < 2; i++) {
-		SC->SetScrap(1, &position);
-	}
+bool Enemy002::DeathFunc() {
+	SetScrap(1, 2, &position);
+	return true;
 }

@@ -9,15 +9,15 @@
 #include "Collider.h"
 #include "PlayerBullet.h"
 
-#define SIZE_X 120
-#define SIZE_Y 100
-#define SPEED 4
+#define MOVE_X_MAX GAME_WINDOW_XSIZE - 60.0
+#define MOVE_X_MIN 60.0
+#define MOVE_Y_MAX GAME_WINDOW_YSIZE - 60.0
+#define MOVE_Y_MIN 60.0
 
 class Player {
-    private:
+    protected:
         Assets* imgs;
-        int* playerImgs;
-        int* playerImgs_Hit;
+        double speed;
         int frame;
         int imgNum;
         int rotate;
@@ -25,10 +25,13 @@ class Player {
         int missileCT;
         int bomberCT;
 
-        void Moving();
-        void Shot();
-        void Bomber();
-        void Draw();
+        void Moving(); // 移動
+        void Shot();   // ショット、ミサイル
+        void Bomber(); // ボンバー
+        virtual void SetShot();         // ショット発射_V
+        virtual void SetMissile();      // ミサイル発射_V
+        virtual void AnimationBomber(); // ボンバーアニメーション_V
+
     public:
         Vector2 position;
         Collider* collider;
@@ -38,8 +41,9 @@ class Player {
 
         Player(Assets* img);
         ~Player();
-        void Update();
-        void DrawBullets();
-        void HitFunc();
+        void Update();            // 一連処理
+        void DrawBullets();       // ショット、ミサイル描画
+        virtual void DrawPlane(); // 機体描画_V
+        virtual void HitFunc();   // 被弾処理_V
 };
 

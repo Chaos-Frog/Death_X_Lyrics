@@ -5,9 +5,7 @@
 #include "DxLib.h"
 #include "Vector2.h"
 #include "Collider.h"
-#include "Player.h"
-#include "EnemyBulletsCtrl.h"
-#include "ScrapsCtrl.h"
+class GameController;
 
 class Enemy {
     private:
@@ -15,12 +13,11 @@ class Enemy {
         int frame;
         int movePatern;
         int danmakuPatern;
-        bool invincible;
-        Player* player;
-        EnemyBulletsCtrl* EBC;
-        ScrapsCtrl* SC;
+        GameController* gameCtrl;
 
         double TargetPlayerAngle();
+        void SetEnemyBullet(int type, const Vector2 pos, double speed, double degAngle, double size);
+        void SetScrap(int type, int num, Vector2* pos);
         virtual void Moving();
         virtual void Danmaku();
 
@@ -28,11 +25,15 @@ class Enemy {
         Vector2 position;
         std::vector<Collider*> colliders;
         int enemyType;
+        bool invincible;
+        bool onGround;
         int HP;
+        int score;
 
-        Enemy(int type, Vector2* pos, int hp, int mp, int dp, Player* pla, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc);
-        void Update();
+        Enemy(int type, Vector2* pos, int hp, int s, int mp, int dp, bool onG, GameController* gc);
+        bool Update();
+        void Damage(int dmg);
         virtual void Draw();
-        virtual void DeathFunc();
+        virtual bool DeathFunc();
 };
 

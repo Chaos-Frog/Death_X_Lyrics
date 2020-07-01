@@ -5,19 +5,28 @@ PlayerBullet::PlayerBullet(int type, Vector2* pos, double rad, Assets* img) {
     angle = rad;
     imgs = img;
     hitted = false;
+    active = true;
     frame = 0;
 }
 PlayerBullet::~PlayerBullet() {}
+
+bool PlayerBullet::Update() {
+    if(MoveBullet()) {
+        return true;
+    } else {
+        active = false;
+        return false;
+    }
+}
+
 bool PlayerBullet::MoveBullet() { return false; }
 void PlayerBullet::Draw() {}
 bool PlayerBullet::HitFunc() { return false; }
 
 
 P_Bullet::P_Bullet(Vector2* pos, double rad, Assets* img) : PlayerBullet(1, pos, rad, img) {
-    velocity = 16;
+    velocity = 20;
     size = 16;
-    cr = 10;
-
     collider = new Circle_C(&position, Vector2(0, 0), 10.0f);
 }
 
@@ -30,7 +39,7 @@ bool P_Bullet::MoveBullet() {
 
     collider->Update();
 
-    if(position.x < -size || position.x >(double)GAME_WINDOW_XSIZE + size || position.y < -size || position.y >(double)GAME_WINDOW_YSIZE + size) {
+    if(position.x < -size || position.x > (double)GAME_WINDOW_XSIZE + size || position.y < -size || position.y > (double)GAME_WINDOW_YSIZE + size) {
         return false;
     } else {
         return true;
@@ -54,7 +63,6 @@ bool P_Bullet::HitFunc() {
 P_Missile::P_Missile(Vector2* pos, double rad, Assets* img) : PlayerBullet(2, pos, rad, img) {
     velocity = 0;
     size = 32;
-    cr = 20;
     collider = new Box_C(&position, Vector2(0, 0), 32.0f, 64.0f);
 }
 
@@ -77,7 +85,7 @@ bool P_Missile::MoveBullet() {
 
     collider->Update();
 
-    if(position.x < -size || position.x >(double)GAME_WINDOW_XSIZE + size || position.y < -size || position.y >(double)GAME_WINDOW_YSIZE + size) {
+    if(position.x < -size || position.x > (double)GAME_WINDOW_XSIZE + size || position.y < -size || position.y > (double)GAME_WINDOW_YSIZE + size) {
         return false;
     } else {
         return true;
@@ -95,7 +103,6 @@ bool P_Missile::HitFunc() {
         velocity = 2;
         hitted = true;
         size = 50;
-        cr = 40;
         collider = new Circle_C(&position, Vector2(0, 0), 40.0f);
     }
     return true;

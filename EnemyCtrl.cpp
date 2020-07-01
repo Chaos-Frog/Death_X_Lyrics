@@ -1,9 +1,9 @@
 #include "EnemyCtrl.h"
-EnemyCtrl::EnemyCtrl(Assets* img, Player* pl, EnemyBulletsCtrl* ebc, ScrapsCtrl* sc) {
+#include "GameController.h"
+
+EnemyCtrl::EnemyCtrl(Assets* img, GameController* gc) {
 	images = img;
-	player = pl;
-	EBC = ebc;
-	SC = sc;
+	gameCtrl = gc;
 }
 
 EnemyCtrl::~EnemyCtrl() {
@@ -11,8 +11,12 @@ EnemyCtrl::~EnemyCtrl() {
 }
 
 void EnemyCtrl::Update() {
-	for(auto itr : enemysVec) {
-		itr->Update();
+	for(auto itr = enemysVec.begin(); itr != enemysVec.end();) {
+		if((*itr)->Update()) {
+			itr = enemysVec.erase(itr);
+		} else {
+			itr++;
+		}
 	}
 }
 
@@ -25,10 +29,10 @@ void EnemyCtrl::Draw() {
 void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {
 	switch(type) {
 		case 1:
-			enemysVec.emplace_back(new Enemy001(pos, mp, dp, images->enemy001, player, EBC, SC));
+			enemysVec.emplace_back(new Enemy001(pos, mp, dp, images->enemy001, gameCtrl));
 			break;
 		case 2:
-			enemysVec.emplace_back(new Enemy002(pos, mp, dp, images->enemy002, player, EBC, SC));
+			enemysVec.emplace_back(new Enemy002(pos, mp, dp, images->enemy002, gameCtrl));
 			break;
 		default:
 			break;

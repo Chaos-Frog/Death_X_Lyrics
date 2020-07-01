@@ -16,12 +16,13 @@ class PlayerBullet {
 
     public:
         int bulletType;
-        double cr;
+        bool active;
         Vector2 position;
         Collider* collider;
 
         PlayerBullet(int type, Vector2* pos, double rad, Assets* img);
         ~PlayerBullet();
+        bool Update();
         virtual bool MoveBullet();
         virtual void Draw();
         virtual bool HitFunc();
