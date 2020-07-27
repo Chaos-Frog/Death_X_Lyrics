@@ -1,4 +1,5 @@
 #include "Assets.h"
+
 Assets::Assets() {
     LoadDivGraph("Assets/Player01.png", 12, 4, 3, 120, 100, player01);
     LoadDivGraph("Assets/Player01_Hit.png", 12, 4, 3, 120, 100, player01_Hit);

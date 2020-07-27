@@ -14,7 +14,9 @@
 #define MOVE_Y_MAX GAME_WINDOW_YSIZE - 60.0
 #define MOVE_Y_MIN 60.0
 
+/* プレイヤー基底クラス */
 class Player {
+    private:
     protected:
         Assets* imgs;
         double speed;

@@ -9,6 +9,7 @@
 #include "EnemyBulletsCtrl.h"
 #include "ScrapsCtrl.h"
 
+/* ƒQ[ƒ€ˆ—ƒNƒ‰ƒX */
 class GameController {
     private:
     public:

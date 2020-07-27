@@ -10,6 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetWindowSizeChangeEnableFlag(FALSE);
     if(DxLib_Init() == -1) return -1;
 
+    /* âÊñ î‰ó¶í≤êÆ */
     double ratio = 0.5625;
     int sizeX, sizeY, cb;
     GetScreenState(&sizeX, &sizeY, &cb);

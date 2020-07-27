@@ -1,5 +1,6 @@
 #include "GameController.h"
 #include <random>
+
 GameController::GameController(Assets* img) {
     player = new Player_A(img);
     ebulCtrl = new EnemyBulletsCtrl(img);

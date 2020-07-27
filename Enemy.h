@@ -2,7 +2,6 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
-#include "DxLib.h"
 #include "Vector2.h"
 #include "Collider.h"
 class GameController;
