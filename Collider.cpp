@@ -76,7 +76,7 @@ void Line_C::DebugDraw() {
 
 
 /* Õ“Ë”»’èˆ—ŒS */
-bool CollisionCheck(const Collider* c1, const Collider* c2) {
+bool CheckCollision(const Collider* c1, const Collider* c2) {
     ColliderParam cp1, cp2;
     cp1 = c1->GetParameter();
     cp2 = c2->GetParameter();

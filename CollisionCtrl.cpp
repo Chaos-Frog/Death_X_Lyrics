@@ -29,7 +29,7 @@ void CollisionCtrl::PBullet_Enemy() {
                 for(auto E_itr : enemyCtrl->enemysVec) {
                     if(E_itr->HP > 0) {
                         for(auto enemyCol : E_itr->colliders) {
-                            if(CollisionCheck(PB_itr->collider, enemyCol)) {
+                            if(CheckCollision(PB_itr->collider, enemyCol)) {
                                 if(PB_itr->HitFunc()) E_itr->Damage(1);
                                 break;
                             }
@@ -47,7 +47,7 @@ void CollisionCtrl::PBullet_Scraps() {
             if(PB_itr->bulletType == 1 && PB_itr->active) {
                 for(auto S_itr : scrapsCtrl->scrapVec) {
                     if(!S_itr->death) {
-                        if(CollisionCheck(PB_itr->collider, S_itr->collider)) {
+                        if(CheckCollision(PB_itr->collider, S_itr->collider)) {
                             if(PB_itr->HitFunc()) {
                                 S_itr->Dagame(1);
                                 if(S_itr->HP <= 0) gameCtrl->AddScore(10, false);
@@ -65,7 +65,7 @@ bool CollisionCtrl::Player_Enemy() {
     for(auto enemy : enemyCtrl->enemysVec) {
         if(!enemy->onGround) {
             for(auto col : enemy->colliders) {
-                if(CollisionCheck(player->collider, col)) {
+                if(CheckCollision(player->collider, col)) {
                     player->HitFunc();
                     return true;
                 }
@@ -78,7 +78,7 @@ bool CollisionCtrl::Player_Enemy() {
 bool CollisionCtrl::Player_EBullet() {
     for(auto eBullet : eBulletsCtrl->bulletsVec) {
         if(!eBullet->death) {
-            if(CollisionCheck(eBullet->collider, player->collider)) {
+            if(CheckCollision(eBullet->collider, player->collider)) {
                 eBullet->DeathFunc();
                 player->HitFunc();
                 return true;
@@ -91,7 +91,7 @@ bool CollisionCtrl::Player_EBullet() {
 void CollisionCtrl::Player_Scraps() {
     for(auto S_itr : scrapsCtrl->scrapVec) {
         if(!S_itr->death) {
-            if(CollisionCheck(player->collider, S_itr->collider)) {
+            if(CheckCollision(player->collider, S_itr->collider)) {
                 player->HitFunc();
                 S_itr->hitP = true;
             }
