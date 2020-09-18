@@ -11,22 +11,38 @@ CollisionCtrl::CollisionCtrl(GameController* gc) {
 CollisionCtrl::~CollisionCtrl() {}
 
 void CollisionCtrl::Update() {
-    PBullet_Scraps();
-    PBullet_Enemy();
+    Check_PBullet_Scraps_Collision();
+    Check_PBullet_Enemy_Collision();
 
     // 被弾判定は2fに1回 偶数F:被弾、奇数F:スクラップ
     if(gameCtrl->frame % 2 == 0) {
-        if(!Player_EBullet()) Player_Enemy();
+        if(!Check_Player_EBullet_Collision()) Check_Player_Enemy_Collision();
     } else {
-        Player_Scraps();
+        Check_Player_Scraps_Collision();
     }
 }
 
-void CollisionCtrl::PBullet_Enemy() {
-    if(enemyCtrl->enemysVec.size() != 0) {
+void CollisionCtrl::Check_PBullet_Enemy_Collision() {
+    if(enemyCtrl->enemysVec_Air.size() != 0) {
         for(auto PB_itr : player->bulletVec) {
             if(PB_itr->active) {
-                for(auto E_itr : enemyCtrl->enemysVec) {
+                for(auto E_itr : enemyCtrl->enemysVec_Air) {
+                    if(E_itr->HP > 0) {
+                        for(auto enemyCol : E_itr->colliders) {
+                            if(CheckCollision(PB_itr->collider, enemyCol)) {
+                                if(PB_itr->HitFunc()) E_itr->Damage(1);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(enemyCtrl->enemysVec_Ground.size() != 0) {
+        for(auto PB_itr : player->bulletVec) {
+            if(PB_itr->active) {
+                for(auto E_itr : enemyCtrl->enemysVec_Ground) {
                     if(E_itr->HP > 0) {
                         for(auto enemyCol : E_itr->colliders) {
                             if(CheckCollision(PB_itr->collider, enemyCol)) {
@@ -41,7 +57,7 @@ void CollisionCtrl::PBullet_Enemy() {
     }
 }
 
-void CollisionCtrl::PBullet_Scraps() {
+void CollisionCtrl::Check_PBullet_Scraps_Collision() {
     if(scrapsCtrl->scrapVec.size() != 0) {
         for(auto PB_itr : player->bulletVec) {
             if(PB_itr->bulletType == 1 && PB_itr->active) {
@@ -61,8 +77,8 @@ void CollisionCtrl::PBullet_Scraps() {
     }
 }
 
-bool CollisionCtrl::Player_Enemy() {
-    for(auto enemy : enemyCtrl->enemysVec) {
+bool CollisionCtrl::Check_Player_Enemy_Collision() {
+    for(auto enemy : enemyCtrl->enemysVec_Air) {
         if(!enemy->onGround) {
             for(auto col : enemy->colliders) {
                 if(CheckCollision(player->collider, col)) {
@@ -75,7 +91,7 @@ bool CollisionCtrl::Player_Enemy() {
     return false;
 }
 
-bool CollisionCtrl::Player_EBullet() {
+bool CollisionCtrl::Check_Player_EBullet_Collision() {
     for(auto eBullet : eBulletsCtrl->bulletsVec) {
         if(!eBullet->death) {
             if(CheckCollision(eBullet->collider, player->collider)) {
@@ -88,7 +104,7 @@ bool CollisionCtrl::Player_EBullet() {
     return false;
 }
 
-void CollisionCtrl::Player_Scraps() {
+void CollisionCtrl::Check_Player_Scraps_Collision() {
     for(auto S_itr : scrapsCtrl->scrapVec) {
         if(!S_itr->death) {
             if(CheckCollision(player->collider, S_itr->collider)) {

@@ -8,6 +8,7 @@
 #include "CollisionCtrl.h"
 #include "EnemyBulletsCtrl.h"
 #include "ScrapsCtrl.h"
+#include "Stage_1.h"
 
 /* ƒQ[ƒ€ˆ—ƒNƒ‰ƒX */
 class GameController {
@@ -18,6 +19,8 @@ class GameController {
         int scrapMagni;
         int scrapMagniGage;
         Player* player;
+        StageBase* stage;
+
         EnemyCtrl* eneCtrl;
         EnemyBulletsCtrl* ebulCtrl;
         ScrapsCtrl* scrCtrl;

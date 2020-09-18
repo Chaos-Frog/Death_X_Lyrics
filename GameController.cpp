@@ -7,6 +7,7 @@ GameController::GameController(Assets* img) {
     scrCtrl = new ScrapsCtrl(img, this);
     eneCtrl = new EnemyCtrl(img, this);
     colCtrl = new CollisionCtrl(this);
+    stage = new StageBase(this, img, 0);
     
     frame = 1;
     score = 0;

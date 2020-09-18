@@ -18,11 +18,11 @@ class CollisionCtrl {
         EnemyBulletsCtrl* eBulletsCtrl;
         ScrapsCtrl* scrapsCtrl;
 
-        void PBullet_Enemy();  // PlayerBullet‚ÆEnemy
-        void PBullet_Scraps(); // PlayerBullet‚ÆScraps
-        bool Player_Enemy();   // Player‚ÆEnemy
-        bool Player_EBullet(); // Player‚ÆEnemyBullet
-        void Player_Scraps();  // Player‚ÆScraps
+        void Check_PBullet_Enemy_Collision();  // PlayerBullet‚ÆEnemy
+        void Check_PBullet_Scraps_Collision(); // PlayerBullet‚ÆScraps
+        bool Check_Player_Enemy_Collision();   // Player‚ÆEnemy
+        bool Check_Player_EBullet_Collision(); // Player‚ÆEnemyBullet
+        void Check_Player_Scraps_Collision();  // Player‚ÆScraps
 
     public:
         CollisionCtrl(GameController* gc);

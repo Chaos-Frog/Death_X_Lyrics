@@ -7,13 +7,21 @@ EnemyCtrl::EnemyCtrl(Assets* img, GameController* gc) {
 }
 
 EnemyCtrl::~EnemyCtrl() {
-	enemysVec.clear();
+	enemysVec_Air.clear();
 }
 
 void EnemyCtrl::Update() {
-	for(auto itr = enemysVec.begin(); itr != enemysVec.end();) {
+	for(auto itr = enemysVec_Air.begin(); itr != enemysVec_Air.end();) {
 		if((*itr)->Update()) {
-			itr = enemysVec.erase(itr);
+			itr = enemysVec_Air.erase(itr);
+		} else {
+			itr++;
+		}
+	}
+
+	for(auto itr = enemysVec_Ground.begin(); itr != enemysVec_Ground.end();) {
+		if((*itr)->Update()) {
+			itr = enemysVec_Ground.erase(itr);
 		} else {
 			itr++;
 		}
@@ -21,7 +29,10 @@ void EnemyCtrl::Update() {
 }
 
 void EnemyCtrl::Draw() {
-	for(auto itr : enemysVec) {
+	for(auto itr : enemysVec_Ground) {
+		itr->Draw();
+	}
+	for(auto itr : enemysVec_Air) {
 		itr->Draw();
 	}
 }
@@ -29,10 +40,10 @@ void EnemyCtrl::Draw() {
 void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {
 	switch(type) {
 		case 1:
-			enemysVec.emplace_back(new Enemy001(pos, mp, dp, images->enemy001, gameCtrl));
+			enemysVec_Air.emplace_back(new Enemy001(pos, mp, dp, images->enemy001, gameCtrl));
 			break;
 		case 2:
-			enemysVec.emplace_back(new Enemy002(pos, mp, dp, images->enemy002, gameCtrl));
+			enemysVec_Air.emplace_back(new Enemy002(pos, mp, dp, images->enemy002, gameCtrl));
 			break;
 		default:
 			break;
