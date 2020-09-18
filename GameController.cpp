@@ -25,12 +25,11 @@ void GameController::Update() {
     // StageTEST
     DrawBox(0, 0, 640, 720, GetColor(150, 150, 150), TRUE);
     if(frame == 1 || eneCtrl->enemysVec.size() <= 0) {
-        //eneCtrl->SetEnemy(1, new Vector2(520, -130), 3, 2);
-        //eneCtrl->SetEnemy(1, new Vector2(420, -80), 2, 1);
-        //eneCtrl->SetEnemy(2, new Vector2(320, -130), 2, 1);
-        //eneCtrl->SetEnemy(1, new Vector2(220, -80), 2, 1);
-        //eneCtrl->SetEnemy(1, new Vector2(120, -130), 3, 2);
-        eneCtrl->SetEnemy(2, new Vector2(320, 0), 2, 1);
+        eneCtrl->SetEnemy(1, new Vector2(520, -130), 3, 2);
+        eneCtrl->SetEnemy(1, new Vector2(420, -80), 2, 1);
+        eneCtrl->SetEnemy(2, new Vector2(320, -130), 2, 1);
+        eneCtrl->SetEnemy(1, new Vector2(220, -80), 2, 1);
+        eneCtrl->SetEnemy(1, new Vector2(120, -130), 3, 2);
     }
     
     player->Update();

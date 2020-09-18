@@ -19,6 +19,8 @@ class StageBase {
         void SetStageEnemy();
 
     public:
+        Vector2 groundPos; // 地上座標（マップ左下(0, 0)）
+
         StageBase(GameController* gc, Assets* as, int stNum);
         ~StageBase();
         virtual void Update();

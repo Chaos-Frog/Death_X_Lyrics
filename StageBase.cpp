@@ -4,6 +4,7 @@
 StageBase::StageBase(GameController* gc, Assets* as, int stNum) {
     frame = 0;
     stageNum = stNum;
+    groundPos = Vector2(0, 0);
     enemyCount = 0;
     gameCtrl = gc;
     assets = as;

@@ -153,7 +153,6 @@ bool CL_Collision(const Vector2* v, const double cr, const Vector2* lv1, const V
     const Vector2 nearest = *lv1 + proj;
 
     return CC_Collision(v, cr, &nearest, 0) &&
-        pow(proj.x, 2) + pow(proj.y, 2) <= pow(lineV.x, 2) + pow(lineV.y, 2) &&
-        0 <= (proj.x * lineV.x) + (proj.y * lineV.y);
-
+           pow(proj.x, 2) + pow(proj.y, 2) <= pow(lineV.x, 2) + pow(lineV.y, 2) &&
+           0 <= (proj.x * lineV.x) + (proj.y * lineV.y);
 }
