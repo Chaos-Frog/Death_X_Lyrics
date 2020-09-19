@@ -81,32 +81,70 @@ bool CheckCollision(const Collider* c1, const Collider* c2) {
     cp1 = c1->GetParameter();
     cp2 = c2->GetParameter();
 
-    if(cp1.type == CIRCLE) {
-        if(cp2.type == CIRCLE) {
-            return CC_Collision(&cp1.centerPos, cp1.radius, &cp2.centerPos, cp2.radius);
-        } else if(cp2.type == BOX) {
-            return CB_Collision(&cp1.centerPos, cp1.radius, &cp2.pos1, &cp2.pos2);
-        } else if(cp2.type == LINE) {
-            return CL_Collision(&cp1.centerPos, cp1.radius, &cp2.pos1, &cp2.pos2);
-        } else {
+    switch(cp1.type) {
+        CIRCLE:
+            switch(cp2.type) {
+                CIRCLE:
+                    return CC_Collision(&cp1.centerPos, cp1.radius, &cp2.centerPos, cp2.radius);
+                    break;
+
+                BOX:
+                    return CB_Collision(&cp1.centerPos, cp1.radius, &cp2.pos1, &cp2.pos2);
+                    break;
+                
+                LINE:
+                    return CL_Collision(&cp1.centerPos, cp1.radius, &cp2.pos1, &cp2.pos2);
+                    break;
+
+                default:
+                    return false;
+                    break;
+            }
+            break;
+        
+        BOX:
+            switch(cp2.type) {
+                CIRCLE:
+                    return CB_Collision(&cp2.centerPos, cp2.radius, &cp1.pos1, &cp1.pos2);
+                    break;
+                
+                BOX:
+                    return BB_Collision(&cp1.pos1, &cp1.pos2, &cp2.pos1, &cp2.pos2);
+                    break;
+                
+                LINE:
+                    return BL_Collision(&cp1.pos1, &cp1.pos2, &cp2.pos1, &cp2.pos2);
+                    break;
+
+                default:
+                    return false;
+                    break;
+            }
+            break;
+
+        LINE:
+            switch(cp2.type) {
+                CIRCLE:
+                    return CL_Collision(&cp2.centerPos, cp2.radius, &cp1.pos1, &cp1.pos2);
+                    break;
+
+                BOX:
+                    return BL_Collision(&cp2.pos1, &cp2.pos2, &cp1.pos1, &cp1.pos2);
+                    break;
+
+                LINE:
+                    return LL_Collision(&cp1.pos1, &cp1.pos2, &cp2.pos1, &cp2.pos2);
+                    break;
+
+                default:
+                    return false;
+                    break;
+            }
+            break;
+
+        default:
             return false;
-        }
-    } else if(cp1.type == BOX) {
-        if(cp2.type == CIRCLE) {
-            return CB_Collision(&cp2.centerPos, cp2.radius, &cp1.pos1, &cp1.pos2);
-        } else if(cp2.type == BOX) {
-            return BB_Collision(&cp1.pos1, &cp1.pos2, &cp2.pos1, &cp2.pos2);
-        } else {
-            return false;
-        }
-    } else if(cp1.type == LINE) {
-        if(cp2.type == CIRCLE) {
-            return CL_Collision(&cp2.centerPos, cp2.radius, &cp1.pos1, &cp1.pos2);
-        } else {
-            return false;
-        }
-    } else {
-        return false;
+            break;
     }
 }
 
@@ -114,14 +152,6 @@ bool CC_Collision(const Vector2* v1, const double cr1, const Vector2* v2, const 
     const Vector2 dif = *v2 - *v1;
     const double radius = cr1 + cr2;
     return pow(dif.x, 2) + pow(dif.y, 2) <= pow(radius, 2);
-}
-
-bool BB_Collision(const Vector2* v1, const Vector2* v2, const Vector2* v3, const Vector2* v4) {
-    if(v1->x <= v4->x && v2->x >= v3->x && v1->y <= v4->y && v2->y >= v3->y) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 bool CB_Collision(const Vector2* v, const double cr, const Vector2* v1, const Vector2* v2) {
@@ -155,4 +185,32 @@ bool CL_Collision(const Vector2* v, const double cr, const Vector2* lv1, const V
     return CC_Collision(v, cr, &nearest, 0) &&
            pow(proj.x, 2) + pow(proj.y, 2) <= pow(lineV.x, 2) + pow(lineV.y, 2) &&
            0 <= (proj.x * lineV.x) + (proj.y * lineV.y);
+}
+
+bool BB_Collision(const Vector2* v1, const Vector2* v2, const Vector2* v3, const Vector2* v4) {
+    if(v1->x <= v4->x && v2->x >= v3->x && v1->y <= v4->y && v2->y >= v3->y) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool BL_Collision(const Vector2* v1, const Vector2* v2, const Vector2* lv1, const Vector2* lv2) {
+    if((v1->x <= lv1->x <= v2->x && v1->y >= lv1->y >= v2->y) || (v1->x <= lv2->x <= v2->x && v1->y >= lv2->y >= v2->y)) {
+        return true;
+    }
+
+    Vector2 upperRight = (v2->x, v1->y);
+    Vector2 lowerLeft = (v1->x, v2->y);
+
+    return LL_Collision(v1, v2, lv1, lv2) || LL_Collision(&lowerLeft, &upperRight, lv1, lv2);
+}
+
+bool LL_Collision(const Vector2* lv1, const Vector2* lv2, const Vector2* lv3, const Vector2* lv4) {
+    double t1 = (lv3->x - lv4->x) * (lv1->y - lv3->y) + (lv3->y - lv4->y) * (lv3->x - lv1->x);
+    double t2 = (lv3->x - lv4->x) * (lv2->y - lv3->y) + (lv3->y - lv4->y) * (lv3->x - lv2->x);
+    double t3 = (lv1->x - lv2->x) * (lv3->y - lv1->y) + (lv1->y - lv2->y) * (lv1->x - lv3->x);
+    double t4 = (lv1->x - lv2->x) * (lv4->y - lv1->y) + (lv1->y - lv2->y) * (lv1->x - lv4->x);
+
+    return t1 * t2 < 0 && t3 * t4 < 0;
 }
