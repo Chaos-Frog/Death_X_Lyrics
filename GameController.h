@@ -15,18 +15,19 @@ class GameController {
     private:
     public:
         int frame;
-        int score;
+        long score;
         int scrapMagni;
         int scrapMagniGage;
         Player* player;
         StageBase* stage;
 
+        Assets* assets;
         EnemyCtrl* eneCtrl;
         EnemyBulletsCtrl* ebulCtrl;
         ScrapsCtrl* scrCtrl;
         CollisionCtrl* colCtrl;
 
-        GameController(Assets* img);
+        GameController(Assets* as);
         ~GameController();
         void Update();
         void Update_UI();

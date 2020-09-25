@@ -1,13 +1,14 @@
 #include "GameController.h"
 #include <random>
 
-GameController::GameController(Assets* img) {
-    player = new Player_A(img);
-    ebulCtrl = new EnemyBulletsCtrl(img);
-    scrCtrl = new ScrapsCtrl(img, this);
-    eneCtrl = new EnemyCtrl(img, this);
+GameController::GameController(Assets* as) {
+    assets = as;
+    player = new Player_A(as);
+    ebulCtrl = new EnemyBulletsCtrl(as);
+    scrCtrl = new ScrapsCtrl(as, this);
+    eneCtrl = new EnemyCtrl(this);
     colCtrl = new CollisionCtrl(this);
-    stage = new StageBase(this, img, 0);
+    stage = new StageBase(this, 0);
     
     frame = 1;
     score = 0;
@@ -23,15 +24,20 @@ GameController::~GameController() {
 }
 
 void GameController::Update() {
-    // StageTEST
+    /*  StageTEST  */
     DrawBox(0, 0, 640, 720, GetColor(150, 150, 150), TRUE);
-    if(frame == 1 || eneCtrl->enemysVec.size() <= 0) {
-        eneCtrl->SetEnemy(1, new Vector2(520, -130), 3, 2);
+    if(frame == 1 || eneCtrl->enemysVec_Air.size() <= 0) {
+        eneCtrl->SetEnemy(1, new Vector2(520, -130), 2, 2);
         eneCtrl->SetEnemy(1, new Vector2(420, -80), 2, 1);
         eneCtrl->SetEnemy(2, new Vector2(320, -130), 2, 1);
         eneCtrl->SetEnemy(1, new Vector2(220, -80), 2, 1);
-        eneCtrl->SetEnemy(1, new Vector2(120, -130), 3, 2);
+        eneCtrl->SetEnemy(1, new Vector2(120, -130), 2, 2);
     }
+
+    if(frame % 40 == 0 && eneCtrl->enemysVec_Ground.size() < 5) {
+        eneCtrl->SetEnemy(101, new Vector2(320, -60), 2, 1);
+    }
+    /*--StageTest--*/
     
     player->Update();
     eneCtrl->Update();
@@ -57,7 +63,12 @@ void GameController::Update() {
         for(auto pb : player->bulletVec) {
             pb->collider->DebugDraw();
         }
-        for(auto ev : eneCtrl->enemysVec) {
+        for(auto ev : eneCtrl->enemysVec_Ground) {
+            for(auto col : ev->colliders) {
+                col->DebugDraw();
+            }
+        }
+        for(auto ev : eneCtrl->enemysVec_Air) {
             for(auto col : ev->colliders) {
                 col->DebugDraw();
             }

@@ -1,13 +1,14 @@
 #include "StageBase.h"
 #include "GameController.h"
 
-StageBase::StageBase(GameController* gc, Assets* as, int stNum) {
+StageBase::StageBase(GameController* gc, int stNum) {
     frame = 0;
     stageNum = stNum;
     groundPos = Vector2(0, 0);
     enemyCount = 0;
-    gameCtrl = gc;
-    assets = as;
+    gameCtrl  = gc;
+    enemyCtrl = gc->eneCtrl;
+    assets    = gc->assets;
 }
 StageBase::~StageBase(){}
 void StageBase::Update(){}

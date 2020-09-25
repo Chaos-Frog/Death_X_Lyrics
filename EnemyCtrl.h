@@ -5,18 +5,18 @@
 #include "Enemy_Ground.h"
 #include "Enemy001.h"
 #include "Enemy002.h"
+#include "Enemy101.h"
 class GameController;
 
 class EnemyCtrl {
     private:
-        Assets* images;
         GameController* gameCtrl;
 
     public:
         std::vector<Enemy_Air*> enemysVec_Air;
         std::vector<Enemy_Ground*> enemysVec_Ground;
 
-        EnemyCtrl(Assets* img, GameController* gc);
+        EnemyCtrl(GameController* gc);
         ~EnemyCtrl();
         void Update();
         void Draw();

@@ -1,3 +1,19 @@
 #include "Enemy_Air.h"
 #include "GameController.h"
-Enemy_Air::Enemy_Air(int type, Vector2* pos, int hp, int s, int mp, int dp, GameController* gc) : Enemy(type, pos, hp, s, mp, dp, false, gc){}
+
+Enemy_Air::Enemy_Air(int type, Vector2* pos, int hp, int s, int mp, int dp, GameController* gc)
+          :Enemy(type, pos, hp, s, mp, dp, false, gc){}
+
+bool Enemy_Air::Moving() {
+    MovingAir();
+    return CheckInArea();
+}
+void Enemy_Air::MovingAir(){}
+
+bool Enemy_Air::CheckInArea() {
+    if(withdrawal) {
+        return enableArea.min.x <= position.x && position.x <= enableArea.max.x
+            && enableArea.min.y <= position.y && position.y <= enableArea.max.y;
+    }
+    return true;
+}

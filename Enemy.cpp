@@ -1,14 +1,15 @@
 #include "Enemy.h"
 #include "GameController.h"
 Enemy::Enemy(int type, Vector2* pos, int hp, int s, int mp, int dp, bool onG, GameController* gc) {
-    enemyType = type;
-    position = *pos;
-    HP = hp;
-    score = s;
-    movePatern = mp;
+    enemyType     = type;
+    position      = *pos;
+    HP            = hp;
+    score         = s;
+    movePatern    = mp;
     danmakuPatern = dp;
-    invincible = false;
-    onGround = onG;
+    invincible    = false;
+    withdrawal    = false;
+    onGround      = onG;
 
     gameCtrl = gc;
 
@@ -33,7 +34,9 @@ void Enemy::SetScrap(int type, int num, Vector2* pos) {
 
 bool Enemy::Update() {
     if(HP > 0) {
-        Moving();
+        if(!Moving()) {
+            return false;
+        }
         Danmaku();
         for(auto col : colliders) {
             col->Update();
@@ -43,7 +46,7 @@ bool Enemy::Update() {
     }
 
     frame++;
-    return false;
+    return true;
 }
 
 void Enemy::Damage(int dmg) {
@@ -54,7 +57,8 @@ void Enemy::Damage(int dmg) {
     }
 }
 
-void Enemy::Moving() {}
-void Enemy::Danmaku() {}
-void Enemy::Draw() {}
-bool Enemy::DeathFunc() { return true; }
+bool Enemy::CheckInArea() { return false; }
+bool Enemy::Moving() { return false; }
+void Enemy::Danmaku(){}
+void Enemy::Draw(){}
+bool Enemy::DeathFunc() { return false; }

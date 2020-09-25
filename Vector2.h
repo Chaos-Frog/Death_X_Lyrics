@@ -6,6 +6,7 @@ class Vector2 {
         double y;
 
         Vector2(double x = 0, double y = 0);
+
         Vector2& operator = (const Vector2& v);
         const Vector2 operator + (const Vector2& v) const;
         const Vector2 operator - (const Vector2& v) const;

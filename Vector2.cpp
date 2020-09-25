@@ -6,7 +6,6 @@ Vector2::Vector2(double x, double y) {
     Vector2::y = y;
 }
 
-
 Vector2& Vector2::operator = (const Vector2& v) {
     x = v.x;
     y = v.y;

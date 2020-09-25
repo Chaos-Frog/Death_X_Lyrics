@@ -23,6 +23,7 @@ void CollisionCtrl::Update() {
 }
 
 void CollisionCtrl::Check_PBullet_Enemy_Collision() {
+    // ‹ó’†“G‚Æ‚Ì”»’è
     if(enemyCtrl->enemysVec_Air.size() != 0) {
         for(auto PB_itr : player->bulletVec) {
             if(PB_itr->active) {
@@ -39,6 +40,8 @@ void CollisionCtrl::Check_PBullet_Enemy_Collision() {
             }
         }
     }
+
+    // ’nã“G‚Ì”»’è
     if(enemyCtrl->enemysVec_Ground.size() != 0) {
         for(auto PB_itr : player->bulletVec) {
             if(PB_itr->active) {

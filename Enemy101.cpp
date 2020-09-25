@@ -1,8 +1,30 @@
 #include "Enemy101.h"
-Enemy101::Enemy101(Vector2* pos, int mp, int dp, int* img, GameController* gc) : Enemy_Ground(101, pos, 1, 1, mp, dp, gc) {
+#include "GameController.h"
+Enemy101::Enemy101(Vector2* pos, int mp, int dp, GameController* gc)
+         :Enemy_Ground(101, pos, 1, 1, mp, dp, gc) {
+    first = *pos;
+    enableArea = {
+        Vector2(-E101_X_SIZE, -E101_Y_SIZE),
+        Vector2(GAME_WINDOW_XSIZE + E101_X_SIZE, GAME_WINDOW_YSIZE + E101_Y_SIZE)
+    };
+
+    colliders.emplace_back(new Box_C(&position, Vector2(0, 0), E101_X_SIZE, E101_Y_SIZE));
+}
+
+void Enemy101::MovingGround() {
+    if(position.y > GAME_WINDOW_YSIZE / 2) withdrawal = true;
+    groundPos.y += 1;
+}
+
+void Enemy101::Danmaku() {
 
 }
 
-void Enemy101::Draw(){}
+void Enemy101::Draw() {
+    DrawBox(position.x-(E101_X_SIZE/2.0), position.y+(E101_Y_SIZE/2.0), position.x+(E101_X_SIZE/2.0), position.y-(E101_Y_SIZE/2.0), GetColor(0, 0, 200), TRUE);
+    DrawBox(position.x-(E101_X_SIZE/4.0), position.y+(E101_Y_SIZE/4.0), position.x+(E101_X_SIZE/4.0), position.y-(E101_Y_SIZE/4.0), GetColor(0, 0, 60), TRUE);
+}
 
-bool Enemy101::DeathFunc(){}
+bool Enemy101::DeathFunc() {
+    return false;
+}

@@ -82,17 +82,17 @@ bool CheckCollision(const Collider* c1, const Collider* c2) {
     cp2 = c2->GetParameter();
 
     switch(cp1.type) {
-        CIRCLE:
+        case CIRCLE:
             switch(cp2.type) {
-                CIRCLE:
+                case CIRCLE:
                     return CC_Collision(&cp1.centerPos, cp1.radius, &cp2.centerPos, cp2.radius);
                     break;
 
-                BOX:
+                case BOX:
                     return CB_Collision(&cp1.centerPos, cp1.radius, &cp2.pos1, &cp2.pos2);
                     break;
                 
-                LINE:
+                case LINE:
                     return CL_Collision(&cp1.centerPos, cp1.radius, &cp2.pos1, &cp2.pos2);
                     break;
 
@@ -102,17 +102,17 @@ bool CheckCollision(const Collider* c1, const Collider* c2) {
             }
             break;
         
-        BOX:
+        case BOX:
             switch(cp2.type) {
-                CIRCLE:
+                case CIRCLE:
                     return CB_Collision(&cp2.centerPos, cp2.radius, &cp1.pos1, &cp1.pos2);
                     break;
                 
-                BOX:
+                case BOX:
                     return BB_Collision(&cp1.pos1, &cp1.pos2, &cp2.pos1, &cp2.pos2);
                     break;
                 
-                LINE:
+                case LINE:
                     return BL_Collision(&cp1.pos1, &cp1.pos2, &cp2.pos1, &cp2.pos2);
                     break;
 
@@ -122,17 +122,17 @@ bool CheckCollision(const Collider* c1, const Collider* c2) {
             }
             break;
 
-        LINE:
+        case LINE:
             switch(cp2.type) {
-                CIRCLE:
+                case CIRCLE:
                     return CL_Collision(&cp2.centerPos, cp2.radius, &cp1.pos1, &cp1.pos2);
                     break;
 
-                BOX:
+                case BOX:
                     return BL_Collision(&cp2.pos1, &cp2.pos2, &cp1.pos1, &cp1.pos2);
                     break;
 
-                LINE:
+                case LINE:
                     return LL_Collision(&cp1.pos1, &cp1.pos2, &cp2.pos1, &cp2.pos2);
                     break;
 

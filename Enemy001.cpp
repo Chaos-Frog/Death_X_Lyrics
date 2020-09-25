@@ -1,14 +1,21 @@
 #include "Enemy001.h"
-Enemy001::Enemy001(Vector2* pos, int mp, int dp, int* img, GameController* gc) : Enemy(1, pos, 5, 100, mp, dp, false, gc) {
-	image = img;
+#include "GameController.h"
+
+Enemy001::Enemy001(Vector2* pos, int mp, int dp, GameController* gc)
+	     :Enemy_Air(1, pos, 5, 100, mp, dp, gc) {
+	image = gc->assets->enemy001;
 	imgNum = 0;
-	first = position;
+	first = *pos;
 	angle = 0.0f;
+	enableArea = {
+		Vector2(-E1_X_SIZE, -E1_X_SIZE),
+		Vector2(GAME_WINDOW_XSIZE + E1_X_SIZE, GAME_WINDOW_YSIZE + E1_Y_SIZE)
+	};
 
 	colliders.emplace_back(new Circle_C(&position, Vector2(0, 0), 25));
 }
 
-void Enemy001::Moving() {
+void Enemy001::MovingAir() {
 	switch(movePatern) {
 		case 1:
 			if(frame < 60) {
@@ -67,21 +74,21 @@ void Enemy001::Danmaku() {
 }
 
 void Enemy001::Draw() {
-	int angleImgNum = round(angle/15) * LOOP;
+	int angleImgNum = round(angle/15) * E1_LOOP;
 
 	if(angleImgNum <= 0) {
-		DrawGraph(round(position.x - X_SIZE / 2), round(position.y - Y_SIZE / 2), image[imgNum + (-angleImgNum)], TRUE);
+		DrawGraph(round(position.x - E1_X_SIZE / 2), round(position.y - E1_Y_SIZE / 2), image[imgNum + (-angleImgNum)], TRUE);
 	} else {
-		DrawTurnGraph(round(position.x - X_SIZE / 2), round(position.y - Y_SIZE / 2), image[imgNum + angleImgNum], TRUE);
+		DrawTurnGraph(round(position.x - E1_X_SIZE / 2), round(position.y - E1_Y_SIZE / 2), image[imgNum + angleImgNum], TRUE);
 	}
 
 	if(frame % 2 == 0) {
 		imgNum++;
-		if(imgNum >= LOOP) imgNum = 0;
+		if(imgNum >= E1_LOOP) imgNum = 0;
 	}
 }
 
 bool Enemy001::DeathFunc() {
 	SetScrap(1, 2, &position);
-	return true;
+	return false;
 }

@@ -1,9 +1,9 @@
 #pragma once
 #include "Enemy_Air.h"
 
-#define X_SIZE 64
-#define Y_SIZE 64
-#define LOOP 2
+#define E1_X_SIZE 64
+#define E1_Y_SIZE 64
+#define E1_LOOP 2
 
 class Enemy001 : public Enemy_Air {
     private:
@@ -12,11 +12,11 @@ class Enemy001 : public Enemy_Air {
         Vector2 first;
         double angle;
 
-        void Moving();
+        void MovingAir() override;
         void Danmaku();
 
     public:
-        Enemy001(Vector2* pos, int mp, int dp, int* img, GameController* gc);
+        Enemy001(Vector2* pos, int mp, int dp, GameController* gc);
         void Draw() override;
         bool DeathFunc() override;
 };
