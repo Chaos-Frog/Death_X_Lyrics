@@ -1,7 +1,7 @@
 #include "Player_A.h"
-Player_A::Player_A(Assets* as) : Player(as) {
-    playerImgs = imgs->player01;
-    playerImgs_Hit = imgs->player01_Hit;
+Player_A::Player_A() : Player() {
+    playerImgs     = Assets::player01;
+    playerImgs_Hit = Assets::player01_Hit;
     speed = SPEED;
 }
 Player_A::~Player_A(){}
@@ -13,12 +13,12 @@ void Player_A::SetShot() {
         Vector2 p2 = position + Vector2(-15, 0);
 
         // 6-Way
-        bulletVec.emplace_back(new P_Bullet(&p1, -90 * (M_PI / 180), imgs));
-        bulletVec.emplace_back(new P_Bullet(&p1, -75 * (M_PI / 180), imgs));
-        bulletVec.emplace_back(new P_Bullet(&p1, -60 * (M_PI / 180), imgs));
-        bulletVec.emplace_back(new P_Bullet(&p2, -90 * (M_PI / 180), imgs));
-        bulletVec.emplace_back(new P_Bullet(&p2, -105 * (M_PI / 180), imgs));
-        bulletVec.emplace_back(new P_Bullet(&p2, -120 * (M_PI / 180), imgs));
+        bulletVec.emplace_back(new P_Bullet(p1, -90 * (M_PI / 180)));
+        bulletVec.emplace_back(new P_Bullet(p1, -75 * (M_PI / 180)));
+        bulletVec.emplace_back(new P_Bullet(p1, -60 * (M_PI / 180)));
+        bulletVec.emplace_back(new P_Bullet(p2, -90 * (M_PI / 180)));
+        bulletVec.emplace_back(new P_Bullet(p2, -105 * (M_PI / 180)));
+        bulletVec.emplace_back(new P_Bullet(p2, -120 * (M_PI / 180)));
 
         shotCT = 4;
     }
@@ -26,7 +26,7 @@ void Player_A::SetShot() {
 
 void Player_A::SetMissile() {
     if(missileCT == 0) {
-        bulletVec.emplace_back(new P_Missile(&position, -M_PI_2, imgs));
+        bulletVec.emplace_back(new P_Missile(position, -M_PI_2));
         missileCT = 12;
     }
 }

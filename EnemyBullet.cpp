@@ -1,7 +1,7 @@
 #include "EnemyBullet.h"
 
 /* “G’eŠî’êƒNƒ‰ƒX */
-EnemyBullet::EnemyBullet(const Vector2 pos, double spd, double radA, double size, Assets* as) {
+EnemyBullet::EnemyBullet(const Vector2 pos, double spd, double radA, double size) {
 	bulletType = 0;
 	frame = 0;
 	position = pos;
@@ -20,11 +20,17 @@ bool EnemyBullet::Moving() { return false; }
 void EnemyBullet::Draw() {}
 bool EnemyBullet::DeathFunc() { return false; }
 
+bool EnemyBullet::CheckInArea() {
+	return (position.x >= bulletSize && position.x <= GAME_WINDOW_XSIZE + bulletSize &&
+		    position.y >= bulletSize && position.y <= GAME_WINDOW_YSIZE + bulletSize);
+}
+
 
 /* ’Êí’eiÔj */
-EBullet_01::EBullet_01(const Vector2 pos, double spd, double radA, double size, Assets* as) : EnemyBullet(pos, spd, radA, size, as) {
+EBullet_01::EBullet_01(const Vector2 pos, double spd, double radA, double size)
+	       :EnemyBullet(pos, spd, radA, size) {
 	bulletType = 1;
-	image = &as->enemyBullet01;
+	image = &Assets::enemyBullet01;
 	collider = new Circle_C(&position, Vector2(0, 0), bulletSize);
 }
 
@@ -34,8 +40,7 @@ bool EBullet_01::Moving() {
 
 	collider->Update();
 
-	return (position.x + bulletSize >= 0 && position.x - bulletSize <= GAME_WINDOW_XSIZE &&
-			position.y + bulletSize >= 0 && position.y - bulletSize <= GAME_WINDOW_YSIZE);
+	return CheckInArea();
 }
 
 void EBullet_01::Draw() {
@@ -59,10 +64,11 @@ bool EBullet_01::DeathFunc() {
 
 
 /* ’Êí’eiÂj */
-EBullet_02::EBullet_02(const Vector2 pos, double spd, double radA, double size, Assets* as) : EnemyBullet(pos, spd, radA, size, as) {
+EBullet_02::EBullet_02(const Vector2 pos, double spd, double radA, double size)
+	       :EnemyBullet(pos, spd, radA, size) {
 	bulletType = 2;
-	image = &as->enemyBullet02;
-	collider = new Circle_C(&position, Vector2(0, 0), bulletSize*16);
+	image = &Assets::enemyBullet02;
+	collider = new Circle_C(&position, Vector2(0, 0), bulletSize);
 }
 
 bool EBullet_02::Moving() {
@@ -71,8 +77,7 @@ bool EBullet_02::Moving() {
 
 	collider->Update();
 
-	return (position.x + bulletSize*16 >= 0 && position.x - bulletSize*16 <= GAME_WINDOW_XSIZE &&
-			position.y + bulletSize*16 >= 0 && position.y - bulletSize*16 <= GAME_WINDOW_YSIZE);
+	return CheckInArea();
 }
 
 void EBullet_02::Draw() {

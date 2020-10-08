@@ -24,7 +24,7 @@ class Enemy {
         GameController* gameCtrl;
 
         void SetEnemyBullet(int type, const Vector2 pos, double speed, double degAngle, double size); // 敵弾生成
-        void SetScrap(int type, int num, Vector2* pos);                                               // スクラップ生成
+        void SetScrap(int type, int num, Vector2 pos);                                                // スクラップ生成
         virtual bool Moving();                                                                        // 移動処理 離脱した場合falseを返す
         virtual void Danmaku();                                                                       // 弾幕処理
         virtual bool CheckInArea();                                                                   // 指定範囲内かチェック 

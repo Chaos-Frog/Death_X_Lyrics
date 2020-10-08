@@ -1,6 +1,14 @@
-#include <cmath>
 #include "DxLib.h"
-#include "GameController.h"
+#include "Vector2.h"
+#include "Assets.h"
+#include "SceneManager.h"
+#include <cmath>
+#include <thread>
+
+using namespace std;
+
+int screenGame; // ゲームスクリーン
+int screenFull; // 全体スクリーン
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     /* ウィンドウ設定  */
@@ -10,8 +18,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetWindowSizeChangeEnableFlag(FALSE);
     if(DxLib_Init() == -1) return -1;
 
-    /* 画面比率調整 */
-    double ratio = 0.5625;
+    // 画面比率調整
+    const double ratio = 0.5625;
     int sizeX, sizeY, cb;
     GetScreenState(&sizeX, &sizeY, &cb);
     int xp1, xp2, yp1, yp2;
@@ -29,30 +37,37 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         yp2 = round(sizeY - difY);
     }
     
-    /* ゲーム処理 */
-    Assets image;
-    GameController game(&image);
-    int screenGame = MakeScreen(640, 720, TRUE);
-    int screenFull = MakeScreen(1280, 720, TRUE);
+    // スクリーン作成
+    screenGame = MakeScreen(640, 720, TRUE);
+    screenFull = MakeScreen(1280, 720, TRUE);
 
-    while(ProcessMessage() == 0&& CheckHitKey(KEY_INPUT_ESCAPE) != 1) {
-        SetDrawScreen(screenGame);
-        ClearDrawScreen();
-        game.Update();
+    // ローディング処理
+    thread loadTherad(Assets::LoadAssets);
 
+    while(ProcessMessage() == 0) {
         SetDrawScreen(screenFull);
         ClearDrawScreen();
-        game.Update_UI();
-
-        DrawExtendGraph(320, 0, 960, 720, screenGame, TRUE);
+        if(!Assets::DrawLoading()) break;
 
         SetDrawScreen(DX_SCREEN_BACK);
         ClearDrawScreen();
-
         DrawExtendGraph(xp1, yp1, xp2, yp2, screenFull, TRUE);
         ScreenFlip();
     }
 
+    loadTherad.join();
+
+    // ゲームループ
+    while(ProcessMessage() == 0) {
+        if(SceneManager::Update()) break;
+
+        SetDrawScreen(DX_SCREEN_BACK);
+        ClearDrawScreen();
+        DrawExtendGraph(xp1, yp1, xp2, yp2, screenFull, TRUE);
+        ScreenFlip();
+    }
+
+    // 終了処理
     DxLib_End();
     return 0;
 }

@@ -1,9 +1,8 @@
 #include "PlayerBullet.h"
-PlayerBullet::PlayerBullet(int type, Vector2* pos, double rad, Assets* img) {
+PlayerBullet::PlayerBullet(int type, Vector2 pos, double rad) {
     bulletType = type;
-    position = *pos;
+    position = pos;
     angle = rad;
-    imgs = img;
     hitted = false;
     active = true;
     frame = 0;
@@ -24,7 +23,7 @@ void PlayerBullet::Draw() {}
 bool PlayerBullet::HitFunc() { return false; }
 
 
-P_Bullet::P_Bullet(Vector2* pos, double rad, Assets* img) : PlayerBullet(1, pos, rad, img) {
+P_Bullet::P_Bullet(Vector2 pos, double rad) : PlayerBullet(1, pos, rad) {
     velocity = 20;
     size = 16;
     collider = new Circle_C(&position, Vector2(0, 0), 10.0f);
@@ -47,7 +46,7 @@ bool P_Bullet::MoveBullet() {
 }
 
 void P_Bullet::Draw() {
-    DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerBullet01, TRUE);
+    DrawGraph(round(position.x) - size, round(position.y) - size, Assets::playerBullet01, TRUE);
 }
 
 bool P_Bullet::HitFunc() {
@@ -60,7 +59,7 @@ bool P_Bullet::HitFunc() {
 }
 
 
-P_Missile::P_Missile(Vector2* pos, double rad, Assets* img) : PlayerBullet(2, pos, rad, img) {
+P_Missile::P_Missile(Vector2 pos, double rad) : PlayerBullet(2, pos, rad) {
     velocity = 0;
     size = 32;
     collider = new Box_C(&position, Vector2(0, 0), 32.0f, 64.0f);
@@ -93,8 +92,8 @@ bool P_Missile::MoveBullet() {
 }
 
 void P_Missile::Draw() {
-    if(!hitted) DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerMissile, TRUE);
-    else        DrawGraph(round(position.x) - size, round(position.y) - size, imgs->playerMissileExp[frame / 2], TRUE);
+    if(!hitted) DrawGraph(round(position.x) - size, round(position.y) - size, Assets::playerMissile, TRUE);
+    else        DrawGraph(round(position.x) - size, round(position.y) - size, Assets::playerMissileExp[frame / 2], TRUE);
 }
 
 bool P_Missile::HitFunc() {

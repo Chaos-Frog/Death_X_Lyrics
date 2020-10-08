@@ -18,7 +18,6 @@
 class Player {
     private:
     protected:
-        Assets* imgs;
         double speed;
         int frame;
         int imgNum;
@@ -41,7 +40,7 @@ class Player {
         bool bomber;
         int hitCT;
 
-        Player(Assets* img);
+        Player();
         ~Player();
         void Update();            // 一連処理
         void DrawBullets();       // ショット、ミサイル描画

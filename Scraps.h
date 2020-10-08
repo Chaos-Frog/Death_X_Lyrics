@@ -17,7 +17,7 @@ class Scraps {
         Vector2 position;
         Collider* collider;
 
-        Scraps(Vector2* pos);
+        Scraps(Vector2 pos);
         ~Scraps();
         bool Update();
         void Dagame(int dmg);
@@ -32,7 +32,7 @@ class Scrap_S : public Scraps {
         double cr = 16;
 
     public:
-        Scrap_S(Vector2* pos, Assets* imgs);
+        Scrap_S(Vector2 pos);
         ~Scrap_S();
         bool Moving() override;
         void Draw() override;

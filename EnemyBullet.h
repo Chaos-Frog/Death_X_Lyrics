@@ -19,24 +19,27 @@ class EnemyBullet {
         Vector2 position;
         Circle_C* collider;
 
-        EnemyBullet(const Vector2 pos, double spd, double radA, double size, Assets* as);
+        EnemyBullet(const Vector2 pos, double spd, double radA, double size);
         bool Update();
         virtual bool Moving();
         virtual void Draw();
         virtual bool DeathFunc();
+        bool CheckInArea();
 };
 
 class EBullet_01 : public EnemyBullet {
+    private:
     public:
-        EBullet_01(const Vector2 pos, double spd, double radA, double size, Assets* as);
+        EBullet_01(const Vector2 pos, double spd, double radA, double size);
         bool Moving() override;
         void Draw() override;
         bool DeathFunc() override;
 };
 
 class EBullet_02 : public EnemyBullet {
+    private:
     public:
-        EBullet_02(const Vector2 pos, double spd, double radA, double size, Assets* as);
+        EBullet_02(const Vector2 pos, double spd, double radA, double size);
         bool Moving() override;
         void Draw() override;
         bool DeathFunc() override;

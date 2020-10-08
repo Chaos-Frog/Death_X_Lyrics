@@ -1,14 +1,12 @@
 #include "GameController.h"
-#include <random>
 
-GameController::GameController(Assets* as) {
-    assets = as;
-    player = new Player_A(as);
-    ebulCtrl = new EnemyBulletsCtrl(as);
-    scrCtrl = new ScrapsCtrl(as, this);
-    eneCtrl = new EnemyCtrl(this);
-    colCtrl = new CollisionCtrl(this);
-    stage = new StageBase(this, 0);
+GameController::GameController() {
+    stage    = new StageBase(this, 0);
+    player   = new Player_A();
+    eneCtrl  = new EnemyCtrl(this);
+    ebulCtrl = new EnemyBulletsCtrl();
+    scrCtrl  = new ScrapsCtrl(this);
+    colCtrl  = new CollisionCtrl(this);
     
     frame = 1;
     score = 0;
@@ -16,6 +14,7 @@ GameController::GameController(Assets* as) {
     scrapMagniGage = 0;
 }
 GameController::~GameController() {
+    delete stage;
     delete player;
     delete eneCtrl;
     delete ebulCtrl;
@@ -24,6 +23,11 @@ GameController::~GameController() {
 }
 
 void GameController::Update() {
+    if(CheckHitKey(KEY_INPUT_ESCAPE)) {
+        SceneManager::ChangeScene(SCENE_MENU);
+        return;
+    }
+
     /*  StageTEST  */
     DrawBox(0, 0, 640, 720, GetColor(150, 150, 150), TRUE);
     if(frame == 1 || eneCtrl->enemysVec_Air.size() <= 0) {

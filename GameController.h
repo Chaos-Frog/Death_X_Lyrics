@@ -1,8 +1,12 @@
 #pragma once
 #include <stdio.h>
 #include <string>
-#include "Assets.h"
+#include <random>
+#include "DxLib.h"
 #include "Define.h"
+#include "Assets.h"
+#include "SceneManager.h"
+
 #include "Player_A.h"
 #include "EnemyCtrl.h"
 #include "CollisionCtrl.h"
@@ -18,16 +22,15 @@ class GameController {
         long score;
         int scrapMagni;
         int scrapMagniGage;
-        Player* player;
+        
         StageBase* stage;
-
-        Assets* assets;
+        Player* player;
         EnemyCtrl* eneCtrl;
         EnemyBulletsCtrl* ebulCtrl;
         ScrapsCtrl* scrCtrl;
         CollisionCtrl* colCtrl;
 
-        GameController(Assets* as);
+        GameController();
         ~GameController();
         void Update();
         void Update_UI();

@@ -1,12 +1,39 @@
 #include "Assets.h"
 
-Assets::Assets() {
-    StageLoad(0);
+const char* Assets::StagePathes[5] = {
+    "Assets/StageData/Stage1.csv",
+    "Assets/StageData/Stage2.csv",
+    "Assets/StageData/Stage3.csv",
+    "Assets/StageData/Stage4.csv",
+    "Assets/StageData/Stage5.csv"
+};
 
+bool Assets::loading = true;
+
+vector<EnemyData> Assets::Stages[5];
+int Assets::player01[12];
+int Assets::player01_Hit[12];
+int Assets::playerBullet01;
+int Assets::playerMissile;
+int Assets::playerMissileExp[16];
+int Assets::enemy001[26];
+int Assets::enemy002[26];
+int Assets::enemyBullet01;
+int Assets::enemyBullet02;
+int Assets::scrap_S[6];
+
+void Assets::LoadAssets() {
+    LoadStage(0);
+    LoadTexture();
+    Sleep(5000);
+    loading = false;
+}
+
+void Assets::LoadTexture() {
     LoadDivGraph("Assets/Player01.png", 12, 4, 3, 120, 100, player01);
     LoadDivGraph("Assets/Player01_Hit.png", 12, 4, 3, 120, 100, player01_Hit);
     playerBullet01 = LoadGraph("Assets/PlayerBullet.png");
-    playerMissile = LoadGraph("Assets/Missile.png");
+    playerMissile  = LoadGraph("Assets/Missile.png");
     LoadDivGraph("Assets/Exp01.png", 16, 4, 4, 100, 100, playerMissileExp);
 
     LoadDivGraph("Assets/E_001.png", 26, 4, 7, 64, 64, enemy001);
@@ -17,9 +44,8 @@ Assets::Assets() {
 
     LoadDivGraph("Assets/Scrap_S.png", 6, 3, 2, 40, 40, scrap_S);
 }
-Assets::~Assets() {}
 
-void Assets::StageLoad(int num) {
+void Assets::LoadStage(int num) {
     ifstream ifs(StagePathes[num]);
     if(ifs.fail()) {
         throw "StageData Loading Error...";
@@ -45,4 +71,14 @@ void Assets::StageLoad(int num) {
 
         Stages[num].push_back(ed);
     }
+}
+
+bool Assets::DrawLoading() {
+    static int frame = 0;
+    SetFontSize(40);
+    if(frame % 60 < 20)      DrawString(20, 60, "Loading.", GetColor(0, 200, 0));
+    else if(frame % 60 < 40) DrawString(20, 60, "Loading..", GetColor(0, 200, 0));
+    else                     DrawString(20, 60, "Loading...", GetColor(0, 200, 0));
+    frame++;
+    return loading;
 }

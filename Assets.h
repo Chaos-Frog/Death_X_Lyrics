@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <thread>
 using namespace std;
 
 struct EnemyData {
@@ -18,33 +19,29 @@ struct EnemyData {
 
 class Assets {
     private:
-        const char* StagePathes[5] = {
-            "Assets/StageData/Stage1.csv",
-            "Assets/StageData/Stage2.csv",
-            "Assets/StageData/Stage3.csv",
-            "Assets/StageData/Stage4.csv",
-            "Assets/StageData/Stage5.csv"
-        };
+        static const char* StagePathes[5];
+        static bool loading;
 
-        void StageLoad(int num);
+        static void LoadTexture();
+        static void LoadStage(int num);
 
     public:
-        vector<EnemyData> Stages[5];
+        static vector<EnemyData> Stages[5];
         
-        int player01[12];
-        int player01_Hit[12];
-        int playerBullet01;
-        int playerMissile;
-        int playerMissileExp[16];
+        static int player01[12];
+        static int player01_Hit[12];
+        static int playerBullet01;
+        static int playerMissile;
+        static int playerMissileExp[16];
 
-        int enemy001[26];
-        int enemy002[26];
+        static int enemy001[26];
+        static int enemy002[26];
 
-        int enemyBullet01;
-        int enemyBullet02;
+        static int enemyBullet01;
+        static int enemyBullet02;
 
-        int scrap_S[6];
+        static int scrap_S[6];
 
-        Assets();
-        ~Assets();
+        static void LoadAssets();
+        static bool DrawLoading();
 };

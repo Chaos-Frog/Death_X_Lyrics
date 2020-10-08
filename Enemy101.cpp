@@ -1,5 +1,6 @@
 #include "Enemy101.h"
 #include "GameController.h"
+
 Enemy101::Enemy101(Vector2* pos, int mp, int dp, GameController* gc)
          :Enemy_Ground(101, pos, 1, 1, mp, dp, gc) {
     first = *pos;

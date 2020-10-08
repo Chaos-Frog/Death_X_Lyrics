@@ -15,7 +15,6 @@ class StageBase {
         int stageNum;
         int enemyCount;
         GameController* gameCtrl;
-        Assets* assets;
         EnemyCtrl* enemyCtrl;
 
         void SetStageEnemy();

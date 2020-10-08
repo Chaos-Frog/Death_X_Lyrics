@@ -3,12 +3,12 @@
 
 Enemy002::Enemy002(Vector2* pos, int mp, int dp, GameController* gc)
 	     :Enemy_Air(1, pos, 5, 100, mp, dp, gc) {
-	image = gc->assets->enemy002;
+	image = Assets::enemy002;
 	imgNum = 0;
 	first = *pos;
 	angle = 0.0f;
 	enableArea = {
-		Vector2(-E2_X_SIZE, -E2_X_SIZE),
+		Vector2(-E2_X_SIZE, -E2_Y_SIZE),
 		Vector2(GAME_WINDOW_XSIZE + E2_X_SIZE, GAME_WINDOW_YSIZE + E2_Y_SIZE)
 	};
 
@@ -90,6 +90,6 @@ void Enemy002::Draw() {
 }
 
 bool Enemy002::DeathFunc() {
-	SetScrap(1, 2, &position);
+	SetScrap(1, 2, position);
 	return false;
 }

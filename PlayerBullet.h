@@ -12,7 +12,6 @@ class PlayerBullet {
         double angle;
         double velocity;
         bool hitted;
-        Assets* imgs;
 
     public:
         int bulletType;
@@ -20,7 +19,7 @@ class PlayerBullet {
         Vector2 position;
         Collider* collider;
 
-        PlayerBullet(int type, Vector2* pos, double rad, Assets* img);
+        PlayerBullet(int type, Vector2 pos, double rad);
         ~PlayerBullet();
         bool Update();
         virtual bool MoveBullet();
@@ -33,7 +32,7 @@ class P_Bullet : public PlayerBullet {
         int size;
 
     public:
-        P_Bullet(Vector2* pos, double rad, Assets* img);
+        P_Bullet(Vector2 pos, double rad);
         bool MoveBullet();
         void Draw();
         bool HitFunc();
@@ -44,7 +43,7 @@ class P_Missile : public PlayerBullet {
         int size;
 
     public:
-        P_Missile(Vector2* pos, double rad, Assets* img);
+        P_Missile(Vector2 pos, double rad);
         bool MoveBullet();
         void Draw();
         bool HitFunc();

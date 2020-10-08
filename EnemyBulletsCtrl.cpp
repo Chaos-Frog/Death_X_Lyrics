@@ -1,8 +1,5 @@
 #include "EnemyBulletsCtrl.h"
-EnemyBulletsCtrl::EnemyBulletsCtrl(Assets* as) {
-	assets = as;
-}
-
+EnemyBulletsCtrl::EnemyBulletsCtrl(){}
 EnemyBulletsCtrl::~EnemyBulletsCtrl() {
 	DeleteAllBullet();
 }
@@ -27,10 +24,10 @@ void EnemyBulletsCtrl::SetEnemyBullet(int type, const Vector2 pos, double speed,
 	if(pos.x >= 0 && pos.x <= GAME_WINDOW_XSIZE && pos.y >= 0 && pos.y <= GAME_WINDOW_YSIZE) {
 		switch(type) {
 			case 1:
-				bulletsVec.emplace_back(new EBullet_01(pos, speed, degAngle * (M_PI/180), size, assets));
+				bulletsVec.emplace_back(new EBullet_01(pos, speed, degAngle * (M_PI/180), size));
 				break;
 			case 2:
-				bulletsVec.emplace_back(new EBullet_02(pos, speed, degAngle * (M_PI/180), size, assets));
+				bulletsVec.emplace_back(new EBullet_02(pos, speed, degAngle * (M_PI/180), size));
 				break;
 			default:
 				break;

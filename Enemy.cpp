@@ -26,7 +26,7 @@ void Enemy::SetEnemyBullet(int type, const Vector2 pos, double speed, double deg
     gameCtrl->ebulCtrl->SetEnemyBullet(type, pos, speed, degAngle, size);
 }
 
-void Enemy::SetScrap(int type, int num, Vector2* pos) {
+void Enemy::SetScrap(int type, int num, Vector2 pos) {
     for(int i=0; i < num; i++) {
         gameCtrl->scrCtrl->SetScrap(type, pos);
     }

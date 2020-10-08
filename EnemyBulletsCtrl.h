@@ -6,11 +6,10 @@
 
 class EnemyBulletsCtrl {
     private:
-        Assets* assets;
     public:
         std::vector<EnemyBullet*> bulletsVec;
 
-        EnemyBulletsCtrl(Assets* as);
+        EnemyBulletsCtrl();
         ~EnemyBulletsCtrl();
         void Update();
         void Draw();

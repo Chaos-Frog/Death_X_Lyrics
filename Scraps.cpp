@@ -1,6 +1,6 @@
 #include "Scraps.h"
-Scraps::Scraps(Vector2* pos) {
-    position = *pos;
+Scraps::Scraps(Vector2 pos) {
+    position = pos;
     death = false;
     hitP = false;
 
@@ -30,9 +30,9 @@ void Scraps::Draw() {}
 bool Scraps::DeathFunc() { return false; }
 
 
-Scrap_S::Scrap_S(Vector2* pos, Assets* imgs) : Scraps(pos) {
+Scrap_S::Scrap_S(Vector2 pos) : Scraps(pos) {
     HP = 2;
-    image = imgs->scrap_S;
+    image = Assets::scrap_S;
     collider = new Circle_C(&position, Vector2(0, 0), cr);
 }
 Scrap_S::~Scrap_S() {}

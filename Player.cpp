@@ -1,7 +1,5 @@
 #include "Player.h"
-Player::Player(Assets* as) {
-    imgs = as;
-
+Player::Player() {
     position = Vector2(320, 600);
     collider = new Circle_C(&position, Vector2(0, 0), CORE_RADIUS);
     speed = 0;

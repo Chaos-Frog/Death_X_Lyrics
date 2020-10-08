@@ -1,7 +1,6 @@
 #include "ScrapsCtrl.h"
 #include "GameController.h"
-ScrapsCtrl::ScrapsCtrl(Assets* imgs, GameController* gc) {
-    images = imgs;
+ScrapsCtrl::ScrapsCtrl(GameController* gc) {
     gameCtrl = gc;
 }
 ScrapsCtrl::~ScrapsCtrl() {}
@@ -32,6 +31,6 @@ void ScrapsCtrl::Draw() {
     for(auto sc : scrapVec) sc->Draw();
 }
 
-void ScrapsCtrl::SetScrap(int type, Vector2* pos) {
-    if(type == 1) scrapVec.emplace_back(new Scrap_S(pos, images));
+void ScrapsCtrl::SetScrap(int type, Vector2 pos) {
+    if(type == 1) scrapVec.emplace_back(new Scrap_S(pos));
 }
