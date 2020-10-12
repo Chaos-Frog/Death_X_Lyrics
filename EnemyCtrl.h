@@ -6,6 +6,7 @@
 #include "Enemy001.h"
 #include "Enemy002.h"
 #include "Enemy101.h"
+#include "Boss_TEST.h"
 class GameController;
 
 class EnemyCtrl {
@@ -15,6 +16,7 @@ class EnemyCtrl {
     public:
         std::vector<Enemy_Air*> enemysVec_Air;
         std::vector<Enemy_Ground*> enemysVec_Ground;
+        Boss* boss;
 
         EnemyCtrl(GameController* gc);
         ~EnemyCtrl();

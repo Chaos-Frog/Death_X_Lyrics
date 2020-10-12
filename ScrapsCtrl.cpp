@@ -31,6 +31,8 @@ void ScrapsCtrl::Draw() {
     for(auto sc : scrapVec) sc->Draw();
 }
 
-void ScrapsCtrl::SetScrap(int type, Vector2 pos) {
-    if(type == 1) scrapVec.emplace_back(new Scrap_S(pos));
+void ScrapsCtrl::SetScrap(int type, Vector2 pos, int num) {
+    for(int i=0; i<num; i++) {
+        if(type == 1) scrapVec.emplace_back(new Scrap_S(pos));
+    }
 }

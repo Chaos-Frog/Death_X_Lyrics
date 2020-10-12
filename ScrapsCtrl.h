@@ -16,6 +16,6 @@ class ScrapsCtrl {
         ~ScrapsCtrl();
         void Update();
         void Draw();
-        void SetScrap(int type, Vector2 pos);
+        void SetScrap(int type, Vector2 pos, int num = 1);
 };
 

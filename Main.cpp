@@ -42,6 +42,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     screenFull = MakeScreen(1280, 720, TRUE);
 
     // ローディング処理
+    SetUseASyncLoadFlag(TRUE);
     thread loadTherad(Assets::LoadAssets);
 
     while(ProcessMessage() == 0) {
@@ -56,10 +57,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     loadTherad.join();
+    SetUseASyncLoadFlag(FALSE);
+
+    SceneManager::Init();
 
     // ゲームループ
     while(ProcessMessage() == 0) {
-        if(SceneManager::Update()) break;
+        if(!SceneManager::Update()) break;
 
         SetDrawScreen(DX_SCREEN_BACK);
         ClearDrawScreen();

@@ -30,7 +30,7 @@ void GameController::Update() {
 
     /*  StageTEST  */
     DrawBox(0, 0, 640, 720, GetColor(150, 150, 150), TRUE);
-    if(frame == 1 || eneCtrl->enemysVec_Air.size() <= 0) {
+    /*if(frame == 1 || eneCtrl->enemysVec_Air.size() <= 0) {
         eneCtrl->SetEnemy(1, new Vector2(520, -130), 2, 2);
         eneCtrl->SetEnemy(1, new Vector2(420, -80), 2, 1);
         eneCtrl->SetEnemy(2, new Vector2(320, -130), 2, 1);
@@ -40,7 +40,7 @@ void GameController::Update() {
 
     if(frame % 40 == 0 && eneCtrl->enemysVec_Ground.size() < 5) {
         eneCtrl->SetEnemy(101, new Vector2(320, -60), 2, 1);
-    }
+    }*/
     /*--StageTest--*/
     
     player->Update();
@@ -54,8 +54,8 @@ void GameController::Update() {
     colCtrl->Update();
 
     /* •`‰æˆ— */
-    scrCtrl->Draw();
     eneCtrl->Draw();
+    scrCtrl->Draw();
     player->DrawPlane();
     player->DrawBullets();
     ebulCtrl->Draw();

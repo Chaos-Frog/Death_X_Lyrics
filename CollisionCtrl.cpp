@@ -1,5 +1,6 @@
 #include "CollisionCtrl.h"
 #include "GameController.h"
+
 CollisionCtrl::CollisionCtrl(GameController* gc) {
     gameCtrl = gc;
     player = gc->player;
@@ -7,12 +8,13 @@ CollisionCtrl::CollisionCtrl(GameController* gc) {
     eBulletsCtrl = gc->ebulCtrl;
     scrapsCtrl = gc->scrCtrl;
 }
-
-CollisionCtrl::~CollisionCtrl() {}
+CollisionCtrl::~CollisionCtrl(){}
 
 void CollisionCtrl::Update() {
     Check_PBullet_Scraps_Collision();
     Check_PBullet_Enemy_Collision();
+
+    enemyCtrl->boss->CheckBossCollision();
 
     // 被弾判定は2fに1回 偶数F:被弾、奇数F:スクラップ
     if(gameCtrl->frame % 2 == 0) {
@@ -61,19 +63,16 @@ void CollisionCtrl::Check_PBullet_Enemy_Collision() {
 }
 
 void CollisionCtrl::Check_PBullet_Scraps_Collision() {
-    if(scrapsCtrl->scrapVec.size() != 0) {
-        for(auto PB_itr : player->bulletVec) {
-            if(PB_itr->bulletType == 1 && PB_itr->active) {
-                for(auto S_itr : scrapsCtrl->scrapVec) {
-                    if(!S_itr->death) {
-                        if(CheckCollision(PB_itr->collider, S_itr->collider)) {
-                            if(PB_itr->HitFunc()) {
-                                S_itr->Dagame(1);
-                                if(S_itr->HP <= 0) gameCtrl->AddScore(10, false);
-                            }
-                            break;
-                        }
+    if(scrapsCtrl->scrapVec.size() == 0) return;
+    for(auto PB_itr : player->bulletVec) {
+        if(PB_itr->bulletType == 1 && PB_itr->active) {
+            for(auto S_itr : scrapsCtrl->scrapVec) {
+                if(!S_itr->death && CheckCollision(PB_itr->collider, S_itr->collider)) {
+                    if(PB_itr->HitFunc()) {
+                        S_itr->Dagame(1);
+                        if(S_itr->HP <= 0) gameCtrl->AddScore(10, false);
                     }
+                    break;
                 }
             }
         }

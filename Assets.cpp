@@ -25,7 +25,6 @@ int Assets::scrap_S[6];
 void Assets::LoadAssets() {
     LoadStage(0);
     LoadTexture();
-    Sleep(5000);
     loading = false;
 }
 

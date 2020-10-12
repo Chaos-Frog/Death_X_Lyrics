@@ -7,7 +7,8 @@ MainMenu::MainMenu() {
     mainItem[2].displayName = "Ranking";
     mainItem[3].displayName = "Quit";
     for(int i = 0; i < 4; i++) {
-        mainItem[i].stringWidth = GetDrawStringWidth(mainItem[i].displayName.c_str(), -1);
+        int length = mainItem[i].displayName.length();
+        mainItem[i].stringWidth = GetDrawStringWidth(mainItem[i].displayName.c_str(), length);
     }
 
     settingItem[0].displayName = "Setting[1]";
@@ -19,7 +20,8 @@ MainMenu::MainMenu() {
     settingItem[6].displayName = "Setting[7]";
     settingItem[7].displayName = "Setting[8]";
     for(int i = 0; i < 8; i++) {
-        settingItem[i].stringWidth = GetDrawStringWidth(settingItem[i].displayName.c_str(), -1);
+        int length = settingItem[i].displayName.length();
+        settingItem[i].stringWidth = GetDrawStringWidth(settingItem[i].displayName.c_str(), length);
     }
 
     currentMenu = MAIN_MENU;

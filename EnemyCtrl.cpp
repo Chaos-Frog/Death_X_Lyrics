@@ -3,11 +3,13 @@
 
 EnemyCtrl::EnemyCtrl(GameController* gc) {
 	gameCtrl = gc;
+	boss = new Boss_TEST(gameCtrl);
 }
 
 EnemyCtrl::~EnemyCtrl() {
 	enemysVec_Air.clear();
 	enemysVec_Ground.clear();
+	delete boss;
 }
 
 void EnemyCtrl::Update() {
@@ -20,6 +22,8 @@ void EnemyCtrl::Update() {
 		if((*itr)->Update()) itr++;
 		else                 itr = enemysVec_Ground.erase(itr);
 	}
+
+	boss->Update();
 }
 
 void EnemyCtrl::Draw() {
@@ -32,6 +36,8 @@ void EnemyCtrl::Draw() {
 	for(auto itr : enemysVec_Air) {
 		itr->Draw();
 	}
+	
+	boss->Draw();
 }
 
 void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {

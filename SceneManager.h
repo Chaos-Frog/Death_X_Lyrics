@@ -16,6 +16,7 @@ class SceneManager {
         static int currentScene;
 
     public:
+        static void Init();
         static bool Update();
         static void ChangeScene(int scene);
 };

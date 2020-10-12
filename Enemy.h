@@ -1,10 +1,10 @@
 #pragma once
 #define _USE_MATH_DEFINES
-#include <cmath>
-#include <vector>
 #include "Vector2.h"
 #include "Collider.h"
 #include "Define.h"
+#include <cmath>
+#include <vector>
 class GameController;
 
 /* ‘¶İ‰Â”\”ÍˆÍ \‘¢‘Ì */

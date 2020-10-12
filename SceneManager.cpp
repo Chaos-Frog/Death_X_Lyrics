@@ -5,8 +5,14 @@
 extern int screenGame;
 extern int screenFull;
 
-MainMenu* SceneManager::mainMenu             = new MainMenu();
-GameController* SceneManager::gameController = new GameController();
+int SceneManager::currentScene = SCENE_MENU;
+MainMenu* SceneManager::mainMenu;
+GameController* SceneManager::gameController;
+
+void SceneManager::Init() {
+    mainMenu       = new MainMenu();
+    gameController = new GameController();
+}
 
 bool SceneManager::Update() {
     switch(currentScene) {
