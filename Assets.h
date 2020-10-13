@@ -23,6 +23,7 @@ class Assets {
         static bool loading;
 
         static void LoadTexture();
+        static void CheckHandle(int* handle);
         static void LoadStage(int num);
 
     public:

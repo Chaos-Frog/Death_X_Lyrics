@@ -25,10 +25,12 @@ int Assets::scrap_S[6];
 void Assets::LoadAssets() {
     LoadStage(0);
     LoadTexture();
+    Sleep(1000);
     loading = false;
 }
 
 void Assets::LoadTexture() {
+    // 読み込み
     LoadDivGraph("Assets/Player01.png", 12, 4, 3, 120, 100, player01);
     LoadDivGraph("Assets/Player01_Hit.png", 12, 4, 3, 120, 100, player01_Hit);
     playerBullet01 = LoadGraph("Assets/PlayerBullet.png");
@@ -42,6 +44,33 @@ void Assets::LoadTexture() {
     enemyBullet02 = LoadGraph("Assets/EB02.png");
 
     LoadDivGraph("Assets/Scrap_S.png", 6, 3, 2, 40, 40, scrap_S);
+
+
+    // ハンドルチェック
+    CheckHandle(player01);
+    CheckHandle(player01_Hit);
+    CheckHandle(&playerBullet01);
+    CheckHandle(&playerMissile);
+    CheckHandle(playerMissileExp);
+
+    CheckHandle(enemy001);
+    CheckHandle(enemy002);
+
+    CheckHandle(&enemyBullet01);
+    CheckHandle(&enemyBullet02);
+
+    CheckHandle(scrap_S);
+}
+
+void Assets::CheckHandle(int* handle) {
+    int size = sizeof(*handle) / sizeof(handle);
+    for(int i = 0; i < size; i++) {
+        while(1) {
+            int result = CheckHandleASyncLoad(handle[i]);
+            if(result == TRUE)    break;
+            else if(result == -1) throw "Handle Check Error...";
+        }
+    }
 }
 
 void Assets::LoadStage(int num) {
