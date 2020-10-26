@@ -14,7 +14,7 @@ void CollisionCtrl::Update() {
     Check_PBullet_Scraps_Collision();
     Check_PBullet_Enemy_Collision();
 
-    enemyCtrl->boss->CheckBossCollision();
+    //enemyCtrl->boss->CheckBossCollision();
 
     // 被弾判定は2fに1回 偶数F:被弾、奇数F:スクラップ
     if(gameCtrl->frame % 2 == 0) {

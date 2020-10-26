@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+
 using namespace std;
 
 struct EnemyData {
@@ -17,31 +18,37 @@ struct EnemyData {
     int movePatern;
 };
 
+struct ImageData {
+    int* handle;
+    int imageNum;
+    Vector2 imageSize;
+};
+
 class Assets {
     private:
         static const char* StagePathes[5];
         static bool loading;
 
         static void LoadTexture();
-        static void CheckHandle(int* handle);
+        static void CheckHandle(ImageData* id);
         static void LoadStage(int num);
 
     public:
         static vector<EnemyData> Stages[5];
         
-        static int player01[12];
-        static int player01_Hit[12];
-        static int playerBullet01;
-        static int playerMissile;
-        static int playerMissileExp[16];
+        static ImageData player01;
+        static ImageData player01_Hit;
+        static ImageData playerBullet01;
+        static ImageData playerMissile;
+        static ImageData playerMissileExp;
 
-        static int enemy001[26];
-        static int enemy002[26];
+        static ImageData enemy001;
+        static ImageData enemy002;
 
-        static int enemyBullet01;
-        static int enemyBullet02;
+        static ImageData enemyBullet01;
+        static ImageData enemyBullet02;
 
-        static int scrap_S[6];
+        static ImageData scrap_S;
 
         static void LoadAssets();
         static bool DrawLoading();

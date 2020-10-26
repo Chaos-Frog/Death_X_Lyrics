@@ -1,11 +1,4 @@
-//
-//  Easing.cpp
-//  CPP_Ease
-//
-//  Created by Chaos_F-Rog on 2020/10/16.
-//
-
-#include "Easing.hpp"
+#include "Easing.h"
 
 /* イージング Sine */
 double Easing::Ease_In_Sine(double first, double end, double t) {

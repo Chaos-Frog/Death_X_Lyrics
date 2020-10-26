@@ -7,6 +7,7 @@ GameController::GameController() {
     ebulCtrl = new EnemyBulletsCtrl();
     scrCtrl  = new ScrapsCtrl(this);
     colCtrl  = new CollisionCtrl(this);
+    effCtrl  = new EffectsController(this);
     
     frame = 1;
     score = 0;
@@ -20,6 +21,7 @@ GameController::~GameController() {
     delete ebulCtrl;
     delete scrCtrl;
     delete colCtrl;
+    delete effCtrl;
 }
 
 void GameController::Update() {
@@ -30,7 +32,7 @@ void GameController::Update() {
 
     /*  StageTEST  */
     DrawBox(0, 0, 640, 720, GetColor(150, 150, 150), TRUE);
-    /*if(frame == 1 || eneCtrl->enemysVec_Air.size() <= 0) {
+    if(frame == 1 || eneCtrl->enemysVec_Air.size() <= 0) {
         eneCtrl->SetEnemy(1, new Vector2(520, -130), 2, 2);
         eneCtrl->SetEnemy(1, new Vector2(420, -80), 2, 1);
         eneCtrl->SetEnemy(2, new Vector2(320, -130), 2, 1);
@@ -38,7 +40,7 @@ void GameController::Update() {
         eneCtrl->SetEnemy(1, new Vector2(120, -130), 2, 2);
     }
 
-    if(frame % 40 == 0 && eneCtrl->enemysVec_Ground.size() < 5) {
+    /*if(frame % 40 == 0 && eneCtrl->enemysVec_Ground.size() < 5) {
         eneCtrl->SetEnemy(101, new Vector2(320, -60), 2, 1);
     }*/
     /*--StageTest--*/
@@ -47,6 +49,7 @@ void GameController::Update() {
     eneCtrl->Update();
     ebulCtrl->Update();
     scrCtrl->Update();
+    effCtrl->Update();
 
     if(scrapMagniGage > 0) scrapMagniGage--;
     if(player->bomber) ebulCtrl->DeleteAllBullet();
@@ -55,6 +58,7 @@ void GameController::Update() {
 
     /* •`‰æˆ— */
     eneCtrl->Draw();
+    effCtrl->Draw();
     scrCtrl->Draw();
     player->DrawPlane();
     player->DrawBullets();

@@ -32,7 +32,7 @@ bool Scraps::DeathFunc() { return false; }
 
 Scrap_S::Scrap_S(Vector2 pos) : Scraps(pos) {
     HP = 2;
-    image = Assets::scrap_S;
+    image = Assets::scrap_S.handle;
     collider = new Circle_C(&position, Vector2(0, 0), cr);
 }
 Scrap_S::~Scrap_S() {}

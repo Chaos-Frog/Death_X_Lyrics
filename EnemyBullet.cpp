@@ -30,7 +30,7 @@ bool EnemyBullet::CheckInArea() {
 EBullet_01::EBullet_01(const Vector2 pos, double spd, double radA, double size)
 	       :EnemyBullet(pos, spd, radA, size) {
 	bulletType = 1;
-	image = &Assets::enemyBullet01;
+	image = Assets::enemyBullet01.handle;
 	collider = new Circle_C(&position, Vector2(0, 0), bulletSize);
 }
 
@@ -67,7 +67,7 @@ bool EBullet_01::DeathFunc() {
 EBullet_02::EBullet_02(const Vector2 pos, double spd, double radA, double size)
 	       :EnemyBullet(pos, spd, radA, size) {
 	bulletType = 2;
-	image = &Assets::enemyBullet02;
+	image = Assets::enemyBullet02.handle;
 	collider = new Circle_C(&position, Vector2(0, 0), bulletSize);
 }
 

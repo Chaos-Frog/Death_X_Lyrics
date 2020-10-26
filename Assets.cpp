@@ -11,16 +11,20 @@ const char* Assets::StagePathes[5] = {
 bool Assets::loading = true;
 
 vector<EnemyData> Assets::Stages[5];
-int Assets::player01[12];
-int Assets::player01_Hit[12];
-int Assets::playerBullet01;
-int Assets::playerMissile;
-int Assets::playerMissileExp[16];
-int Assets::enemy001[26];
-int Assets::enemy002[26];
-int Assets::enemyBullet01;
-int Assets::enemyBullet02;
-int Assets::scrap_S[6];
+
+ImageData Assets::player01         = { new int[12], 12, Vector2(120, 100) };
+ImageData Assets::player01_Hit     = { new int[12], 12, Vector2(120, 100) };
+ImageData Assets::playerBullet01   = { 0, 1, Vector2(32, 32) };
+ImageData Assets::playerMissile    = { 0, 1, Vector2(64, 64) };
+ImageData Assets::playerMissileExp = { new int[16], 16, Vector2(100, 100) };
+
+ImageData Assets::enemy001         = { new int[26], 26, Vector2(64, 64) };
+ImageData Assets::enemy002         = { new int[26], 26, Vector2(64, 64) };
+
+ImageData Assets::enemyBullet01    = { 0, 1, Vector2(32, 32) };
+ImageData Assets::enemyBullet02    = { 0, 1, Vector2(32, 32) };
+
+ImageData Assets::scrap_S          = { new int[6], 6, Vector2(40, 40) };
 
 void Assets::LoadAssets() {
     LoadStage(0);
@@ -31,42 +35,41 @@ void Assets::LoadAssets() {
 
 void Assets::LoadTexture() {
     // 読み込み
-    LoadDivGraph("Assets/Player01.png", 12, 4, 3, 120, 100, player01);
-    LoadDivGraph("Assets/Player01_Hit.png", 12, 4, 3, 120, 100, player01_Hit);
-    playerBullet01 = LoadGraph("Assets/PlayerBullet.png");
-    playerMissile  = LoadGraph("Assets/Missile.png");
-    LoadDivGraph("Assets/Exp01.png", 16, 4, 4, 100, 100, playerMissileExp);
+    LoadDivGraph("Assets/Player01.png", player01.imageNum, 4, 3, player01.imageSize.x, player01.imageSize.y, player01.handle);
+    LoadDivGraph("Assets/Player01_Hit.png", player01_Hit.imageNum, 4, 3, player01_Hit.imageSize.x, player01_Hit.imageSize.y, player01_Hit.handle);
+    playerBullet01.handle = new int(LoadGraph("Assets/PlayerBullet.png"));
+    playerMissile.handle  = new int(LoadGraph("Assets/Missile.png"));
+    LoadDivGraph("Assets/Exp01.png", playerMissileExp.imageNum, 4, 4, playerMissileExp.imageSize.x, playerMissileExp.imageSize.y, playerMissileExp.handle);
 
-    LoadDivGraph("Assets/E_001.png", 26, 4, 7, 64, 64, enemy001);
-    LoadDivGraph("Assets/E_002.png", 26, 4, 7, 64, 64, enemy002);
+    LoadDivGraph("Assets/E_001.png", enemy001.imageNum, 4, 7, enemy001.imageSize.x, enemy001.imageSize.y, enemy001.handle);
+    LoadDivGraph("Assets/E_002.png", enemy002.imageNum, 4, 7, enemy002.imageSize.x, enemy002.imageSize.y, enemy002.handle);
 
-    enemyBullet01 = LoadGraph("Assets/EB01.png");
-    enemyBullet02 = LoadGraph("Assets/EB02.png");
+    enemyBullet01.handle = new int(LoadGraph("Assets/EB01.png"));
+    enemyBullet02.handle = new int(LoadGraph("Assets/EB02.png"));
 
-    LoadDivGraph("Assets/Scrap_S.png", 6, 3, 2, 40, 40, scrap_S);
+    LoadDivGraph("Assets/Scrap_S.png", scrap_S.imageNum, 3, 2, scrap_S.imageSize.x, scrap_S.imageSize.y, scrap_S.handle);
 
 
     // ハンドルチェック
-    CheckHandle(player01);
-    CheckHandle(player01_Hit);
+    CheckHandle(&player01);
+    CheckHandle(&player01_Hit);
     CheckHandle(&playerBullet01);
     CheckHandle(&playerMissile);
-    CheckHandle(playerMissileExp);
+    CheckHandle(&playerMissileExp);
 
-    CheckHandle(enemy001);
-    CheckHandle(enemy002);
+    CheckHandle(&enemy001);
+    CheckHandle(&enemy002);
 
     CheckHandle(&enemyBullet01);
     CheckHandle(&enemyBullet02);
 
-    CheckHandle(scrap_S);
+    CheckHandle(&scrap_S);
 }
 
-void Assets::CheckHandle(int* handle) {
-    int size = sizeof(*handle) / sizeof(handle);
-    for(int i = 0; i < size; i++) {
+void Assets::CheckHandle(ImageData* id) {
+    for(int i = 0; i < id->imageNum; i++) {
         while(1) {
-            int result = CheckHandleASyncLoad(handle[i]);
+            int result = CheckHandleASyncLoad(id->handle[i]);
             if(result == TRUE)    break;
             else if(result == -1) throw "Handle Check Error...";
         }

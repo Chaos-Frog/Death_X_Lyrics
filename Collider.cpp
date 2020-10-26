@@ -196,7 +196,8 @@ bool BB_Collision(const Vector2* v1, const Vector2* v2, const Vector2* v3, const
 }
 
 bool BL_Collision(const Vector2* v1, const Vector2* v2, const Vector2* lv1, const Vector2* lv2) {
-    if((v1->x <= lv1->x <= v2->x && v1->y >= lv1->y >= v2->y) || (v1->x <= lv2->x <= v2->x && v1->y >= lv2->y >= v2->y)) {
+    if((v1->x <= lv1->x && lv1->x <= v2->x && v1->y >= lv1->y && lv1->y >= v2->y) ||
+       (v1->x <= lv2->x && lv2->x <= v2->x && v1->y >= lv2->y && lv2->y >= v2->y)) {
         return true;
     }
 

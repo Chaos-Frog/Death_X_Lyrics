@@ -1,15 +1,8 @@
-//
-//  Easing.hpp
-//  CPP_Ease
-//
-//  Created by Chaos_F-Rog on 2020/10/16.
-//
-
 #pragma once
+#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <cmath>
 
-#define _USE_MATH_DEFINES
 
 class Easing {
     private:

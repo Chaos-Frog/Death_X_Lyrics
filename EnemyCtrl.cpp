@@ -23,7 +23,7 @@ void EnemyCtrl::Update() {
 		else                 itr = enemysVec_Ground.erase(itr);
 	}
 
-	boss->Update();
+	//boss->Update();
 }
 
 void EnemyCtrl::Draw() {
@@ -37,7 +37,7 @@ void EnemyCtrl::Draw() {
 		itr->Draw();
 	}
 	
-	boss->Draw();
+	//boss->Draw();
 }
 
 void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {

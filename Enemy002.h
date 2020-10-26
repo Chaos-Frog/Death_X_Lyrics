@@ -1,10 +1,6 @@
 #pragma once
 #include "Enemy_Air.h"
 
-#define E2_X_SIZE 64
-#define E2_Y_SIZE 64
-#define E2_LOOP 2
-
 class Enemy002 : public Enemy_Air {
     private:
         int* image;

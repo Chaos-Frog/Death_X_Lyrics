@@ -1,7 +1,7 @@
 #include "Player_A.h"
 Player_A::Player_A() : Player() {
-    playerImgs     = Assets::player01;
-    playerImgs_Hit = Assets::player01_Hit;
+    playerImgs     = Assets::player01.handle;
+    playerImgs_Hit = Assets::player01_Hit.handle;
     speed = SPEED;
 }
 Player_A::~Player_A(){}

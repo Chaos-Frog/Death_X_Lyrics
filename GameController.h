@@ -12,14 +12,15 @@
 #include "CollisionCtrl.h"
 #include "EnemyBulletsCtrl.h"
 #include "ScrapsCtrl.h"
+#include "EffectsController.h"
 #include "Stage_1.h"
 
 /* ƒQ[ƒ€ˆ—ƒNƒ‰ƒX */
 class GameController {
     private:
     public:
+        unsigned long score;
         int frame;
-        long score;
         int scrapMagni;
         int scrapMagniGage;
         
@@ -28,6 +29,7 @@ class GameController {
         EnemyCtrl* eneCtrl;
         EnemyBulletsCtrl* ebulCtrl;
         ScrapsCtrl* scrCtrl;
+        EffectsController* effCtrl;
         CollisionCtrl* colCtrl;
 
         GameController();

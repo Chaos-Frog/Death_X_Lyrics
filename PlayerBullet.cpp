@@ -46,7 +46,7 @@ bool P_Bullet::MoveBullet() {
 }
 
 void P_Bullet::Draw() {
-    DrawGraph(round(position.x) - size, round(position.y) - size, Assets::playerBullet01, TRUE);
+    DrawGraph(round(position.x) - size, round(position.y) - size, *Assets::playerBullet01.handle, TRUE);
 }
 
 bool P_Bullet::HitFunc() {
@@ -92,8 +92,8 @@ bool P_Missile::MoveBullet() {
 }
 
 void P_Missile::Draw() {
-    if(!hitted) DrawGraph(round(position.x) - size, round(position.y) - size, Assets::playerMissile, TRUE);
-    else        DrawGraph(round(position.x) - size, round(position.y) - size, Assets::playerMissileExp[frame / 2], TRUE);
+    if(!hitted) DrawGraph(round(position.x) - size, round(position.y) - size, *Assets::playerMissile.handle, TRUE);
+    else        DrawGraph(round(position.x) - size, round(position.y) - size, Assets::playerMissileExp.handle[frame / 2], TRUE);
 }
 
 bool P_Missile::HitFunc() {
