@@ -5,7 +5,6 @@
 #include "Define.h"
 #include <cmath>
 #include <vector>
-class GameController;
 
 /* 存在可能範囲 構造体 */
 struct EnableArea {
@@ -21,14 +20,11 @@ class Enemy {
         int movePatern;        // 移動パターン
         int danmakuPatern;     // 弾幕パターン
         EnableArea enableArea; // 生存可能範囲
-        GameController* gameCtrl;
 
-        void SetEnemyBullet(int type, const Vector2 pos, double speed, double degAngle, double size); // 敵弾生成
-        void SetScrap(int type, int num, Vector2 pos);                                                // スクラップ生成
-        virtual bool Moving();                                                                        // 移動処理 離脱した場合falseを返す
-        virtual void Danmaku();                                                                       // 弾幕処理
-        virtual bool CheckInArea();                                                                   // 指定範囲内かチェック 
-        double TargetPlayerAngle();                                                                   // プレイヤー追尾角度
+        virtual bool Moving();      // 移動処理 離脱した場合falseを返す
+        virtual void Danmaku();     // 弾幕処理
+        virtual bool CheckInArea(); // 指定範囲内かチェック 
+        double TargetPlayerAngle(); // プレイヤー追尾角度
 
     public:
         Vector2 position;                 // 座標
@@ -40,7 +36,7 @@ class Enemy {
         bool withdrawal;                  // 離脱状態
         bool onGround;                    // 地上物判定
 
-        Enemy(int type, Vector2* pos, int hp, int s, int mp, int dp, bool onG, GameController* gc);
+        Enemy(int type, Vector2* pos, int hp, int s, int mp, int dp, bool onG);
         bool Update();            // 更新処理
         void Damage(int dmg);     // damage処理
         virtual void Draw();      // 描画処理

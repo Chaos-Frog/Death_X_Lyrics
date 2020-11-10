@@ -1,8 +1,7 @@
 #include "Effect.h"
 
-Effect::Effect(int* img, int stp, bool lp, Vector2 pos, Vector2 sz, Vector2 scl) {
-    images = img;
-    imageNum = 0;
+Effect::Effect(ImageData* id, int stp, bool lp, Vector2 pos, Vector2 scl) {
+    image = id;
     imageCount = 0;
     frame = 0;
     step = stp;
@@ -10,7 +9,6 @@ Effect::Effect(int* img, int stp, bool lp, Vector2 pos, Vector2 sz, Vector2 scl)
     destroy = false;
 
     position = pos;
-    size = sz;
     scale = scl;
 }
 Effect::~Effect(){}
@@ -19,7 +17,7 @@ bool Effect::Update() {
     if(destroy) return false;
 
     if(frame % step == 0) imageCount = frame / step;
-    if(imageCount == imageNum) {
+    if(imageCount == image->imageNum) {
         if(loop) {
             imageCount = 0;
             frame = 0;
@@ -34,15 +32,15 @@ bool Effect::Update() {
 
 void Effect::Draw() {
     if(CheckInArea()) {
-        DrawExtendGraph(round(position.x - ((size.x * scale.x) / 2)),
-                        round(position.y - ((size.y * scale.y) / 2)),
-                        round(position.x + ((size.x * scale.x) / 2)),
-                        round(position.y + ((size.y * scale.y) / 2)),
-                        images[imageCount], TRUE);
+        DrawExtendGraph(round(position.x - ((image->imageSize.x * scale.x) / 2)),
+                        round(position.y - ((image->imageSize.y * scale.y) / 2)),
+                        round(position.x + ((image->imageSize.x * scale.x) / 2)),
+                        round(position.y + ((image->imageSize.y * scale.y) / 2)),
+                        image->handle[imageCount], TRUE);
     }
 }
 
 bool Effect::CheckInArea() {
-    return position.x >= -(size.x * scale.x) / 2 && position.x <= (size.x * scale.x) / 2 + GAME_WINDOW_XSIZE &&
-           position.y >= -(size.y * scale.y) / 2 && position.y <= (size.y * scale.y) / 2 + GAME_WINDOW_YSIZE;
+    return position.x >= -(image->imageSize.x * scale.x) / 2 && position.x <= (image->imageSize.x * scale.x) / 2 + GAME_WINDOW_XSIZE &&
+           position.y >= -(image->imageSize.y * scale.y) / 2 && position.y <= (image->imageSize.y * scale.y) / 2 + GAME_WINDOW_YSIZE;
 }

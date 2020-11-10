@@ -1,12 +1,11 @@
 #include "Boss.h"
 #include "GameController.h"
 
-Boss::Boss(GameController* gc) {
+Boss::Boss() {
     HP = 0;
     frame = 0;
     phase = 0;
     score = 0;
-    gameController = gc;
 }
 Boss::~Boss(){}
 

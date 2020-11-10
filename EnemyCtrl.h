@@ -11,17 +11,18 @@ class GameController;
 
 class EnemyCtrl {
     private:
-        GameController* gameCtrl;
+        EnemyCtrl();
 
     public:
-        std::vector<Enemy_Air*> enemysVec_Air;
-        std::vector<Enemy_Ground*> enemysVec_Ground;
-        Boss* boss;
+        static std::vector<Enemy_Air*> enemysVec_Air;
+        static std::vector<Enemy_Ground*> enemysVec_Ground;
+        static Boss* boss;
 
-        EnemyCtrl(GameController* gc);
-        ~EnemyCtrl();
-        void Update();
-        void Draw();
-        void SetEnemy(int type, Vector2* pos, int mp, int dp);
+        static void Init();
+
+        static void Update();
+        static void Draw();
+        static void SetEnemy(int type, Vector2* pos, int mp, int dp);
+        static void SetBoss(int stageNum);
 };
 

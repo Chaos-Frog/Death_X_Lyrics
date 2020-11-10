@@ -5,21 +5,23 @@
 #include "Assets.h"
 #include "Vector2.h"
 #include "Collider.h"
+#include "Easing.h"
 
 class EnemyBullet {
     protected:
-        int* image;
+        ImageData* image;
         int frame;
         double speed;
         double angle;
         double bulletSize;
+
     public:
         int bulletType;
         bool death;
         Vector2 position;
-        Circle_C* collider;
+        Collider* collider;
 
-        EnemyBullet(const Vector2 pos, double spd, double radA, double size);
+        EnemyBullet(ImageData* id, Collider* col, Vector2 pos, int bt, double spd, double radA, double size);
         bool Update();
         virtual bool Moving();
         virtual void Draw();
@@ -30,7 +32,7 @@ class EnemyBullet {
 class EBullet_01 : public EnemyBullet {
     private:
     public:
-        EBullet_01(const Vector2 pos, double spd, double radA, double size);
+        EBullet_01(Vector2 pos, double spd, double radA, double size);
         bool Moving() override;
         void Draw() override;
         bool DeathFunc() override;
@@ -39,7 +41,7 @@ class EBullet_01 : public EnemyBullet {
 class EBullet_02 : public EnemyBullet {
     private:
     public:
-        EBullet_02(const Vector2 pos, double spd, double radA, double size);
+        EBullet_02(Vector2 pos, double spd, double radA, double size);
         bool Moving() override;
         void Draw() override;
         bool DeathFunc() override;

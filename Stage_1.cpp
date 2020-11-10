@@ -1,5 +1,8 @@
 #include "Stage_1.h"
-Stage_1::Stage_1(GameController* gc) : StageBase(gc, 1){}
+#include "GameController.h"
+#include "EnemyCtrl.h"
+
+Stage_1::Stage_1() : StageBase(1){}
 
 void Stage_1::Update() {
 

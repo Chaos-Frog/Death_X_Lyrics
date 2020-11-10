@@ -7,11 +7,10 @@ extern int screenFull;
 
 int SceneManager::currentScene = SCENE_MENU;
 MainMenu* SceneManager::mainMenu;
-GameController* SceneManager::gameController;
 
 void SceneManager::Init() {
     mainMenu       = new MainMenu();
-    gameController = new GameController();
+    GameController::Init();
 }
 
 bool SceneManager::Update() {
@@ -25,11 +24,11 @@ bool SceneManager::Update() {
         case SCENE_GAME:
             SetDrawScreen(screenGame);
             ClearDrawScreen();
-            gameController->Update();
+            GameController::Update();
 
             SetDrawScreen(screenFull);
             ClearDrawScreen();
-            gameController->Update_UI();
+            GameController::Update_UI();
             DrawExtendGraph(320, 0, 960, 720, screenGame, TRUE);
             break;
 
@@ -48,7 +47,7 @@ void SceneManager::ChangeScene(int scene) {
             break;
 
         case SCENE_GAME:
-            gameController = new GameController();
+            GameController::Init();
             break;
 
         default:

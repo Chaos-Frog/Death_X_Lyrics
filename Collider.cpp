@@ -1,5 +1,6 @@
 #include "Collider.h"
 
+/* Collider Base */
 Collider::Collider(Vector2* pos, Vector2 relative) {
     basePos = pos;
     relativePos = relative;
@@ -11,12 +12,14 @@ Collider::Collider(Vector2* pos, Vector2 relative) {
     parameter.radius = 0.0;
 }
 Collider::~Collider(){}
+
 void Collider::Update(){}
-void Collider::DebugDraw(){}
 ColliderParam Collider::GetParameter() const {
     return parameter;
 }
 
+
+/* Collider Circle */
 Circle_C::Circle_C(Vector2* pos, Vector2 relative, double r) : Collider(pos, relative){
     parameter.type = CIRCLE;
     parameter.radius = r;
@@ -26,11 +29,8 @@ void Circle_C::Update() {
     parameter.centerPos = *basePos + relativePos;
 }
 
-void Circle_C::DebugDraw() {
-    DrawCircle(round(parameter.centerPos.x), round(parameter.centerPos.y), parameter.radius, GetColor(0, 255, 0));
-}
 
-
+/* Collider Box */
 Box_C::Box_C(Vector2* pos, Vector2 relative, double xl, double yl) : Collider(pos, relative){
     parameter.type = BOX;
     xLength = xl;
@@ -46,11 +46,8 @@ void Box_C::Update() {
     parameter.pos2 = Vector2(parameter.centerPos.x + (xLength/2), parameter.centerPos.y + (yLength/2));
 }
 
-void Box_C::DebugDraw() {
-    DrawBox(round(parameter.pos1.x), round(parameter.pos1.y), round(parameter.pos2.x), round(parameter.pos2.y), GetColor(0, 255, 0), TRUE);
-}
 
-
+/* Collider Line */
 Line_C::Line_C(Vector2* pos, Vector2 relative, double len, double degAngle) : Collider(pos, relative){
     parameter.type = LINE;
     length = len;
@@ -68,10 +65,6 @@ void Line_C::Update() {
     double yp = (length/2) * sin(angle * (M_PI/180)) + parameter.centerPos.y;
     parameter.pos1 = Vector2(xp, yp);
     parameter.pos2 = Vector2(-xp, -yp);
-}
-
-void Line_C::DebugDraw() {
-    DrawLine(round(parameter.pos1.x), round(parameter.pos1.y), round(parameter.pos2.x), round(parameter.pos2.y), GetColor(0, 255, 0));
 }
 
 

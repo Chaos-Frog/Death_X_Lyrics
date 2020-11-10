@@ -1,15 +1,15 @@
 #include "EnemyCtrl.h"
 #include "GameController.h"
 
-EnemyCtrl::EnemyCtrl(GameController* gc) {
-	gameCtrl = gc;
-	boss = new Boss_TEST(gameCtrl);
-}
+std::vector<Enemy_Air*>    EnemyCtrl::enemysVec_Air;
+std::vector<Enemy_Ground*> EnemyCtrl::enemysVec_Ground;
 
-EnemyCtrl::~EnemyCtrl() {
+Boss* EnemyCtrl::boss = nullptr;
+
+void EnemyCtrl::Init() {
 	enemysVec_Air.clear();
 	enemysVec_Ground.clear();
-	delete boss;
+	boss = NULL;
 }
 
 void EnemyCtrl::Update() {
@@ -43,15 +43,26 @@ void EnemyCtrl::Draw() {
 void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {
 	switch(type) {
 		case 1:
-			enemysVec_Air.emplace_back(new Enemy001(pos, mp, dp, gameCtrl));
+			enemysVec_Air.emplace_back(new Enemy001(pos, mp, dp));
 			break;
+
 		case 2:
-			enemysVec_Air.emplace_back(new Enemy002(pos, mp, dp, gameCtrl));
+			enemysVec_Air.emplace_back(new Enemy002(pos, mp, dp));
 			break;
+
 		case 101:
-			enemysVec_Ground.emplace_back(new Enemy101(pos, mp, dp, gameCtrl));
+			enemysVec_Ground.emplace_back(new Enemy101(pos, mp, dp));
 			break;
+
 		default:
+			break;
+	}
+}
+
+void EnemyCtrl::SetBoss(int stageNum) {
+	switch(stageNum) {
+		default:
+			boss = NULL;
 			break;
 	}
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include "DxLib.h"
 #include "Assets.h"
-class GameController;
 class MainMenu;
 
 enum Scenes {
@@ -11,7 +10,6 @@ enum Scenes {
 
 class SceneManager {
     private:
-        static GameController* gameController;
         static MainMenu* mainMenu;
         static int currentScene;
 

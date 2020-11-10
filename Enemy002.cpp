@@ -1,11 +1,14 @@
 #include "Enemy002.h"
 #include "GameController.h"
+#include "EnemyBulletsCtrl.h"
+#include "ScrapsCtrl.h"
+#include "EffectsCtrl.h"
 
 #define E2_LOOP 2
 
-Enemy002::Enemy002(Vector2* pos, int mp, int dp, GameController* gc)
-	     :Enemy_Air(1, pos, 5, 100, mp, dp, gc) {
-	image = Assets::enemy002.handle;
+Enemy002::Enemy002(Vector2* pos, int mp, int dp)
+	     :Enemy_Air(1, pos, 5, 100, mp, dp) {
+	image = &Assets::enemy002;
 	imgNum = 0;
 	first = *pos;
 	angle = 0.0f;
@@ -66,8 +69,8 @@ void Enemy002::Danmaku() {
 					double a = angle * (M_PI/180.0f);
 					shotPos[0] = Vector2(cos(a) * 20, sin(a) * 20);
 					shotPos[1] = Vector2(cos(a) * -20, sin(a) * -20);
-					SetEnemyBullet(2, position + shotPos[0], 3, angle + 90, 0.6);
-					SetEnemyBullet(2, position + shotPos[1], 3, angle + 90, 0.6);
+					EnemyBulletsCtrl::SetEnemyBullet(2, position + shotPos[0], 3, angle + 90, 0.6);
+					EnemyBulletsCtrl::SetEnemyBullet(2, position + shotPos[1], 3, angle + 90, 0.6);
 				}
 			}
 			break;
@@ -80,9 +83,9 @@ void Enemy002::Draw() {
 	int angleImgNum = round(angle/15) * E2_LOOP;
 
 	if(angleImgNum <= 0) {
-		DrawGraph(round(position.x - Assets::enemy002.imageSize.x / 2), round(position.y - Assets::enemy002.imageSize.y / 2), image[imgNum + (-angleImgNum)], TRUE);
+		DrawGraph(round(position.x - Assets::enemy002.imageSize.x / 2), round(position.y - Assets::enemy002.imageSize.y / 2), image->handle[imgNum + (-angleImgNum)], TRUE);
 	} else {
-		DrawTurnGraph(round(position.x - Assets::enemy002.imageSize.x / 2), round(position.y - Assets::enemy002.imageSize.y / 2), image[imgNum + angleImgNum], TRUE);
+		DrawTurnGraph(round(position.x - Assets::enemy002.imageSize.x / 2), round(position.y - Assets::enemy002.imageSize.y / 2), image->handle[imgNum + angleImgNum], TRUE);
 	}
 
 	if(frame % 2 == 0) {
@@ -92,7 +95,7 @@ void Enemy002::Draw() {
 }
 
 bool Enemy002::DeathFunc() {
-	SetScrap(1, 2, position);
-	gameCtrl->effCtrl->SetEffects(0, position, Vector2(1.5, 1.5), 1, false);
+	ScrapsCtrl::SetScrap(1, position, 2);
+	EffectsCtrl::SetEffects(0, position, Vector2(1.5, 1.5), 1);
 	return false;
 }

@@ -6,13 +6,15 @@
 
 class EnemyBulletsCtrl {
     private:
-    public:
-        std::vector<EnemyBullet*> bulletsVec;
-
         EnemyBulletsCtrl();
-        ~EnemyBulletsCtrl();
-        void Update();
-        void Draw();
-        void SetEnemyBullet(int type, const Vector2 pos, double speed, double radAngle, double size);
-        void DeleteAllBullet();
+
+    public:
+        static std::vector<EnemyBullet*> bulletsVec;
+
+        static void Init();
+
+        static void Update();
+        static void Draw();
+        static void SetEnemyBullet(int type, const Vector2 pos, double speed, double radAngle, double size);
+        static void DeleteAllBullet();
 };

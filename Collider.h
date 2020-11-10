@@ -25,9 +25,8 @@ class Collider {
 
     public:
         Collider(Vector2* pos, Vector2 relative);
-        virtual ~Collider();
+        ~Collider();
         virtual void Update();
-        virtual void DebugDraw();
         ColliderParam GetParameter() const;
 };
 
@@ -35,7 +34,6 @@ class Circle_C : public Collider {
     public:
         Circle_C(Vector2* pos, Vector2 relative, double r);
         void Update();
-        void DebugDraw();
 };
 
 class Box_C : public Collider {
@@ -45,7 +43,6 @@ class Box_C : public Collider {
     public:
         Box_C(Vector2* pos, Vector2 relative, double xl, double yl);
         void Update();
-        void DebugDraw();
 };
 
 class Line_C : public Collider {
@@ -55,7 +52,6 @@ class Line_C : public Collider {
     public:
         Line_C(Vector2* pos, Vector2 relative, double len, double degAngle);
         void Update();
-        void DebugDraw();
 };
 
 

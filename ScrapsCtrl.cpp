@@ -1,9 +1,11 @@
 #include "ScrapsCtrl.h"
 #include "GameController.h"
-ScrapsCtrl::ScrapsCtrl(GameController* gc) {
-    gameCtrl = gc;
+
+std::vector<Scraps*> ScrapsCtrl::scrapVec;
+
+void ScrapsCtrl::Init() {
+    scrapVec.clear();
 }
-ScrapsCtrl::~ScrapsCtrl() {}
 
 void ScrapsCtrl::Update() {
     for(auto itr = scrapVec.begin(); itr != scrapVec.end();) {
@@ -12,14 +14,14 @@ void ScrapsCtrl::Update() {
         } else {
             if((*itr)->HP > 0) {
                 if((*itr)->hitP) {
-                    if(gameCtrl->scrapMagni > 10) gameCtrl->scrapMagni--;
-                    gameCtrl->scrapMagniGage = 0;
+                    if(GameController::scrapMagni > 10) GameController::scrapMagni--;
+                    GameController::scrapMagniGage = 0;
                 } else {
-                    if(gameCtrl->scrapMagni > 10 && gameCtrl->scrapMagniGage == 0) gameCtrl->scrapMagni--;
+                    if(GameController::scrapMagni > 10 && GameController::scrapMagniGage == 0) GameController::scrapMagni--;
                 }
             } else {
-                if(gameCtrl->scrapMagni < 100) gameCtrl->scrapMagni++;
-                gameCtrl->scrapMagniGage = 100;
+                if(GameController::scrapMagni < 100) GameController::scrapMagni++;
+                GameController::scrapMagniGage = 100;
 
             }
             itr = scrapVec.erase(itr);

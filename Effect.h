@@ -6,13 +6,12 @@
 
 class Effect {
     protected:
-        int* images;
-        int imageNum;
+        ImageData* image;
         int imageCount;
+
         int frame;
         int step;
         bool loop;
-        Vector2 size;
 
         bool CheckInArea();
 
@@ -21,7 +20,7 @@ class Effect {
         Vector2 position;
         Vector2 scale;
 
-        Effect(int* img, int stp, bool lp, Vector2 pos, Vector2 sz, Vector2 scl);
+        Effect(ImageData* id, int stp, bool lp, Vector2 pos, Vector2 scl);
         ~Effect();
         virtual bool Update();
         void Draw();

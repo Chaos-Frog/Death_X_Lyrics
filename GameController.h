@@ -8,34 +8,27 @@
 #include "SceneManager.h"
 
 #include "Player_A.h"
-#include "EnemyCtrl.h"
-#include "CollisionCtrl.h"
-#include "EnemyBulletsCtrl.h"
-#include "ScrapsCtrl.h"
-#include "EffectsController.h"
 #include "Stage_1.h"
 
 /* ゲーム処理クラス */
 class GameController {
     private:
-    public:
-        unsigned long score;
-        int frame;
-        int scrapMagni;
-        int scrapMagniGage;
-        
-        StageBase* stage;
-        Player* player;
-        EnemyCtrl* eneCtrl;
-        EnemyBulletsCtrl* ebulCtrl;
-        ScrapsCtrl* scrCtrl;
-        EffectsController* effCtrl;
-        CollisionCtrl* colCtrl;
-
         GameController();
-        ~GameController();
-        void Update();
-        void Update_UI();
-        void AddScore(int s, bool magni = true); // スコア加算(倍率有無)
+
+    public:
+        static unsigned long score;                     // スコア
+        static int frame;                               // 経過フレーム
+        static int scrapMagni;                          // スクラップ倍率
+        static int scrapMagniGage;                      // スクラップ倍率ゲージ
+        
+        static StageBase* stage;                        // 現在ステージ格納
+        static Player* player;                          // プレイヤー格納
+
+        static void Init();                             // 初期化処理
+        static void Init(int stageNum);                 // 初期化処理 - ステージ指定
+
+        static void Update();                           // ゲーム更新
+        static void Update_UI();                        // UI更新
+        static void AddScore(int s, bool magni = true); // スコア加算(倍率有無)
 };
 

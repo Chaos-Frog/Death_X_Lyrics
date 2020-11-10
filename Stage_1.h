@@ -4,7 +4,7 @@
 class Stage_1 : public StageBase {
     private:
     public:
-        Stage_1(GameController* gc);
+        Stage_1();
         void Update() override;
         void BG_Update() override;
         void BG_Draw() override;

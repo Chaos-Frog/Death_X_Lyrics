@@ -1,7 +1,9 @@
 #include "EnemyBulletsCtrl.h"
-EnemyBulletsCtrl::EnemyBulletsCtrl(){}
-EnemyBulletsCtrl::~EnemyBulletsCtrl() {
-	DeleteAllBullet();
+
+std::vector<EnemyBullet*> EnemyBulletsCtrl::bulletsVec;
+
+void EnemyBulletsCtrl::Init() {
+	bulletsVec.clear();
 }
 
 void EnemyBulletsCtrl::Update() {

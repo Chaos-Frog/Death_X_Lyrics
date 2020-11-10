@@ -1,4 +1,10 @@
 #include "Player.h"
+
+#define MOVE_X_MAX GAME_WINDOW_XSIZE - 60.0
+#define MOVE_X_MIN 60.0
+#define MOVE_Y_MAX GAME_WINDOW_YSIZE - 60.0
+#define MOVE_Y_MIN 60.0
+
 Player::Player() {
     position = Vector2(320, 600);
     collider = new Circle_C(&position, Vector2(0, 0), CORE_RADIUS);

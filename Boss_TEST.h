@@ -16,7 +16,7 @@ class Boss_TEST : public Boss {
         Parts bossParts[20];
         vector<Collider*> colliders;
 
-        Boss_TEST(GameController* gc);
+        Boss_TEST();
         bool Update() override;
         void Draw() override;
         bool DeathFunc() override;

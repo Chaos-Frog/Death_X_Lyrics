@@ -1,6 +1,10 @@
 #include "Scraps.h"
-Scraps::Scraps(Vector2 pos) {
+Scraps::Scraps(Vector2 pos, ImageData* id, int hp, Collider* col) {
+    image = id;
     position = pos;
+    HP = hp;
+    collider = col;
+
     death = false;
     hitP = false;
 
@@ -30,10 +34,8 @@ void Scraps::Draw() {}
 bool Scraps::DeathFunc() { return false; }
 
 
-Scrap_S::Scrap_S(Vector2 pos) : Scraps(pos) {
-    HP = 2;
-    image = Assets::scrap_S.handle;
-    collider = new Circle_C(&position, Vector2(0, 0), cr);
+Scrap_S::Scrap_S(Vector2 pos)
+        :Scraps(pos, &Assets::scrap_S, 2, new Circle_C(&position, Vector2(0, 0), 16)) {
 }
 Scrap_S::~Scrap_S() {}
 
@@ -71,8 +73,8 @@ bool Scrap_S::Moving() {
 }
 
 void Scrap_S::Draw() {
-    int num = frame / 4 % 6;
-    DrawGraph(round(position.x) - 20, round(position.y) - 20, image[num], TRUE);
+    int num = frame / 4 % image->imageNum;
+    DrawGraph(round(position.x) - 20, round(position.y) - 20, image->handle[num], TRUE);
 }
 
 bool Scrap_S::DeathFunc() {

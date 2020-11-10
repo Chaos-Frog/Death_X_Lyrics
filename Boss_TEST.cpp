@@ -1,7 +1,8 @@
 #include "Boss_TEST.h"
 #include "GameController.h"
+#include "ScrapsCtrl.h"
 
-Boss_TEST::Boss_TEST(GameController* gc) : Boss(gc) {
+Boss_TEST::Boss_TEST() : Boss() {
     HP = 2000;
     phase = 0;
     position = Vector2(GAME_WINDOW_XSIZE / 2.0, GAME_WINDOW_YSIZE / 3.0);
@@ -60,7 +61,7 @@ bool Boss_TEST::DeathFunc() {
 }
 
 void Boss_TEST::CheckCol_Boss_PBullets() {
-    for(auto PB_itr : gameController->player->bulletVec) {
+    for(auto PB_itr : GameController::player->bulletVec) {
         if(PB_itr->active) {
             switch(phase) {
                 case 0:
@@ -71,8 +72,8 @@ void Boss_TEST::CheckCol_Boss_PBullets() {
                                 HP--;
                             }
                             if(bossParts[i].HP <= 0) {
-                                gameController->scrCtrl->SetScrap(1, bossParts[i].position, 4);
-                                gameController->score += 10000;
+                                ScrapsCtrl::SetScrap(1, bossParts[i].position, 4);
+                                GameController::AddScore(10000, true);
                                 destroyParts++;
                             }
                         }
@@ -86,7 +87,7 @@ void Boss_TEST::CheckCol_Boss_PBullets() {
                                 HP--;
                             }
                             if(HP <= 0) {
-                                gameController->score += 100000;
+                                GameController::AddScore(100000, true);
                             }
                             break;
                         }

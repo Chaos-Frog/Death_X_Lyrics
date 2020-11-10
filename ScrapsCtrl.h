@@ -3,19 +3,17 @@
 #include <memory>
 #include "Scraps.h"
 
-class GameController;
-
 class ScrapsCtrl {
     private:
-        GameController* gameCtrl;
+        ScrapsCtrl();
 
     public:
-        std::vector<Scraps *> scrapVec;
+        static std::vector<Scraps *> scrapVec;
 
-        ScrapsCtrl(GameController* gc);
-        ~ScrapsCtrl();
-        void Update();
-        void Draw();
-        void SetScrap(int type, Vector2 pos, int num = 1);
+        static void Init();
+
+        static void Update();
+        static void Draw();
+        static void SetScrap(int type, Vector2 pos, int num = 1);
 };
 

@@ -3,7 +3,7 @@
 
 class Enemy001 : public Enemy_Air {
     private:
-        int* image;
+        ImageData* image;
         int imgNum;
         Vector2 first;
         double angle;
@@ -12,7 +12,7 @@ class Enemy001 : public Enemy_Air {
         void Danmaku();
 
     public:
-        Enemy001(Vector2* pos, int mp, int dp, GameController* gc);
+        Enemy001(Vector2* pos, int mp, int dp);
         void Draw() override;
         bool DeathFunc() override;
 };

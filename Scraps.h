@@ -9,15 +9,17 @@
 class Scraps {
     private:
     protected:
+        ImageData* image;
         int frame;
         double x_vel, y_vel;
+
     public:
         int HP;
         bool death, hitP;
         Vector2 position;
         Collider* collider;
 
-        Scraps(Vector2 pos);
+        Scraps(Vector2 pos, ImageData* id, int hp, Collider* col);
         ~Scraps();
         bool Update();
         void Dagame(int dmg);
@@ -28,7 +30,6 @@ class Scraps {
 
 class Scrap_S : public Scraps {
     private:
-        int* image;
         double cr = 16;
 
     public:

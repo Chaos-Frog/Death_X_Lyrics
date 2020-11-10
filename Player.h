@@ -9,11 +9,6 @@
 #include "Collider.h"
 #include "PlayerBullet.h"
 
-#define MOVE_X_MAX GAME_WINDOW_XSIZE - 60.0
-#define MOVE_X_MIN 60.0
-#define MOVE_Y_MAX GAME_WINDOW_YSIZE - 60.0
-#define MOVE_Y_MIN 60.0
-
 /* プレイヤー基底クラス */
 class Player {
     private:

@@ -1,12 +1,16 @@
 #include "Enemy101.h"
 #include "GameController.h"
 
-Enemy101::Enemy101(Vector2* pos, int mp, int dp, GameController* gc)
-         :Enemy_Ground(101, pos, 1, 1, mp, dp, gc) {
+#define E101_X_SIZE 30
+#define E101_Y_SIZE 60
+
+
+Enemy101::Enemy101(Vector2* pos, int mp, int dp)
+         :Enemy_Ground(101, pos, 1, 1, mp, dp) {
     first = *pos;
     enableArea = {
         Vector2(-E101_X_SIZE, -E101_Y_SIZE),
-        Vector2(GAME_WINDOW_XSIZE + E101_X_SIZE, GAME_WINDOW_YSIZE + E101_Y_SIZE)
+        Vector2((double)GAME_WINDOW_XSIZE + E101_X_SIZE, (double)GAME_WINDOW_YSIZE + E101_Y_SIZE)
     };
 
     colliders.emplace_back(new Box_C(&position, Vector2(0, 0), E101_X_SIZE, E101_Y_SIZE));
