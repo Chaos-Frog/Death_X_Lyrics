@@ -1,11 +1,12 @@
 #include "Enemy.h"
 #include "GameController.h"
 
-Enemy::Enemy(int type, Vector2* pos, int hp, int s, int mp, int dp, bool onG) {
-    enemyType     = type;
+Enemy::Enemy(Enemys type, Vector2* pos, int mp, int dp, bool onG) {
+    enemyType     = static_cast<int>(type);
     position      = *pos;
-    HP            = hp;
-    score         = s;
+    HP            = Assets::enemyParams[enemyType].hp;
+    score         = Assets::enemyParams[enemyType].score;
+
     movePatern    = mp;
     danmakuPatern = dp;
     invincible    = false;

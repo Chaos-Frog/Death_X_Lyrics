@@ -5,7 +5,7 @@
 #include "EffectsCtrl.h"
 #include "CollisionCtrl.h"
 
-#define GAME_DEBUG_MODE true
+#define GAME_DEBUG_MODE false
 
 unsigned long GameController::score          = 0;
 int           GameController::frame          = 1;
@@ -17,6 +17,9 @@ Player*       GameController::player         = nullptr;
 void GameController::Init() {
     player = new Player_A();
     stage = new StageBase(0);
+    frame = 0;
+    scrapMagni = 0;
+    scrapMagniGage = 0;
 
     EnemyCtrl::Init();
     EnemyBulletsCtrl::Init();
@@ -25,6 +28,7 @@ void GameController::Init() {
 }
 
 void GameController::Init(int stageNum) {
+    GameController::Init();
     switch(stageNum) {
         case 1:
             // stage = Stage_1();
@@ -50,6 +54,16 @@ void GameController::Update() {
         EnemyCtrl::SetEnemy(1, new Vector2(220, -80), 2, 1);
         EnemyCtrl::SetEnemy(1, new Vector2(120, -130), 2, 2);
     }
+    /*int f = frame % 600;
+    if(f / 40 == 1 && f % 40 == 0) {
+        EnemyCtrl::SetEnemy(-1, new Vector2(320, -120), 1, 1);
+    }
+    if(f / 40 == 2 && f % 40 == 0) {
+        EnemyCtrl::SetEnemy(-1, new Vector2(220, -60), 1, 1);
+    }
+    if(f / 40 == 3 && f % 40 == 0) {
+        EnemyCtrl::SetEnemy(-1, new Vector2(420, -140), 1, 1);
+    }*/
 
     /*if(frame % 40 == 0 && eneCtrl->enemysVec_Ground.size() < 5) {
         EnemyCtrl::SetEnemy(101, new Vector2(320, -60), 2, 1);

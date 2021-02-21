@@ -7,7 +7,7 @@
 #define E1_LOOP 2
 
 Enemy001::Enemy001(Vector2* pos, int mp, int dp)
-	     :Enemy_Air(1, pos, 5, 100, mp, dp) {
+	     :Enemy_Air(Enemys::E001, pos, mp, dp) {
 	image = &Assets::enemy001;
 	imgNum = 0;
 	first = *pos;

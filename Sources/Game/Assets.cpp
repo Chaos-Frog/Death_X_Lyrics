@@ -10,7 +10,9 @@ const char* Assets::StagePathes[5] = {
 
 bool Assets::loading = true;
 
-vector<EnemyData> Assets::Stages[5];
+vector<StageEnemyData> Assets::Stages[5];
+
+vector<EnemyParameter> Assets::enemyParams;
 
 ImageData Assets::player01         = { new int[12], 12, Vector2(120, 100) };
 ImageData Assets::player01_Hit     = { new int[12], 12, Vector2(120, 100) };
@@ -28,6 +30,7 @@ ImageData Assets::scrap_S          = { new int[6], 6, Vector2(40, 40) };
 
 void Assets::LoadAssets() {
     LoadStage(0);
+    LoadEnemyParam();
     LoadTexture();
     Sleep(1000);
     loading = false;
@@ -84,11 +87,11 @@ void Assets::LoadStage(int num) {
     }
 
     string line;
-    getline(ifs, line);
+    getline(ifs, line); // àÍçsñ⁄ÇÕñ≥éã
     while(getline(ifs, line)) {
         istringstream stream(line);
         vector<string> elemVec;
-        EnemyData ed;
+        StageEnemyData ed;
         string elem;
 
         while(getline(stream, elem, ',')) elemVec.push_back(elem);
@@ -100,7 +103,30 @@ void Assets::LoadStage(int num) {
         ed.danmakuPatern = atoi(elemVec[4].c_str());
         ed.movePatern    = atoi(elemVec[5].c_str());
 
-        Stages[num].push_back(ed);
+        Stages[num].emplace_back(ed);
+    }
+}
+
+void Assets::LoadEnemyParam() {
+    ifstream ifs("Assets/EnemyParameters.csv");
+    if(ifs.fail()) {
+        throw "EnemyParamData Loading Error...";
+        return;
+    }
+
+    string line;
+    getline(ifs, line);
+    while(getline(ifs, line)) {
+        istringstream stream(line);
+        vector<string> elemVec;
+        EnemyParameter param;
+        string elem;
+
+        while(getline(stream, elem, ',')) elemVec.push_back(elem);
+        param.hp    = atoi(elemVec[1].c_str());
+        param.score = atoi(elemVec[2].c_str());
+
+        enemyParams.emplace_back(param);
     }
 }
 

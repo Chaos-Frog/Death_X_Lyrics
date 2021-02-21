@@ -15,6 +15,6 @@ class EnemyBulletsCtrl {
 
         static void Update();
         static void Draw();
-        static void SetEnemyBullet(int type, const Vector2 pos, double speed, double radAngle, double size);
+        static void SetEnemyBullet(int type, const Vector2 pos, double speed, double degAngle, double size);
         static void DeleteAllBullet();
 };

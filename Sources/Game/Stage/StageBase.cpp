@@ -17,8 +17,8 @@ void StageBase::BG_Draw(){}
 void StageBase::SetStageEnemy() {
     while(Assets::Stages[stageNum].size() != enemyCount) {
         if(Assets::Stages[stageNum][enemyCount].frame == frame) {
-            EnemyData ed = Assets::Stages[stageNum][enemyCount];
-            EnemyCtrl::SetEnemy(ed.enemyType, &ed.setPos, ed.movePatern, ed.danmakuPatern);
+            StageEnemyData* ed = &Assets::Stages[stageNum][enemyCount];
+            EnemyCtrl::SetEnemy(ed->enemyType, &ed->setPos, ed->movePatern, ed->danmakuPatern);
             enemyCount++;
         } else {
             break;

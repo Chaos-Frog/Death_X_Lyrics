@@ -42,6 +42,10 @@ void EnemyCtrl::Draw() {
 
 void EnemyCtrl::SetEnemy(int type, Vector2* pos, int mp, int dp) {
 	switch(type) {
+		case -1:
+			enemysVec_Air.emplace_back(new TestEnemy_Air(pos, mp, dp));
+			break;
+
 		case 1:
 			enemysVec_Air.emplace_back(new Enemy001(pos, mp, dp));
 			break;

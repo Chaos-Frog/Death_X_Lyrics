@@ -1,7 +1,8 @@
 #include "Enemy_Air.h"
 
-Enemy_Air::Enemy_Air(int type, Vector2* pos, int hp, int s, int mp, int dp)
-          :Enemy(type, pos, hp, s, mp, dp, false){}
+Enemy_Air::Enemy_Air(Enemys type, Vector2* pos, int mp, int dp)
+          :Enemy(type, pos, mp, dp, false) {
+}
 
 bool Enemy_Air::Moving() {
     MovingAir();

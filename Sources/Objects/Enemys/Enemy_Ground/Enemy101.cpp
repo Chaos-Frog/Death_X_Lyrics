@@ -6,7 +6,7 @@
 
 
 Enemy101::Enemy101(Vector2* pos, int mp, int dp)
-         :Enemy_Ground(101, pos, 1, 1, mp, dp) {
+         :Enemy_Ground(Enemys::E101, pos, mp, dp) {
     first = *pos;
     enableArea = {
         Vector2(-E101_X_SIZE, -E101_Y_SIZE),

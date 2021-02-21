@@ -12,6 +12,6 @@ class Enemy_Ground : public Enemy {
         bool CheckInArea() override;
 
     public:
-        Enemy_Ground(int type, Vector2* pos, int hp, int s, int mp, int dp);
+        Enemy_Ground(Enemys type, Vector2* pos, int mp, int dp);
 };
 

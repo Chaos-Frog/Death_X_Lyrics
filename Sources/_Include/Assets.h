@@ -10,7 +10,8 @@
 
 using namespace std;
 
-struct EnemyData {
+// 敵出現データ 構造体
+struct StageEnemyData {
     int frame;
     int enemyType;
     Vector2 setPos;
@@ -18,10 +19,25 @@ struct EnemyData {
     int movePatern;
 };
 
+// 画像データ 構造体
 struct ImageData {
     int* handle;
     int imageNum;
     Vector2 imageSize;
+};
+
+// 敵パラメータ 構造体
+struct EnemyParameter {
+    int hp;
+    int score;
+};
+
+// 敵列挙型
+enum class Enemys {
+    TEST,
+    E001,
+    E002,
+    E101,
 };
 
 class Assets {
@@ -32,9 +48,12 @@ class Assets {
         static void LoadTexture();
         static void CheckHandle(ImageData* id);
         static void LoadStage(int num);
+        static void LoadEnemyParam();
 
     public:
-        static vector<EnemyData> Stages[5];
+        static vector<EnemyParameter> enemyParams;
+
+        static vector<StageEnemyData> Stages[5];
         
         static ImageData player01;
         static ImageData player01_Hit;

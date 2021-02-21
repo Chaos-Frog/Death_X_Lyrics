@@ -6,6 +6,7 @@
 #include "Enemy001.h"
 #include "Enemy002.h"
 #include "Enemy101.h"
+#include "TestEnemy_Air.h"
 #include "Boss_TEST.h"
 class GameController;
 

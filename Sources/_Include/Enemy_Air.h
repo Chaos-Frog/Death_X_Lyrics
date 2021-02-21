@@ -9,6 +9,6 @@ class Enemy_Air : public Enemy {
         bool CheckInArea() override;
 
     public:
-        Enemy_Air(int type, Vector2* pos, int hp, int s, int mp, int dp);
+        Enemy_Air(Enemys type, Vector2* pos, int mp, int dp);
 };
 

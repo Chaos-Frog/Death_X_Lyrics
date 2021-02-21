@@ -1,8 +1,8 @@
 #include "Enemy_Ground.h"
 #include "GameController.h"
 
-Enemy_Ground::Enemy_Ground(int type, Vector2* pos, int hp, int s, int mp, int dp)
-             :Enemy(type, pos, hp, s, mp, dp, true) {
+Enemy_Ground::Enemy_Ground(Enemys type, Vector2* pos, int mp, int dp)
+             :Enemy(type, pos, mp, dp, true) {
     stageGroundPos = &(GameController::stage->groundPos);
     groundPos = *pos;
     position = groundPos - *stageGroundPos;
